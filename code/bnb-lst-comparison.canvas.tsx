@@ -61,21 +61,21 @@ const totalUSD = lstData.reduce((s, d) => s + d.tvlUSD, 0);
 
 const slisBNBHolders = [
   {
-    addr: "0x91e4...e5ae",
+    addr: "0x91e49983598685dd5acac90ceb4061a772f6e5ae",
     balance: 414983,
     label: "Lista DAO Staking Pool",
     identity: "Protocol",
     defiActivity: "Core staking pool — not a user wallet",
   },
   {
-    addr: "0x6f28...3873",
+    addr: "0x6f28fec449dbd2056b76ac666350af8773e03873",
     balance: 180377,
     label: "Lista DAO Operator",
     identity: "Protocol",
     defiActivity: "Staking operator + pending withdrawals",
   },
   {
-    addr: "0x8f73...e5d8c",
+    addr: "0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c",
     balance: 149582,
     label: "Lista Moolah Controller",
     identity: "Protocol",
@@ -85,14 +85,14 @@ const slisBNBHolders = [
 
 const asBNBHolders = [
   {
-    addr: "0x5c95...762b",
+    addr: "0x5c952063c7fc8610ffdb798152d69f0b9550762b",
     balance: 999981025,
     label: "asBNB Treasury/Mint",
     identity: "Protocol",
     defiActivity: "Pre-mint / treasury address — not a user wallet",
   },
   {
-    addr: "0x85f7...76fe",
+    addr: "0x85f74ab18ce84cd10a90f0735856a72d0c4576fe",
     balance: 18974,
     label: "Top asBNB Holder",
     identity: "Unknown",
@@ -104,7 +104,7 @@ const asBNBHolders = [
 
 const whaleWallets = [
   {
-    addr: "0xac3e...ffc7",
+    addr: "0xac3e216bd55860912062a4027a03b99587b7ffc7",
     slisBNB: 36787,
     portfolio: "$496M",
     strategy: "Pure Lender",
@@ -114,7 +114,7 @@ const whaleWallets = [
     risk: "Very Low",
   },
   {
-    addr: "0x1284...7974",
+    addr: "0x128463a60784c4d3f46c23af3f65ed859ba87974",
     slisBNB: 5769,
     portfolio: "$1.25B",
     strategy: "Aster Mega-whale",
@@ -124,7 +124,7 @@ const whaleWallets = [
     risk: "Low",
   },
   {
-    addr: "0x3d32...607d",
+    addr: "0x3d325df6debb6aa237591a348ecb511354f3607d",
     slisBNB: 21333,
     portfolio: "$14M",
     strategy: "Multi-protocol Lender",
@@ -133,7 +133,7 @@ const whaleWallets = [
     risk: "Very Low",
   },
   {
-    addr: "0xb2a6...691a",
+    addr: "0xb2a6a72843db0f508204a56448413f3867ea691a",
     slisBNB: 16455,
     portfolio: "$10.7M",
     strategy: "Single-protocol Lender",
@@ -142,7 +142,7 @@ const whaleWallets = [
     risk: "Very Low",
   },
   {
-    addr: "0x1adb...7fe6",
+    addr: "0x1adb950d8bb3da4be104211d5ab038628e477fe6",
     slisBNB: 9783,
     portfolio: "$613M",
     strategy: "Native Staker + Lender",
@@ -152,7 +152,7 @@ const whaleWallets = [
     risk: "Very Low",
   },
   {
-    addr: "0x9c58...0b8",
+    addr: "0x9c580fed6c26dcc06ca7673e72489d8f4ddba0b8",
     slisBNB: 9672,
     portfolio: "$13.3M",
     strategy: "Diversified Staker",
@@ -162,7 +162,7 @@ const whaleWallets = [
     risk: "Low",
   },
   {
-    addr: "0x6e89...c718a",
+    addr: "0x6e894e5284c9ea9ec28d86de88d52777d17c718a",
     slisBNB: 3018,
     portfolio: "$2.4M",
     strategy: "Multi-protocol Explorer",
@@ -177,7 +177,7 @@ const whaleWallets = [
 
 const activeStrategists = [
   {
-    addr: "0xe91e...b4c",
+    addr: "0xe91eabe42d8517b4166aa602e31e0ec8cab18b4c",
     slisBNB: 2407,
     portfolio: "$2M+",
     strategy: "Most Diverse DeFi User",
@@ -188,7 +188,7 @@ const activeStrategists = [
     healthRate: "1.40",
   },
   {
-    addr: "0x7e8e...b50b",
+    addr: "0x7e8eaf65ec69de635bede717fb215a296b51b50b",
     slisBNB: 1746,
     portfolio: "$1.2M",
     strategy: "Leveraged Long BNB",
@@ -199,7 +199,7 @@ const activeStrategists = [
     healthRate: "1.58",
   },
   {
-    addr: "0x453f...e93b",
+    addr: "0x453fff37e5e0492c89058884dc666cefa059e93b",
     slisBNB: 1005,
     portfolio: "$656K",
     strategy: "Multi-Market Stable Borrower",
@@ -210,7 +210,7 @@ const activeStrategists = [
     healthRate: "1.73-3.26",
   },
   {
-    addr: "0xc2aa...ad7de",
+    addr: "0xc2aaaecbc0ea098eef864b30e1f788a3342ad7de",
     slisBNB: 50,
     portfolio: "$60K",
     strategy: "Active Leveraged Trader",
@@ -221,7 +221,7 @@ const activeStrategists = [
     healthRate: "1.28 (close to liq)",
   },
   {
-    addr: "0x6ccc...0e00",
+    addr: "0x6cccb5ffaad0fa063b744839c636079ef3bf0e00",
     slisBNB: 44,
     portfolio: "$44K",
     strategy: "Small Leveraged Position",
@@ -290,25 +290,25 @@ const strategies = [
 
 const botWallets = [
   {
-    addr: "0x33f7...4d5f",
+    addr: "0x33f7a980a246f9b8fea2254e3065576e127d4d5f",
     txns90d: 2432,
     type: "Rebalancer bot",
     note: "152K slisBNB churned. Net collateral negative. Empty DeBank.",
   },
   {
-    addr: "0xde2f...34ef",
+    addr: "0xde2f39e895e41d08585f5559c216b362cdeb34ef",
     txns90d: 786,
     type: "Loop bot",
     note: "786K slisBNB supplied = withdrawn. Still active daily.",
   },
   {
-    addr: "0xab30...54a9",
+    addr: "0xab300be61089b883882bbff82106c01bff0f54a9",
     txns90d: 847,
     type: "Cross-protocol bot",
     note: "1,983 slisBNB to Moolah + 1,973 to secondary market. 2,042 WBNB borrowed. Closed out ($0).",
   },
   {
-    addr: "0x87a8...bc93",
+    addr: "0x87a8ff8ad993c10af4ad85b62ddb50b4968abc93",
     txns90d: 3,
     type: "Closed mega-position",
     note: "Supplied 150K slisBNB, borrowed 350K WBNB. Largest single loop ever seen. Fully closed (Feb 2026).",
@@ -318,21 +318,21 @@ const botWallets = [
 // ── Cross-Protocol Analysis (Dune + DeBank, Apr 17 2026) ─────────────
 
 const moolahMarkets = [
-  { addr: "0x8f73...e5d8c", role: "Primary Moolah Controller", balance: "$706K", depositors90d: 144, slisBNB: 149582 },
-  { addr: "0x9474...15cf", role: "Secondary Moolah Market", balance: "$3.4M", depositors90d: 113, slisBNB: 1284 },
-  { addr: "0x3dce...6131", role: "Moolah Lending Pool", balance: "$8.7M", depositors90d: 95, slisBNB: 2538 },
-  { addr: "0x63242...6cb0", role: "Moolah Router", balance: "$172", depositors90d: 146, slisBNB: 0 },
-  { addr: "0x89c9...3adc", role: "Moolah Sub-contract", balance: "$706K", depositors90d: 144, slisBNB: 1076 },
+  { addr: "0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c", role: "Primary Moolah Controller", balance: "$706K", depositors90d: 144, slisBNB: 149582 },
+  { addr: "0x9474e972f49605315763c296b122cbb998b615cf", role: "Secondary Moolah Market", balance: "$3.4M", depositors90d: 113, slisBNB: 1284 },
+  { addr: "0x3dcea6afba8af84b25f1f8947058af1ac4c06131", role: "Moolah Lending Pool", balance: "$8.7M", depositors90d: 95, slisBNB: 2538 },
+  { addr: "0x63242a4ea82847b20e506b63b0e2e2eff0cc6cb0", role: "Moolah Router", balance: "$172", depositors90d: 146, slisBNB: 0 },
+  { addr: "0x89c910eb8c90df818b4649b508ba22130dc73adc", role: "Moolah Sub-contract", balance: "$706K", depositors90d: 144, slisBNB: 1076 },
 ];
 
 const historicalLoopers = [
-  { addr: "0xa338...6aaa", slisBNB: "3,340", wbnb: "25,137", txns: 150, status: "Closed", portfolio: "$113K", note: "Now PancakeSwap V3 LP only" },
-  { addr: "0x9906...d086", slisBNB: "3,414", wbnb: "3,520", txns: 188, status: "Closed ($0)", portfolio: "$0", note: "Was on Ankr, Aster, Lista, Venus — all zeroed" },
-  { addr: "0x0bb7...b09f", slisBNB: "3,288", wbnb: "3,397", txns: 166, status: "Closed ($0)", portfolio: "$0", note: "Former Venus user, all closed" },
-  { addr: "0x32c8...2c5f", slisBNB: "758", wbnb: "783", txns: 6, status: "Migrated", portfolio: "$179K", note: "Moved to Aave V3 (200 WBNB) + YieldNest. Zero borrows" },
-  { addr: "0x81ee...0382", slisBNB: "695", wbnb: "762", txns: 192, status: "Closed ($0)", portfolio: "$0", note: "Only VALAS dust on PancakeSwap" },
-  { addr: "0xccf8...f02c", slisBNB: "289", wbnb: "317", txns: 141, status: "Closed ($0)", portfolio: "$0", note: "Cross-protocol (Moolah + secondary). Fully unwound" },
-  { addr: "0xd204...1ce2", slisBNB: "279", wbnb: "294", txns: 123, status: "Closed ($0)", portfolio: "$0", note: "Cross-protocol looper. Position closed" },
+  { addr: "0xa338c6c146e6ecda7623ee391caecae127806aaa", slisBNB: "3,340", wbnb: "25,137", txns: 150, status: "Closed", portfolio: "$113K", note: "Now PancakeSwap V3 LP only" },
+  { addr: "0x990636ecb3ff04d33d92e970d3d588bf5cd8d086", slisBNB: "3,414", wbnb: "3,520", txns: 188, status: "Closed ($0)", portfolio: "$0", note: "Was on Ankr, Aster, Lista, Venus — all zeroed" },
+  { addr: "0x0bb7a4fdea32910038dec59c20ccae3a6e66b09f", slisBNB: "3,288", wbnb: "3,397", txns: 166, status: "Closed ($0)", portfolio: "$0", note: "Former Venus user, all closed" },
+  { addr: "0x32c830f5c34122c6afb8ae87aba541b7900a2c5f", slisBNB: "758", wbnb: "783", txns: 6, status: "Migrated", portfolio: "$179K", note: "Moved to Aave V3 (200 WBNB) + YieldNest. Zero borrows" },
+  { addr: "0x81ee41c232e2c7fba40c9eac02ae1eae33570382", slisBNB: "695", wbnb: "762", txns: 192, status: "Closed ($0)", portfolio: "$0", note: "Only VALAS dust on PancakeSwap" },
+  { addr: "0xccf822b17fb1364704c51cc69ff670536849f02c", slisBNB: "289", wbnb: "317", txns: 141, status: "Closed ($0)", portfolio: "$0", note: "Cross-protocol (Moolah + secondary). Fully unwound" },
+  { addr: "0xd2041d262af4f9f14be450ac11a28cad15551ce2", slisBNB: "279", wbnb: "294", txns: 123, status: "Closed ($0)", portfolio: "$0", note: "Cross-protocol looper. Position closed" },
 ];
 
 const crossProtocolStats = {
@@ -731,7 +731,7 @@ export default function BNBLSTResearch() {
       <H2>5. Active DeFi Strategists (On-Chain + DeBank Verified)</H2>
 
       <Text tone="secondary">
-        Queried Lista Moolah contract (0x8f73...e5d8c) via Dune for wallets
+        Queried Lista Moolah contract (0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c) via Dune for wallets
         with active slisBNB collateral in the last 90 days. Verified all
         positions via DeBank API. These are the wallets actually doing DeFi
         with BNB LSTs — not just holding.
