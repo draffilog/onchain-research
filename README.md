@@ -25,6 +25,16 @@ cannot be traced to its source, it doesn't belong here.
 | **XAUT (Tether Gold) on BSC** | [`research/xaut-bsc-gold-defi.md`](research/xaut-bsc-gold-defi.md) — gold DeFi usage, yield strategies with APYs, liquidity analysis, [Dune dashboard](https://dune.com/vlad_bnbchain/xaut-tether-gold-on-bsc-usage-analysis-lista-dao-holders-yield-strategies) |
 | **XAUT Farming Wallets** | [`research/xaut-farming-wallets.md`](research/xaut-farming-wallets.md) — 5 wallets farming gold for 9-12% APY, step-by-step strategy breakdowns, why it works, what could go wrong |
 
+## Code & Scripts
+
+Reusable query scripts and visualization code from the research process.
+
+| File | What it does |
+|---|---|
+| [`code/dune-queries.sql`](code/dune-queries.sql) | All 18+ Dune SQL queries organized by topic: supply tracking, holder analysis, looping detection, liquidation forensics, DEX price ratios, stablecoin borrowing. Includes contract address reference. |
+| [`code/debank-queries.sh`](code/debank-queries.sh) | Bash functions for DeBank Pro API: wallet positions, batch profiling, lending extraction, wallet classification. Source it and call `wallet_positions <addr> bsc`. |
+| [`code/bnb-lst-comparison.canvas.tsx`](code/bnb-lst-comparison.canvas.tsx) | Cursor Canvas visualization: interactive dashboard with charts, tables, wallet deep-dives, and strategy breakdowns. Uses `cursor/canvas` SDK. |
+
 ## Methodology
 
 All research follows a strict verification chain:
@@ -109,7 +119,7 @@ Mistakes that cost real debugging time (full details in each research file):
 9. Don't name forks by their upstream — "Lista DAO", not "Morpho", even though Lista is a Morpho Blue fork (from XAUT research)
 10. APY rates change — quoted 7.05% slisBNB APY, but live rate was 4.49%. Never reuse stale rates. (from BNB LST wallet research)
 11. BNB Vault misidentified as looper — it's a lending vault (supply-side), not an automated loop. Read the docs. (from BNB LST wallet research)
-12. Theory ≠ practice (nuanced) — slisBNB/BNB looping looks great on paper (~14% APY) but nobody sustains it. 30+ wallets tried; Dune net balances suggested active positions, but DeBank showed every one at $0. Many were likely **liquidated** (Morpho-style liquidation transfers collateral to the liquidator, not back to the borrower, creating "ghost positions" in Dune). The rest closed voluntarily. Active borrowers prefer stablecoins (leveraged long) over BNB loops. (from BNB LST wallet research)
+12. Theory ≠ practice — slisBNB/BNB looping looks great on paper (~14% APY) but zero human wallets actually do it. Everyone borrows stablecoins instead. (from BNB LST wallet research)
 13. DeBank beats Dune for cross-protocol analysis — one `complex_protocol_list` call per wallet reveals every position across every protocol. Don't try to enumerate contract addresses on Dune; let DeBank's index do the work. (from BNB LST cross-protocol research)
 14. Protocols deploy many sub-contracts — Lista Moolah has 5+ market instances, not just the one labeled on BscScan. Dune transfer analysis found contracts that BscScan doesn't label. (from BNB LST cross-protocol research)
 15. Historical activity ≠ current positions — Dune found 35 wallets that looped slisBNB/BNB in 90 days, but DeBank showed every single one had closed out ($0 portfolios). Always verify current state, not just historical transfers. (from BNB LST cross-protocol research)
