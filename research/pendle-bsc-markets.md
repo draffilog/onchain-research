@@ -193,23 +193,79 @@ LP providers earn swap fees + underlying yield from Pendle markets.
 
 ## Wallet Deep Dives (DeBank Verified)
 
+### 0x04cf1309ed163ceaf8ceded40b5f8429748a1882 — BTC Whale ($28.2M)
+- **Portfolio:** $28,256,181 total
+- **BSC Protocols:** Lista DAO ($24.2M — 277 SolvBTC + 3,948 BNB), Venus ($3.9M SolvBTC, borrows 4,255 BNB), Aster ($5.4K BNB), Pendle ($4K YT)
+- **Pendle BSC:** #1 YT-slisBNBx-Jun26 holder (883.6 YT) — speculating on BNB staking yield
+- **Strategy:** Massive BTC holder using Lista DAO as primary yield venue. Uses Pendle for minor YT speculation on BNB staking yield alongside $28M+ portfolio. Venus borrowing suggests leveraged BNB farming.
+- **Classification:** YT Speculation (small allocation from large portfolio)
+
+### 0x64627901dadb46ed7f275fd4fc87d086cff1e6e3 — Institutional Multi-chain LP ($17.6M)
+- **Portfolio:** $17,601,538 total
+- **BSC Protocols:** Pendle V2 ($972K across 21 positions on multiple chains including BSC, Ethereum)
+- **Pendle BSC:** LP in 4 BSC markets (SolvBTC, satUSD+, slisBNBx Jun26+Oct25). #2 LP-slisBNBx-Jun26 (625 LP), #3 LP-satUSD+-Mar26 (812 LP)
+- **Strategy:** Professional multi-chain LP provider. 21 Pendle positions suggest systematic yield farming across chains. LP-only focus maximizes swap fee income.
+- **Classification:** Professional Liquidity Provision
+
+### 0xb71f5229ce8366b72d988447fb491e87ec712ca1 — satUSD Specialist ($15.7M)
+- **Portfolio:** $15,739,468 total
+- **BSC Protocols:** Pendle V2 ($1.08M LP), Segment Finance ($50K satUSD), Term Finance ($100K satUSD)
+- **Pendle BSC:** #1 LP-satUSD+-Mar26 (397K LP tokens = $1.08M), #1 YT-satUSD+-Dec25 (7.7M YT), #2 YT-satUSD+-Mar26 (280K YT)
+- **Strategy:** Deep satUSD concentration — combines massive LP provision (earning fees) with aggressive YT speculation (betting on satUSD yield). Also uses Segment and Term for additional satUSD yield. This is the most concentrated Pendle BSC strategy found.
+- **Classification:** LP + YT Combo (satUSD focused)
+
+### 0x782d9d67feaa4d1cdf8222d9053c8cba1c3b7982 — Pendle LP Professional ($2.18M)
+- **Portfolio:** $2,180,015 total (almost entirely Pendle)
+- **BSC Protocols:** Pendle V2 ($2.18M, 14 positions across chains)
+- **Pendle BSC:** #1 LP-slisBNBx-Jun26 (1,387 LP = $2.1M — dominant position), #2 LP-slisBNBx-Oct25 (5 LP). Also LP in SolvBTC and satUSD+.
+- **Strategy:** Pure Pendle LP specialist. 14 positions across multiple markets and chains, with $2.1M concentrated in the flagship slisBNBx-Jun26 market. Earns swap fees, underlying slisBNB yield, and PENDLE rewards.
+- **Classification:** Professional Liquidity Provision
+
+### 0xbad43138c9bf4f546c1d326f30963084a1e40c2e — Fixed Yield Maximizer ($1.14M)
+- **Portfolio:** $1,137,549 total
+- **BSC Protocols:** Pendle V2 only ($1.14M, 2 positions)
+- **Pendle BSC:** #1 PT-satUSD+-Mar26 (1,094,956 PT = $1.09M) — largest individual PT position found
+- **Strategy:** Pure fixed yield on stablecoins. Bought massive PT-satUSD+ position to lock in fixed yield at maturity. No other DeFi activity. Most conservative large Pendle user.
+- **Classification:** Fixed Yield (PT)
+
+### 0x8ca23dea974781c94d961950230fb1ffdb61bb60 — PT+LP Compounder ($924K)
+- **Portfolio:** $924,328 total
+- **BSC Protocols:** Pendle V2 ($924K — PT + LP), PancakeSwap ($215 meme token positions)
+- **Pendle BSC:** #2 PT-slisBNBx-Oct25 (565 PT = $362K) + #1 LP-slisBNBx-Oct25 (432 LP = $561K)
+- **Strategy:** Dual PT + LP in the same market. Combines fixed yield from PT with LP fee income. This hedges impermanent loss since PT movement directly correlates with LP value.
+- **Classification:** PT + LP Combo
+
+### 0x6d3bd68e90b42615cb5abf4b8de92b154adc435e — Pure Fixed Yield ($424K)
+- **Portfolio:** $424,357 total (single Pendle position)
+- **BSC Protocols:** Pendle V2 only ($424K, 1 position)
+- **Pendle BSC:** #2 PT-slisBNBx-Jun26 (665.9 PT-clisBNB = $424K)
+- **Strategy:** Single large PT position in the flagship active market. Locking in fixed BNB staking yield until June 2026. Zero diversification, maximum conviction.
+- **Classification:** Fixed Yield (PT)
+
+### 0x82d92a455468bf2a2275062e85bac04e4e2c550c — USDe LP Specialist ($98K)
+- **Portfolio:** $98,477 total
+- **BSC Protocols:** Pendle V2 only ($98K, single LP position)
+- **Pendle BSC:** #1 LP-USDe-Oct25 (44,500 LP = $98K) — dominant LP in the expired USDe market
+- **Strategy:** Single LP position in expired USDe market. May be waiting for optimal redemption timing or collecting residual fees.
+- **Classification:** Liquidity Provision (expired market)
+
+### 0xc34ae1a39662415a4720d4a3e7c2be0e202568c2 — Serial YT Speculator ($72K)
+- **Portfolio:** $71,880 total
+- **BSC Protocols:** River ($6.1K), Pendle V2 ($292 active), Venus ($12), Unitas ($6)
+- **Pendle BSC:** YT-only across 5 markets (SolvBTC, USDe, satUSD+-Dec25, satUSD+-Mar26, slisBNBx-Oct25). #1 YT-SolvBTC.BNB-Dec25 (216 YT), #1 YT-slisBNBx-Oct25 (6,163 YT), #5 YT-satUSD+-Dec25 (2.97M YT)
+- **Strategy:** Pure yield speculation across maximum market diversity. Buys YT tokens in every available market to bet on actual yields exceeding implied rates. Most active multi-market YT speculator on BSC.
+- **Classification:** YT Speculation (serial, multi-market)
+
 ### 0x28e2ea090877bf75740558f6bfb36a5ffee9e9df — BSC DeFi Mega-whale
 - **Portfolio:** $18.4M (almost entirely on BSC)
 - **Pendle BSC:** Active in 7/10 top markets (LP + PT across slisBNBx, satUSD+, SolvBTC, uniBTC)
-- **Other protocols:** 50+ including Lista DAO ($3.5K), Venus ($6.2K), Beefy ($2.6K), PancakeSwap ($4.3K), Solv ($1.6K), Aster ($1.8K), BounceBit, Stargate, Alpaca, Kinza, etc.
-- **Strategy:** Extreme diversification across every major BSC protocol. Uses Pendle for LP positions (earning swap fees on multiple markets) and PT (fixed yield on satUSD+, slisBNBx). Also has 123 PancakeSwap positions and 62 Beefy vaults. This is a "farm everything" approach.
-- **Risk:** Very Low (no borrowing detected, pure supply/LP across dozens of protocols)
+- **Other protocols:** 50+ including Lista DAO, Venus, Beefy, PancakeSwap, Solv, Aster, BounceBit, Stargate, Alpaca, Kinza, etc.
+- **Strategy:** Extreme diversification across every major BSC protocol. Uses Pendle for LP positions (earning swap fees on multiple markets) and PT (fixed yield). "Farm everything" approach.
+- **Classification:** Multi-protocol diversification
 
-### 0x869191325254a82fbc858ab3cad9bf91703da353 — Multi-protocol LP Provider
-- **Portfolio:** $16K+ on BSC
-- **Pendle BSC:** LP-only across 5 markets (SolvBTC, USDe, slisBNBx Jun26+Oct25, uniBTC)
-- **Other protocols:** Lista DAO ($1.3K, slisBNB stake), Solv ($1.8K, SolvBTC), Magpie XYZ ($608), TRANCHESS V2 ($1.3K), SquadSwap ($11.7K)
-- **Strategy:** Focused LP provider using Pendle + TRANCHESS for BNB staking yield. Uses Solv for BTC exposure. Also active in SquadSwap DEX farming.
-
-### 0xc34ae1a39662415a4720d4a3e7c2be0e202568c2 — YT Speculator
-- **Pendle activity:** YT-only across 5 markets (SolvBTC, USDe, satUSD+-Dec25, satUSD+-Mar26, slisBNBx-Oct25)
-- **Largest position:** 6,163 YT-slisBNBx-Oct25 (speculating BNB staking yield exceeds 11.49%)
-- **Strategy:** Pure yield speculation — buys YT tokens to bet on actual yield exceeding implied APY
+### 0x888888888889758f76e7103c6cbf23abbf58f946 — Pendle Router V4
+- **Portfolio:** $67 (contract dust)
+- **Note:** This is the Pendle Router contract, appearing in 8 markets with PT+YT as a pass-through for user transactions. Not a real holder — infrastructure contract.
 
 ---
 
@@ -224,9 +280,35 @@ LP providers earn swap fees + underlying yield from Pendle markets.
 
 ---
 
+## Strategy Classification
+
+Four distinct strategies observed among Pendle BSC participants:
+
+### 1. Fixed Yield (PT Holders)
+Buy PT at discount, hold to maturity for guaranteed fixed yield. Equivalent to a zero-coupon bond.
+- **Risk:** Low
+- **Key players:** 0xbad4...40c2 ($1.09M PT-satUSD+), 0x6d3b...435e ($424K PT-slisBNBx), 0x8ca2...bb60 (PT+LP combo $924K)
+
+### 2. Yield Speculation (YT Holders)
+Buy YT to bet on future yield exceeding implied rate. Leveraged upside if yield rises, total loss at expiry.
+- **Risk:** High
+- **Key players:** 0x04cf...a882 ($28M whale, 883 YT-slisBNBx), 0xc34a...0818 (serial speculator across 5 markets), 0xb71f...ca1 (7.7M YT-satUSD+)
+
+### 3. Liquidity Provision (LP)
+Provide PT/underlying liquidity to Pendle AMM. Earn swap fees + underlying yield + PENDLE rewards.
+- **Risk:** Medium
+- **Key players:** 0x782d...7982 ($2.18M, 14 positions multi-chain), 0x6462...0de3 ($17.6M institutional, 21 positions), 0xb71f...ca1 (397K LP-satUSD+)
+
+### 4. PT as Collateral (DeFi Composability)
+Use Pendle PTs as collateral in lending markets like Lista Moolah. Borrow against fixed-yield positions.
+- **Risk:** Medium-High (liquidation risk)
+- **Key finding:** Lista Moolah Controller accepts Pendle PTs, enabling borrow-against-fixed-yield loops unique to BSC.
+
+---
+
 ## Key Insights
 
-1. **Pendle BSC is dominated by expired markets.** $163M of $205M TVL (79%) sits in expired markets. Users either forgot to redeem or are waiting for specific conditions.
+1. **Expired markets dominate BSC TVL.** $163M of $205M TVL (79%) sits in expired markets. Users either forgot to redeem or are waiting for specific conditions.
 
 2. **slisBNBx is the flagship active market.** The slisBNBx-Jun26 market ($8.3M) is the largest active market by far, confirming slisBNB's dominance in BNB LST DeFi.
 
@@ -236,4 +318,10 @@ LP providers earn swap fees + underlying yield from Pendle markets.
 
 5. **Cross-market activity is concentrated.** Only 50 wallets are active in 2+ markets, suggesting Pendle BSC has a small but sophisticated user base.
 
-6. **The biggest Pendle BSC user is a $18.4M whale** (0x28e2ea090877bf75740558f6bfb36a5ffee9e9df) who diversifies across 50+ protocols — Pendle is just one piece of a massive BSC DeFi portfolio.
+6. **Professional LP providers operate multi-chain.** The top 2 LP providers ($17.6M and $2.18M) have 14-21 Pendle positions across BSC, Ethereum, and other chains — these are systematic yield farmers.
+
+7. **A $28M BTC whale uses Pendle for minor YT speculation** (0x04cf...a882) alongside massive Lista DAO ($24.2M SolvBTC) and Venus ($3.9M) positions. Pendle is a small yield-bet allocation.
+
+8. **satUSD+ shows extreme holder concentration.** One wallet holds $1.09M PT (fixed yield) and another holds $1.08M LP + 7.7M YT in the same asset — a combined LP + speculation strategy.
+
+9. **The biggest Pendle BSC user is a $18.4M whale** (0x28e2ea090877bf75740558f6bfb36a5ffee9e9df) who diversifies across 50+ protocols — Pendle is just one piece of a massive BSC DeFi portfolio.
