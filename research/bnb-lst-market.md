@@ -31,7 +31,7 @@ concentrated — two tokens (slisBNB + asBNB) hold 98% of all staked BNB.
 | Token | Protocol | Contract | Supply | BNB Backing | TVL (USD) | Share | Verified via |
 |---|---|---|---|---|---|---|---|
 | **slisBNB** | Lista DAO | `0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B` | 930,400 | 930,400 | ~$591M | 72.9% | Dune mint/burn + BscScan |
-| **asBNB** | Aster (fka Astherus) | `0x7eb45259af84318972aa3f0eafe550a072824444` | 237,801 | ~319K | ~$228M | 25.0% | Dune mint/burn × CoinGecko rate |
+| **asBNB** | Aster (fka Astherus) | `0x7eb45259af84318972aa3f0eafe550a072824444` | 237,801 (19K circulating) | ~319K | ~$228M (marketing) / ~$12M (circulating) | 25.0% | Dune mint/burn × CoinGecko rate. 999.98M in treasury pre-mint. |
 | **aBNBb** | Ankr (legacy) | `0xbb1Aa6e59E5163D8722a122cd66EBA614b59df0d` | 22,210 | 22,210 | ~$14M | 1.7% | Dune mint/burn |
 | **BNBx** | Stader | `0x1bdd3Cf7F79cfB8EdbB955f20ad99211551BA275` | 3,515 | 3,515 | ~$2.2M | 0.3% | Dune mint/burn |
 
@@ -60,10 +60,14 @@ be a proxy or deprecated.
 - **Live APY: 4.49%** (3.98% Launchpool + 0.51% staking) — *from Lista UI*
 - ⚠️ Earlier research quoted 7.05% — the rate has dropped significantly
 
-### asBNB (Reward-bearing)
+### asBNB (Reward-bearing — NOT rebasing)
 - 1 asBNB > 1 BNB (~1.34 at time of research) — *from CoinGecko price ratio*
 - Exchange rate appreciates as staking rewards accrue
 - Yield from: BNB staking + Binance Launchpool + HODLer airdrops + Megadrops
+- ⚠️ Some AI-generated sources describe asBNB as "rebasing" — this is wrong.
+  Rebasing means the token quantity in your wallet changes (e.g., stETH).
+  asBNB is reward-bearing: the quantity stays fixed, the exchange rate
+  appreciates. The distinction matters for tax treatment and DeFi composability.
 
 ### aBNBb (Ankr Legacy)
 - Dune showed 410K minted, 410K burned, 22K remaining net supply
@@ -445,26 +449,63 @@ Real users borrow stablecoins because:
 
 ## asBNB DeFi Ecosystem
 
-> Data from Dune query 7331976, DeBank API.
+> Data from Dune query 7331976, DeBank API, and fact-check against external claims.
 
-### Current State: Nearly Zero DeFi Activity
+### Current State: Minimal On-Chain DeFi Activity
 
-| Metric | Value |
-|---|---|
-| Total unique recipients | 12 |
-| Non-treasury holders | 1 (`0x85f74ab18ce84cd10a90f0735856a72d0c4576fe` — 18,974 asBNB) |
-| DeFi positions on DeBank | Empty `[]` for top holder |
-| DEX trading volume | Negligible (no slisBNB-scale liquidity) |
-| Venus vasBNB market | Exists but 0 asBNB/BNB loopers in 90d |
+| Metric | On-Chain Finding | AI-Generated Claim | Verdict |
+|---|---|---|---|
+| Total unique recipients | 12 | Not stated | Verified via Dune |
+| Non-treasury holders | 1 (`0x85f74ab18ce84cd10a90f0735856a72d0c4576fe` — 18,974 asBNB) | "Circulating supply ≈ 238K asBNB" | Discrepancy — 238K minted but only 19K outside treasury held by 1 wallet |
+| DeFi positions on DeBank | Empty `[]` for top holder | "$159M TVL" | Misleading — see below |
+| DEX trading volume | Negligible (no slisBNB-scale liquidity) | "$10K–$150K 24h" | Not confirmed in Dune `dex.trades` |
+| Venus vasBNB market | Exists but 0 asBNB/BNB loopers in 90d | Not stated | Verified |
+| Token type | Reward-bearing (exchange rate appreciation) | "Rebasing" | **Wrong** — asBNB is reward-bearing, not rebasing |
 
-asBNB's $228M TVL (from exchange rate × supply) is misleading — nearly all tokens sit in the pre-mint treasury. The actual circulating supply used in DeFi is approximately 19K asBNB, giving a real "DeFi TVL" closer to $12M.
+### asBNB TVL: Marketing vs On-Chain Reality
 
-### Why asBNB Has No DeFi Ecosystem
+Multiple sources (DeFiLlama, AI-generated summaries) report asBNB TVL as $150-230M.
+This is the notional value of all minted asBNB × exchange rate. The on-chain reality:
 
-1. **Ultra-concentrated supply**: 999.98M of 1B in treasury, only 12 recipients
-2. **No DEX liquidity**: Without liquid trading pairs, protocols can't build on it
+| Category | Amount | Notes |
+|---|---|---|
+| Treasury pre-mint | 999.98M asBNB | Single address `0x5c952063c7fc8610ffdb798152d69f0b9550762b` |
+| Circulating outside treasury | ~19K asBNB | Held by 1 non-treasury wallet |
+| Visible DeFi activity | $0 | Top holder shows empty `[]` on DeBank |
+| **Realistic "DeFi TVL"** | **~$12M** | 19K × ~$635 (BNB price × 1.34 exchange rate) |
+
+The gap between $159M (marketing) and $12M (on-chain circulating) comes from
+counting treasury-held tokens. This is a common pattern — high reported TVL
+driven by pre-minted supply that never entered circulation.
+
+### Aster DEX Internal Utility — Unverified Gap
+
+AI-generated sources claim asBNB can be used as **yield-bearing collateral on
+Aster's perpetual DEX** (95% collateral value ratio). This is a significant
+DeFi utility that our on-chain tools **cannot verify**:
+
+- DeBank does not index Aster DEX's internal collateral system
+- Dune's `dex.trades` table may not capture Aster's proprietary perp engine
+- The actual asBNB utility may be happening inside Aster's platform, invisible
+  to general on-chain analysis tools
+
+**This is the biggest research gap for asBNB.** The token may have real
+utility within Aster's ecosystem that our standard Dune + DeBank methodology
+doesn't capture. Verifying this would require:
+
+1. Browsing Aster DEX UI directly (asterdex.com)
+2. Checking if asBNB collateral positions are visible on-chain
+3. Looking for Aster-specific contract interactions on BscScan
+
+### Why asBNB Has No *External* DeFi Ecosystem
+
+1. **Ultra-concentrated supply**: 999.98M of 1B in treasury, only 12 recipients ever
+2. **No DEX liquidity**: Without liquid trading pairs, external protocols can't build on it
 3. **No lending market for slisBNB-style leverage**: Venus has vasBNB but zero usage
-4. **Reward model**: asBNB includes Launchpool/Megadrop rewards that don't translate to DeFi yield
+4. **Internal utility model**: asBNB's value proposition is collateral on Aster's own DEX,
+   not composability across the broader DeFi ecosystem — opposite of slisBNB's approach
+5. **Reward model**: Launchpool/Megadrop rewards accrue inside the exchange rate,
+   not as separate DeFi yield
 
 ---
 
@@ -476,7 +517,7 @@ asBNB's $228M TVL (from exchange rate × supply) is misleading — nearly all to
 |---|---|---|---|
 | **Yield** | ~2.5-3.5% (varies by validator) | 4.49% (3.98% Launchpool + 0.51% staking) | ~4-5% (staking + Launchpool + airdrops) |
 | **Lock Period** | 7-day unbonding | Instant (DEX) or ~7 days (redeem) | Unclear (limited liquidity) |
-| **DeFi Composability** | None | Full (Moolah, Venus, DEX LPs) | Nearly none |
+| **DeFi Composability** | None | Full (Moolah, Venus, DEX LPs) | Internal only (Aster DEX collateral) — unverified on-chain |
 | **Smart Contract Risk** | Low (native staking contract) | Medium (Lista contracts) | Medium (Aster contracts) |
 | **Holders** | Wide (many validators) | 809K wallets | 12 wallets |
 | **Supply** | ~31M BNB total staked (BSC PoS) | 930K slisBNB | ~19K circulating |
@@ -552,3 +593,11 @@ The key insight: **LSTs justify their smart contract risk only when used in DeFi
     This creates "ghost positions" in Dune transfer math. The wallet shows
     supply > withdrawals and borrows > repayments, but the position was seized.
     Only DeBank (reads contract state) or direct contract calls show the truth.
+11. **AI-generated crypto content mixes real facts with hallucinations** — a
+    user-provided AI summary of asBNB contained accurate details (token is
+    active, ~238K circulating supply, Aster DEX is real, YZi Labs backing)
+    mixed with wrong claims ("rebasing" instead of reward-bearing), inflated
+    TVL ($159M marketing vs ~$12M on-chain circulating), and unverifiable
+    DEX volume claims. The danger is that 80% accuracy makes the other 20%
+    more believable. Every claim needs independent on-chain verification —
+    even when the source looks well-researched.

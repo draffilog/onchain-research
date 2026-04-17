@@ -60,6 +60,19 @@
 
 asBNB uses a different model: 1B tokens were pre-minted, with only ~19K distributed to 12 unique recipients. The token is reward-bearing (1 asBNB > 1 BNB, currently ~1.34 ratio).
 
+### asBNB: Marketing TVL vs On-Chain Reality
+
+External sources (DeFiLlama, AI summaries) report asBNB TVL as $150-230M. This comes from total minted supply × exchange rate. The on-chain reality is far smaller:
+
+| Metric | Marketing Figure | On-Chain Verified |
+|---|---|---|
+| TVL | ~$159M (DeFiLlama) | ~$12M (circulating outside treasury) |
+| Circulating supply | 238K (implied from TVL / price) | 19K (1 non-treasury holder) |
+| Holders | Not disclosed | 12 unique recipients ever, 0 new in 90 days |
+| External DeFi usage | Not disclosed | $0 visible on DeBank |
+
+The key differentiator is asBNB's utility within Aster's own perpetual DEX (yield-bearing collateral), which may not be captured by standard on-chain tools (Dune, DeBank). This internal utility model is the opposite of slisBNB's approach (broad external composability). See `bnb-lst-market.md` for the full fact-check.
+
 ## Holder Distribution
 
 | Token | Total Unique Recipients | New in Last 30d | New in Last 90d |
