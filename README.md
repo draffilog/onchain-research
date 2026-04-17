@@ -107,10 +107,11 @@ Mistakes that cost real debugging time (full details in each research file):
 9. Don't name forks by their upstream — "Lista DAO", not "Morpho", even though Lista is a Morpho Blue fork (from XAUT research)
 10. APY rates change — quoted 7.05% slisBNB APY, but live rate was 4.49%. Never reuse stale rates. (from BNB LST wallet research)
 11. BNB Vault misidentified as looper — it's a lending vault (supply-side), not an automated loop. Read the docs. (from BNB LST wallet research)
-12. Theory ≠ practice — slisBNB/BNB looping looks great on paper (~14% APY) but zero human wallets actually do it. Everyone borrows stablecoins instead. (from BNB LST wallet research)
+12. Theory ≠ practice (nuanced) — slisBNB/BNB looping looks great on paper (~14% APY) but nobody sustains it. 30+ wallets tried; Dune net balances suggested active positions, but DeBank showed every one at $0. Many were likely **liquidated** (Morpho-style liquidation transfers collateral to the liquidator, not back to the borrower, creating "ghost positions" in Dune). The rest closed voluntarily. Active borrowers prefer stablecoins (leveraged long) over BNB loops. (from BNB LST wallet research)
 13. DeBank beats Dune for cross-protocol analysis — one `complex_protocol_list` call per wallet reveals every position across every protocol. Don't try to enumerate contract addresses on Dune; let DeBank's index do the work. (from BNB LST cross-protocol research)
 14. Protocols deploy many sub-contracts — Lista Moolah has 5+ market instances, not just the one labeled on BscScan. Dune transfer analysis found contracts that BscScan doesn't label. (from BNB LST cross-protocol research)
 15. Historical activity ≠ current positions — Dune found 35 wallets that looped slisBNB/BNB in 90 days, but DeBank showed every single one had closed out ($0 portfolios). Always verify current state, not just historical transfers. (from BNB LST cross-protocol research)
+16. Dune net balances don't account for liquidations — in Morpho-style markets, liquidation transfers collateral to the liquidator (not back to the borrower) and debt is repaid by the liquidator. This makes liquidated positions look "active" in Dune transfer math while DeBank (which reads contract state) correctly shows $0. Never trust Dune net balance alone for current position detection. (from BNB LST verification research)
 
 ## Adding New Research
 

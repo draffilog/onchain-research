@@ -141,16 +141,35 @@ every position via DeBank.
 | `0xab30...0fa9` | 430 | Arb bot | 1,985 slisBNB + 2 WBNB borrows. Only bot with confirmed borrows. |
 | `0x87a8...bc93` | 3 | Closed mega-position | 150K slisBNB + 350K WBNB + $13.5M USDT. Fully closed Feb 2026. |
 
-### Critical Finding: Nobody Does Pure slisBNB/BNB Looping
+### Critical Finding: People Try slisBNB/BNB Looping — Nobody Sustains It
 
 Despite the theoretical appeal (~14% APY at 3x leverage with 1.00% borrow
-rate), **not a single human wallet is doing the pure slisBNB → borrow BNB →
-stake → repeat loop**.
+rate), **no human wallet currently maintains a slisBNB/BNB loop position**.
 
-Every active borrower uses slisBNB as collateral to borrow **stablecoins**
-(USDT, USD1, U) — i.e., a leveraged long on BNB price, not a yield loop.
-The bots that interact with the slisBNB/BNB Moolah market have either closed
-positions or are protocol infrastructure.
+A follow-up verification query (all-time net balance: supply - withdrawals
+for slisBNB, borrows - repayments for WBNB) found **30 wallets** that
+*appear* to still have active positions based on Dune transfer math. However,
+every single one shows **$0 on DeBank** (which reads actual contract state).
+
+**Explanation**: Many of these wallets were likely **liquidated**. In Morpho
+Blue-style markets (which Lista Moolah forks), liquidation transfers
+collateral to the liquidator — not back to the original depositor. The debt
+is repaid by the liquidator, not the borrower. This creates "ghost positions"
+in Dune net balance math: the wallet's slisBNB deposit and WBNB borrow show
+as positive (never returned/repaid), even though the position was seized.
+
+**The real story**:
+- 30+ wallets opened slisBNB/BNB loop positions
+- Many were likely liquidated (Dune shows supply with no withdrawal, borrow
+  with no repayment — classic liquidation signature)
+- The survivors closed out voluntarily
+- Active borrowers who remain use slisBNB to borrow **stablecoins**
+  (USDT, USD1, U) — leveraged long on BNB price, not yield loops
+
+**Methodological lesson**: Dune transfer-based net balances ≠ current
+positions. Only protocol-level data (DeBank `complex_protocol_list`, or
+direct contract state reads) gives the actual current state. Liquidations,
+intermediary contracts, and flash loans all break Dune net balance math.
 
 ### Cross-Protocol Looping Analysis (April 17 2026)
 
@@ -170,8 +189,8 @@ wallets on DeBank.
 | `0x89c9...3adc` | Moolah Sub-contract | $706K | 144 |
 
 **Key findings:**
-1. **35 historical loopers found** (supplied slisBNB + borrowed WBNB in 90d)
-2. **0 currently active human loopers** — every single one closed their position
+1. **30+ wallets tried slisBNB/BNB looping** — Dune net balances show open positions, but DeBank shows all at $0 (likely liquidated or closed via intermediary contracts)
+2. **0 currently active human loopers** — every position was either liquidated or voluntarily closed
 3. **Venus has NO slisBNB market** — only vasBNB (for asBNB)
 4. **0 asBNB/BNB loopers on Venus** in 90 days
 5. **48 of top 50 slisBNB holders** are pure passive holders (zero borrows in 30d)
@@ -187,11 +206,18 @@ wallets on DeBank.
 | `0x32c8...2c5f` | 758 | 783 | Migrated | $179K — now Aave V3 + YieldNest, zero borrows |
 | `0xccf8...f02c` | 289 | 317 | Closed ($0) | Cross-protocol (Moolah + secondary) |
 
-**Why nobody loops in practice:**
-1. Depeg risk — even small slisBNB/BNB deviations can trigger liquidation at 96.5% LLTV
-2. Gas costs — maintaining multi-step positions requires constant monitoring
-3. Simpler alternatives — passive 4.49% requires zero effort vs ~14% theoretical at 3x
-4. Bot competition — automated actors dominate the looping flow and quickly arb away edge
+**Why nobody sustains loops in practice:**
+1. **Liquidation risk is real** — 30+ wallets tried, many appear liquidated (Dune shows deposits with no withdrawals, borrows with no repayments — classic liquidation signature in Morpho-style markets)
+2. Depeg risk — even small slisBNB/BNB deviations trigger liquidation at 96.5% LLTV (~3-4% buffer at 3x)
+3. Gas costs — maintaining multi-step positions requires constant monitoring
+4. Simpler alternatives — passive 4.49% requires zero effort vs ~14% theoretical at 3x
+5. Bot competition — automated actors dominate the looping flow and quickly arb away edge
+
+**Methodological note**: Dune net balance (supply - withdrawals) is NOT
+reliable for detecting current positions in Morpho-style lending markets.
+Liquidations transfer collateral to the liquidator, not back to the borrower,
+creating "ghost positions" in transfer math. Always verify with DeBank
+(reads contract state) or direct contract calls.
 
 ---
 
@@ -321,3 +347,14 @@ Checked live on `lista.org/lending`:
 8. **asBNB contract confusion** — original address `0x52F24a5e...` returned
    zero holders on Dune. Correct address found via `tokens.erc20` search:
    `0x7eb45259af84318972aa3f0eafe550a072824444`.
+9. **Claimed "nobody loops" too early** — initial cross-protocol analysis said
+   "zero human wallets do slisBNB/BNB looping." A verification query found 30
+   wallets with positive Dune net balances (appeared active). DeBank showed all
+   at $0 — they were likely liquidated, not absent. The corrected finding is
+   stronger: people try looping and fail (liquidation or voluntary exit), not
+   that nobody tries. Always challenge your own conclusions.
+10. **Dune net balance ≠ current position** — in Morpho-style lending markets,
+    liquidation transfers collateral to the liquidator, not back to the borrower.
+    This creates "ghost positions" in Dune transfer math. The wallet shows
+    supply > withdrawals and borrows > repayments, but the position was seized.
+    Only DeBank (reads contract state) or direct contract calls show the truth.
