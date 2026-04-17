@@ -49,9 +49,48 @@ Discovery (aggregators) → Address verification (explorer/CoinGecko)
 1. **Aggregators first** — you don't know what tokens/protocols exist. Start with DeFiLlama, StakingRewards, CoinGecko.
 2. **Verify every address** — anyone can deploy a token with any symbol. Scam tokens are everywhere.
 3. **On-chain proof** — supply numbers from mint/burn queries, not from protocol marketing.
-4. **DeBank for identity** — classify wallets as protocol contracts, bots, or real users.
+4. **DeBank for classification** — classify wallets as protocol contracts, bots, or real users.
 5. **Browser for live data** — rates change daily. Never state a rate from model memory.
 6. **Ask the user** — they often know about tokens and protocols the AI doesn't.
+
+### Key Technique: DeBank-First Cross-Protocol Analysis
+
+> **Trying to find every lending contract address on-chain is nearly
+> impossible.** Protocols deploy multiple sub-contracts (Lista Moolah alone
+> has 5+ market instances), use proxy patterns, and don't consistently label
+> their addresses. Querying Dune for each one is a whack-a-mole game.
+
+**The insight**: DeBank already indexes every DeFi protocol on every chain.
+One API call to `complex_protocol_list` for a single wallet returns its
+complete position map — every supply, every borrow, every LP, across every
+protocol — with health rates, token amounts, and protocol names.
+
+**The workflow that works**:
+
+```
+1. Dune: find candidate wallets (top holders, active interactors)
+2. DeBank: one call per wallet → full cross-protocol position map
+3. Pattern match: who supplies X and borrows Y? On which protocols?
+4. Repeat for 20-30 wallets → comprehensive market behavior picture
+```
+
+**Why this beats the alternative**: In BNB LST research, we tried the
+"find every contract" approach first — querying Dune for token transfers to
+known lending addresses. This found 5 Moolah sub-contracts but missed the
+bigger picture. Switching to DeBank-first, we profiled 30+ wallets in
+minutes and conclusively proved that zero human wallets were doing
+slisBNB/BNB looping — a finding that would have taken dozens of Dune
+queries to reach otherwise.
+
+**Cost**: DeBank Pro API charges per call. Budget ~30-50 calls per research
+topic (10 for protocol contracts, 20-40 for candidate wallets). Each call
+returns complete data — no pagination needed for positions.
+
+**Endpoints used**:
+| Endpoint | Returns | Use for |
+|---|---|---|
+| `user/complex_protocol_list?id=ADDR&chain_id=CHAIN` | Full DeFi positions per protocol | Supply/borrow classification, health rates, strategy detection |
+| `user/total_balance?id=ADDR` | Total portfolio USD value | Whale identification, quick triage |
 
 ## Lessons Learned
 
@@ -68,7 +107,10 @@ Mistakes that cost real debugging time (full details in each research file):
 9. Don't name forks by their upstream — "Lista DAO", not "Morpho", even though Lista is a Morpho Blue fork (from XAUT research)
 10. APY rates change — quoted 7.05% slisBNB APY, but live rate was 4.49%. Never reuse stale rates. (from BNB LST wallet research)
 11. BNB Vault misidentified as looper — it's a lending vault (supply-side), not an automated loop. Read the docs. (from BNB LST wallet research)
-12. Theory ≠ practice — slisBNB/BNB looping looks great on paper (~11% APY) but zero human wallets actually do it. Everyone borrows stablecoins instead. (from BNB LST wallet research)
+12. Theory ≠ practice — slisBNB/BNB looping looks great on paper (~14% APY) but zero human wallets actually do it. Everyone borrows stablecoins instead. (from BNB LST wallet research)
+13. DeBank beats Dune for cross-protocol analysis — one `complex_protocol_list` call per wallet reveals every position across every protocol. Don't try to enumerate contract addresses on Dune; let DeBank's index do the work. (from BNB LST cross-protocol research)
+14. Protocols deploy many sub-contracts — Lista Moolah has 5+ market instances, not just the one labeled on BscScan. Dune transfer analysis found contracts that BscScan doesn't label. (from BNB LST cross-protocol research)
+15. Historical activity ≠ current positions — Dune found 35 wallets that looped slisBNB/BNB in 90 days, but DeBank showed every single one had closed out ($0 portfolios). Always verify current state, not just historical transfers. (from BNB LST cross-protocol research)
 
 ## Adding New Research
 

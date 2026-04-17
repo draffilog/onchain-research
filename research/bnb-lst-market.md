@@ -143,13 +143,55 @@ every position via DeBank.
 
 ### Critical Finding: Nobody Does Pure slisBNB/BNB Looping
 
-Despite the theoretical appeal (~11% APY at 3x leverage), **not a single
-human wallet is doing the pure slisBNB → borrow BNB → stake → repeat loop**.
+Despite the theoretical appeal (~14% APY at 3x leverage with 1.00% borrow
+rate), **not a single human wallet is doing the pure slisBNB → borrow BNB →
+stake → repeat loop**.
 
 Every active borrower uses slisBNB as collateral to borrow **stablecoins**
 (USDT, USD1, U) — i.e., a leveraged long on BNB price, not a yield loop.
 The bots that interact with the slisBNB/BNB Moolah market have either closed
 positions or are protocol infrastructure.
+
+### Cross-Protocol Looping Analysis (April 17 2026)
+
+**Methodology**: Queried Dune for ALL BSC contracts receiving slisBNB
+transfers from multiple unique senders (3+ in 90 days). Identified 5 Lista
+Moolah market contracts and checked Venus vasBNB markets. Verified 30+
+wallets on DeBank.
+
+**Moolah Market Contracts Discovered:**
+
+| Contract | Role | DeBank Balance | Depositors (90d) |
+|---|---|---|---|
+| `0x8f73...e5d8c` | Primary Moolah Controller | $706K | 144 |
+| `0x9474...15cf` | Secondary Moolah Market | $3.4M | 113 |
+| `0x3dce...6131` | Moolah Lending Pool | $8.7M | 95 |
+| `0x63242...6cb0` | Moolah Router | $172 | 146 |
+| `0x89c9...3adc` | Moolah Sub-contract | $706K | 144 |
+
+**Key findings:**
+1. **35 historical loopers found** (supplied slisBNB + borrowed WBNB in 90d)
+2. **0 currently active human loopers** — every single one closed their position
+3. **Venus has NO slisBNB market** — only vasBNB (for asBNB)
+4. **0 asBNB/BNB loopers on Venus** in 90 days
+5. **48 of top 50 slisBNB holders** are pure passive holders (zero borrows in 30d)
+6. **Only 3 active stablecoin borrowers** with slisBNB collateral (max 97 slisBNB)
+
+**Historical Loopers (all closed):**
+
+| Wallet | slisBNB | WBNB Borrowed | Status | Current Portfolio |
+|---|---|---|---|---|
+| `0xa338...6aaa` | 3,340 | 25,137 | Closed | $113K (PancakeSwap V3 LP only) |
+| `0x9906...d086` | 3,414 | 3,520 | Closed ($0) | Was on Ankr, Aster, Lista, Venus |
+| `0x0bb7...b09f` | 3,288 | 3,397 | Closed ($0) | Former Venus user |
+| `0x32c8...2c5f` | 758 | 783 | Migrated | $179K — now Aave V3 + YieldNest, zero borrows |
+| `0xccf8...f02c` | 289 | 317 | Closed ($0) | Cross-protocol (Moolah + secondary) |
+
+**Why nobody loops in practice:**
+1. Depeg risk — even small slisBNB/BNB deviations can trigger liquidation at 96.5% LLTV
+2. Gas costs — maintaining multi-step positions requires constant monitoring
+3. Simpler alternatives — passive 4.49% requires zero effort vs ~14% theoretical at 3x
+4. Bot competition — automated actors dominate the looping flow and quickly arb away edge
 
 ---
 
@@ -158,8 +200,8 @@ positions or are protocol infrastructure.
 | Strategy | APY | Risk | How It Works | Source |
 |---|---|---|---|---|
 | **Passive LST Hold** | **4.49%** | Low | Hold slisBNB/asBNB. 3.98% Launchpool + 0.51% staking. | Lista UI (live) |
-| LST Looping (2x) | ~7-8% | Low-Med | slisBNB collateral → borrow BNB → restake (conservative) | Calculated below |
-| LST Looping (3x) | ~11% | Medium | Same at higher leverage — 3-4% liquidation buffer | Calculated below |
+| LST Looping (2x) | ~8% | Low-Med | slisBNB collateral → borrow BNB at 1.00% → restake (conservative) | Calculated below |
+| LST Looping (3x) | ~14% | Medium | Same at higher leverage — 3-4% liquidation buffer | Calculated below |
 | Lista BNB Vault | ~0.35% | Very Low | Lending vault (supply-side). NOT a looping vault. | Lista UI: 17.75% utilization |
 | asBNB DEX Collateral | 3-15% + PnL | Medium | asBNB as perp margin on Aster DEX | Aster docs |
 | Stability Pool | Up to 93% (peak) | Medium-High | Absorb liquidations + governance emissions. High variance. | Lista blog |
@@ -170,8 +212,8 @@ positions or are protocol infrastructure.
 | Strategy | Net APY | Annual Yield | Risk | Effort |
 |---|---|---|---|---|
 | Hold slisBNB | 4.49% | ~$1,334 | Very Low | None |
-| Loop 2x | ~7-8% | ~$2,200 | Low-Med | One-time setup |
-| Loop 3x+ | ~11% | ~$3,350 | Medium | One-time setup |
+| Loop 2x | ~8% | ~$2,370 | Low-Med | One-time setup |
+| Loop 3x+ | ~14% | ~$4,140 | Medium | One-time setup |
 | BNB Vault (lend) | ~0.35% | ~$104 | Very Low | None |
 | asBNB hold | ~4-5% | ~$1,300 | Low | None |
 
@@ -198,9 +240,9 @@ Total slisBNB exposure: ~174 BNB
 Total borrowed:         ~127 BNB
 
 Gross yield:  4.49% × 174 = 7.81 BNB/yr   (slisBNB APY from Lista UI)
-Borrow cost:  1.98% × 127 = 2.51 BNB/yr   (Moolah rate checked via browser)
-Net yield:                   5.30 BNB/yr
-Effective APY:               5.30 / 47 = ~11.3%
+Borrow cost:  1.00% × 127 = 1.27 BNB/yr   (Moolah rate, Lista UI Apr 17 2026)
+Net yield:                   6.54 BNB/yr
+Effective APY:               6.54 / 47 = ~13.9%
 ```
 
 **WARNING**: Both the base APY and borrow rate change. Re-calculate with
@@ -235,7 +277,7 @@ Checked live on `lista.org/lending`:
 - **slisBNB staking APY**: 4.49% (3.98% Launchpool + 0.51% staking)
 - **Exchange rate**: 1 slisBNB ≈ 1.0355 BNB
 - **Total BNB staked**: 963,498 BNB ($608.8M)
-- **Borrow rate**: 1.98% APY
+- **Borrow rate**: 1.00% APY (dropped from 1.98% — rate changes with utilization)
 - **LLTV**: 96.5%
 - **BNB Vault deposits**: 495K BNB ($312.9M)
 - **BNB Vault utilization**: 17.75%
@@ -247,12 +289,14 @@ Checked live on `lista.org/lending`:
 
 | Source | What we got from it |
 |---|---|
-| Dune `tokens.transfers` | Mint/burn supply, top holders by net balance, Moolah interactions |
-| Dune `tokens.erc20` | Token discovery (with fake token filtering) |
+| Dune `tokens.transfers` | Mint/burn supply, top holders, Moolah interactions, cross-protocol transfers, historical loopers |
+| Dune `tokens.erc20` | Token discovery (with fake token filtering), Venus vToken identification |
 | Dune `prices.usd_latest` | BNB price for TVL calculations |
+| Dune custom queries (8 total) | Active borrowers, stablecoin borrows, asBNB Venus activity, Moolah market discovery |
 | DeBank `complex_protocol_list` | Wallet DeFi positions, protocol classification |
 | DeBank `total_balance` | Total portfolio values for whale wallets |
-| Lista UI (browser) | Live borrow rates, APY, LLTV, utilization, vault metrics |
+| Lista UI (browser) | Live borrow rates, APY, LLTV, utilization, vault metrics. Rate dropped from 1.98% to 1.00% |
+| Venus UI (browser) | BNB borrow rate (0.99%), vasBNB market verification |
 | BscScan | Contract verification, address labeling |
 | CoinGecko | asBNB exchange rate, verified contract addresses |
 
