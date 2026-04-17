@@ -1,0 +1,34 @@
+---
+description: Never truncate blockchain wallet or contract addresses — always show the full address
+alwaysApply: true
+---
+
+# Full Wallet Addresses — No Truncation
+
+**Never truncate wallet or contract addresses.** Always show the complete address.
+
+## Bad
+
+```
+0xac3e...ffc7
+0x8f73...e5d8c
+```
+
+## Good
+
+```
+0xac3e216bd55860912062a4027a03b99587b7ffc7
+0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c
+```
+
+## Why
+
+Truncated addresses are useless — the user has to ask you to look it up every time they want to check a wallet on DeBank, BscScan, or any other tool. A full address is immediately copy-pasteable.
+
+## Where this applies
+
+- Research markdown files (`research/*.md`)
+- Canvas files (`*.canvas.tsx`)
+- Dune query labels
+- Chat messages referencing wallets
+- Any output that includes a blockchain address

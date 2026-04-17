@@ -30,10 +30,10 @@ concentrated — two tokens (slisBNB + asBNB) hold 98% of all staked BNB.
 
 | Token | Protocol | Contract | Supply | BNB Backing | TVL (USD) | Share | Verified via |
 |---|---|---|---|---|---|---|---|
-| **slisBNB** | Lista DAO | `0xB0b84...4A1B` | 930,400 | 930,400 | ~$591M | 72.9% | Dune mint/burn + BscScan |
-| **asBNB** | Aster (fka Astherus) | `0x7eb45...4444` | 237,801 | ~319K | ~$228M | 25.0% | Dune mint/burn × CoinGecko rate |
-| **aBNBb** | Ankr (legacy) | `0xbb1aa...df0d` | 22,210 | 22,210 | ~$14M | 1.7% | Dune mint/burn |
-| **BNBx** | Stader | `0x1bdd3...BA275` | 3,515 | 3,515 | ~$2.2M | 0.3% | Dune mint/burn |
+| **slisBNB** | Lista DAO | `0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B` | 930,400 | 930,400 | ~$591M | 72.9% | Dune mint/burn + BscScan |
+| **asBNB** | Aster (fka Astherus) | `0x7eb45259af84318972aa3f0eafe550a072824444` | 237,801 | ~319K | ~$228M | 25.0% | Dune mint/burn × CoinGecko rate |
+| **aBNBb** | Ankr (legacy) | `0xbb1Aa6e59E5163D8722a122cd66EBA614b59df0d` | 22,210 | 22,210 | ~$14M | 1.7% | Dune mint/burn |
+| **BNBx** | Stader | `0x1bdd3Cf7F79cfB8EdbB955f20ad99211551BA275` | 3,515 | 3,515 | ~$2.2M | 0.3% | Dune mint/burn |
 
 **Total BNB in LSTs**: ~1.27M BNB (~$835M)
 
@@ -90,21 +90,21 @@ be a proxy or deprecated.
 
 | # | Address | Balance | Role | How identified |
 |---|---|---|---|---|
-| 1 | `0x91e4...e5ae` | 414,983 | Lista staking pool | DeBank: `bsc_helio` staked 430K BNB |
-| 2 | `0x6f28...3873` | 180,377 | Lista operator | DeBank: pending withdrawals pattern |
-| 3 | `0x8f73...e5d8c` | 149,582 | Moolah controller | BscScan: "Lista DAO: Moolah" label |
+| 1 | `0x91e49983598685dd5acac90ceb4061a772f6e5ae` | 414,983 | Lista staking pool | DeBank: `bsc_helio` staked 430K BNB |
+| 2 | `0x6f28fec449dbd2056b76ac666350af8773e03873` | 180,377 | Lista operator | DeBank: pending withdrawals pattern |
+| 3 | `0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c` | 149,582 | Moolah controller | BscScan: "Lista DAO: Moolah" label |
 
 ### slisBNB — Whale Wallets (DeBank verified, April 2026)
 
 | # | Address | slisBNB | Portfolio | Strategy | Key Positions |
 |---|---|---|---|---|---|
-| 4 | `0xac3e...ffc7` | 36,787 | $496M | Pure Lender | 244K WBNB Lista BNB Vault + 4K BNB Moolah supply + $43.6M Venus (BTCB, USDT, WBNB). Zero borrowing. |
-| 5 | `0x3d32...607d` | 21,333 | $14M | Multi-protocol Lender | 22K BNB Lista lending + small Aster positions. No borrowing. |
-| 6 | `0xb2a6...691a` | 16,455 | $10.7M | Single-protocol Lender | 17K BNB Lista lending only. No borrowing. |
-| 7 | `0x1adb...7fe6` | 9,783 | $613M | Native Staker + Lender | 15.5K BNB native validator staking + 9.7K BNB Lista lending. |
-| 8 | `0x9c58...0b8` | 9,672 | $13.3M | Diversified Staker | 2K BNB Aster + 9.1K native staking + 10K BNB Lista lending. |
-| 9 | `0x1284...7974` | 5,769 | $1.25B | Aster Mega-whale | $102M USDT + 40K BNB on Aster + 6K BNB Lista. Likely institutional. |
-| 10 | `0x6e89...c718a` | 3,018 | $2.4M | Multi-protocol Explorer | $100K BounceBit USDT + 3.1K BNB Lista + $309K SolvBTC + Kernel DAO. |
+| 4 | `0xac3e216bd55860912062a4027a03b99587b7ffc7` | 36,787 | $496M | Pure Lender | 244K WBNB Lista BNB Vault + 4K BNB Moolah supply + $43.6M Venus (BTCB, USDT, WBNB). Zero borrowing. |
+| 5 | `0x3d325df6debb6aa237591a348ecb511354f3607d` | 21,333 | $14M | Multi-protocol Lender | 22K BNB Lista lending + small Aster positions. No borrowing. |
+| 6 | `0xb2a6a72843db0f508204a56448413f3867ea691a` | 16,455 | $10.7M | Single-protocol Lender | 17K BNB Lista lending only. No borrowing. |
+| 7 | `0x1adb950d8bb3da4be104211d5ab038628e477fe6` | 9,783 | $613M | Native Staker + Lender | 15.5K BNB native validator staking + 9.7K BNB Lista lending. |
+| 8 | `0x9c580fed6c26dcc06ca7673e72489d8f4ddba0b8` | 9,672 | $13.3M | Diversified Staker | 2K BNB Aster + 9.1K native staking + 10K BNB Lista lending. |
+| 9 | `0x128463a60784c4d3f46c23af3f65ed859ba87974` | 5,769 | $1.25B | Aster Mega-whale | $102M USDT + 40K BNB on Aster + 6K BNB Lista. Likely institutional. |
+| 10 | `0x6e894e5284c9ea9ec28d86de88d52777d17c718a` | 3,018 | $2.4M | Multi-protocol Explorer | $100K BounceBit USDT + 3.1K BNB Lista + $309K SolvBTC + Kernel DAO. |
 
 **Key finding**: Every whale is purely supply-side. Not a single top holder
 borrows against their slisBNB.
@@ -113,33 +113,33 @@ borrows against their slisBNB.
 
 | # | Address | Balance | Identity | How identified |
 |---|---|---|---|---|
-| 1 | `0x5c95...762b` | 999.98M | Treasury/Mint | Pre-mint address — not a user |
-| 2 | `0x85f7...76fe` | 18,974 | Unknown | No DeFi positions on DeBank — likely CEX or custodial |
+| 1 | `0x5c952063c7fc8610ffdb798152d69f0b9550762b` | 999.98M | Treasury/Mint | Pre-mint address — not a user |
+| 2 | `0x85f74ab18ce84cd10a90f0735856a72d0c4576fe` | 18,974 | Unknown | No DeFi positions on DeBank — likely CEX or custodial |
 
 ---
 
 ## Active DeFi Strategists (slisBNB borrowers, DeBank verified)
 
 These wallets were found by querying Dune for wallets supplying slisBNB to
-Moolah (0x8f73...e5d8c) AND borrowing in the last 90 days, then verifying
+Moolah (0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c) AND borrowing in the last 90 days, then verifying
 every position via DeBank.
 
 | Wallet | slisBNB | Strategy | Borrowing | Health Rate | Details |
 |---|---|---|---|---|---|
-| `0xe91e...b4c` | 2,407 | Most Diverse (10 protocols!) | $80K USD1 | 1.40 | 200 slisBNB→$80K USD1 + 2.5K BNB Lista lending + $334K Magpie XYZ (PT-clisBNB yield tokens) + Equilibria, Mitosis, OpenEden |
-| `0x7e8e...b50b` | 1,746 | Leveraged Long BNB | $634K USDT+USD1 | 1.58 | 1,745 slisBNB→$619K USDT + 47 slisBNB→$15K USD1. Also Mitosis, Velvet, Venus. |
-| `0x453f...e93b` | 1,005 | Multi-Market Stable Borrower | $267K across 4 stables | 1.73-3.26 | 4 separate positions: 125 slisBNB→$20K USDT, 365→$96K U, 176→$41K USD1, 339→$110K U |
-| `0xc2aa...ad7de` | 50 | Active Leveraged Trader | $40K U | 1.28 (tight!) | 50 slisBNB→$22K U + 2×BTCB→U positions. 20 borrow txns in 90d (most active). |
-| `0x6ccc...0e00` | 44 | Small Leveraged Position | $15K USDT | 1.54 | 44.4 slisBNB→$15K USDT + holds $15K USD1 in Lista. |
+| `0xe91eabe42d8517b4166aa602e31e0ec8cab18b4c` | 2,407 | Most Diverse (10 protocols!) | $80K USD1 | 1.40 | 200 slisBNB→$80K USD1 + 2.5K BNB Lista lending + $334K Magpie XYZ (PT-clisBNB yield tokens) + Equilibria, Mitosis, OpenEden |
+| `0x7e8eaf65ec69de635bede717fb215a296b51b50b` | 1,746 | Leveraged Long BNB | $634K USDT+USD1 | 1.58 | 1,745 slisBNB→$619K USDT + 47 slisBNB→$15K USD1. Also Mitosis, Velvet, Venus. |
+| `0x453fff37e5e0492c89058884dc666cefa059e93b` | 1,005 | Multi-Market Stable Borrower | $267K across 4 stables | 1.73-3.26 | 4 separate positions: 125 slisBNB→$20K USDT, 365→$96K U, 176→$41K USD1, 339→$110K U |
+| `0xc2aaaecbc0ea098eef864b30e1f788a3342ad7de` | 50 | Active Leveraged Trader | $40K U | 1.28 (tight!) | 50 slisBNB→$22K U + 2×BTCB→U positions. 20 borrow txns in 90d (most active). |
+| `0x6cccb5ffaad0fa063b744839c636079ef3bf0e00` | 44 | Small Leveraged Position | $15K USDT | 1.54 | 44.4 slisBNB→$15K USDT + holds $15K USD1 in Lista. |
 
 ### Bot / Contract Wallets
 
 | Wallet | Txns (90d) | Type | Notes |
 |---|---|---|---|
-| `0x33f7...4d5f` | 2,432 | Rebalancer bot | 152K slisBNB churned. Net collateral negative. Empty DeBank. |
-| `0xde2f...34ef` | 786 | Loop bot | 786K slisBNB supplied = withdrawn. Still active daily. |
-| `0xab30...0fa9` | 430 | Arb bot | 1,985 slisBNB + 2 WBNB borrows. Only bot with confirmed borrows. |
-| `0x87a8...bc93` | 3 | Closed mega-position | 150K slisBNB + 350K WBNB + $13.5M USDT. Fully closed Feb 2026. |
+| `0x33f7a980a246f9b8fea2254e3065576e127d4d5f` | 2,432 | Rebalancer bot | 152K slisBNB churned. Net collateral negative. Empty DeBank. |
+| `0xde2f39e895e41d08585f5559c216b362cdeb34ef` | 786 | Loop bot | 786K slisBNB supplied = withdrawn. Still active daily. |
+| `0xab300be61089b883882bbff82106c01bff0f54a9` | 430 | Arb bot | 1,985 slisBNB + 2 WBNB borrows. Only bot with confirmed borrows. |
+| `0x87a8ff8ad993c10af4ad85b62ddb50b4968abc93` | 3 | Closed mega-position | 150K slisBNB + 350K WBNB + $13.5M USDT. Fully closed Feb 2026. |
 
 ### Critical Finding: People Try slisBNB/BNB Looping — Nobody Sustains It
 
@@ -182,11 +182,11 @@ wallets on DeBank.
 
 | Contract | Role | DeBank Balance | Depositors (90d) |
 |---|---|---|---|
-| `0x8f73...e5d8c` | Primary Moolah Controller | $706K | 144 |
-| `0x9474...15cf` | Secondary Moolah Market | $3.4M | 113 |
-| `0x3dce...6131` | Moolah Lending Pool | $8.7M | 95 |
-| `0x63242...6cb0` | Moolah Router | $172 | 146 |
-| `0x89c9...3adc` | Moolah Sub-contract | $706K | 144 |
+| `0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c` | Primary Moolah Controller | $706K | 144 |
+| `0x9474e972f49605315763c296b122cbb998b615cf` | Secondary Moolah Market | $3.4M | 113 |
+| `0x3dcea6afba8af84b25f1f8947058af1ac4c06131` | Moolah Lending Pool | $8.7M | 95 |
+| `0x63242a4ea82847b20e506b63b0e2e2eff0cc6cb0` | Moolah Router | $172 | 146 |
+| `0x89c910eb8c90df818b4649b508ba22130dc73adc` | Moolah Sub-contract | $706K | 144 |
 
 **Key findings:**
 1. **30+ wallets tried slisBNB/BNB looping** — Dune net balances show open positions, but DeBank shows all at $0 (likely liquidated or closed via intermediary contracts)
@@ -200,11 +200,11 @@ wallets on DeBank.
 
 | Wallet | slisBNB | WBNB Borrowed | Status | Current Portfolio |
 |---|---|---|---|---|
-| `0xa338...6aaa` | 3,340 | 25,137 | Closed | $113K (PancakeSwap V3 LP only) |
-| `0x9906...d086` | 3,414 | 3,520 | Closed ($0) | Was on Ankr, Aster, Lista, Venus |
-| `0x0bb7...b09f` | 3,288 | 3,397 | Closed ($0) | Former Venus user |
-| `0x32c8...2c5f` | 758 | 783 | Migrated | $179K — now Aave V3 + YieldNest, zero borrows |
-| `0xccf8...f02c` | 289 | 317 | Closed ($0) | Cross-protocol (Moolah + secondary) |
+| `0xa338c6c146e6ecda7623ee391caecae127806aaa` | 3,340 | 25,137 | Closed | $113K (PancakeSwap V3 LP only) |
+| `0x990636ecb3ff04d33d92e970d3d588bf5cd8d086` | 3,414 | 3,520 | Closed ($0) | Was on Ankr, Aster, Lista, Venus |
+| `0x0bb7a4fdea32910038dec59c20ccae3a6e66b09f` | 3,288 | 3,397 | Closed ($0) | Former Venus user |
+| `0x32c830f5c34122c6afb8ae87aba541b7900a2c5f` | 758 | 783 | Migrated | $179K — now Aave V3 + YieldNest, zero borrows |
+| `0xccf822b17fb1364704c51cc69ff670536849f02c` | 289 | 317 | Closed ($0) | Cross-protocol (Moolah + secondary) |
 
 **Why nobody sustains loops in practice:**
 1. **Liquidation risk is real** — 30+ wallets tried, many appear liquidated (Dune shows deposits with no withdrawals, borrows with no repayments — classic liquidation signature in Morpho-style markets)

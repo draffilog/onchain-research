@@ -53,8 +53,8 @@ XAUT came directly from Binance withdrawals.
 Verified via Dune query 7320493 (flow analysis between labeled addresses):
 
 ```
-Tether Mints (0x0) → Intermediary (0x5754...) → Distribution (0xf2eb...)
-  → Binance Hot Wallet (0x8894...) → Farmer wallets → Lista DAO contracts
+Tether Mints (0x0) → Intermediary (0x5754284f345afc66a98fbb0a0afe71e0f007b949) → Distribution (0xf2eb2aa3727187edd69285ce7e7fdfe2e494abce)
+  → Binance Hot Wallet (0x8894e0a0c962cb723c1976a4421c95949be2d4e3) → Farmer wallets → Lista DAO contracts
 ```
 
 There is no alternative entry path. All XAUT enters BSC through Tether's mint
@@ -115,7 +115,7 @@ Classification methodology: Dune top holders query (7320262) → DeBank
 
 ### Strategy 1: Leveraged Long Gold — ~9% APY + gold exposure
 
-**Who**: Farmer #1 (`0x1024...`)
+**Who**: Farmer #1 (`0x102407f67415dcc4068370625ca27f24bb2a03d5`)
 **Equity**: ~$2.43M (507 XAUT from Binance)
 
 Steps:
@@ -137,7 +137,7 @@ Source: DeBank positions verified April 16 + Lista UI rates.
 
 ### Strategy 2: Delta-Neutral Rate Arbitrage — ~10% APY, zero gold exposure
 
-**Who**: Lista Depositor (`0x6242...`)
+**Who**: Lista Depositor (`0x624227ae1d072d03ae0361f6a71384dd92af80b4`)
 **Equity**: ~$112K
 
 Steps:
@@ -158,7 +158,7 @@ Source: DeBank positions + Lista UI rates, verified April 16.
 
 ### Strategy 3: Leveraged Stablecoin Farming — ~12% APY, minimal gold
 
-**Who**: Vault Depositor (`0x04ab...`)
+**Who**: Vault Depositor (`0x04ab66f4511cf5dab9b68e06d53bfd0268d76963`)
 **Equity**: ~$430K (leveraged ~13x)
 
 Steps:

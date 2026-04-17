@@ -31,8 +31,8 @@ Don't rely on addresses from memory. Here's how to find them fresh:
 | slisBNB token | `0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B` | BscScan label |
 | Moolah controller | `0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c` | BscScan "Lista DAO: Moolah" |
 | BNB Vault | `0x57134a64b7cd9f9eb72f8255a671f5bf2fe3e2d0` | DeBank adapter `helio_tokenized_vault_yield` |
-| Staking pool | `0x91e4...e5ae` | DeBank: `bsc_helio` with 430K BNB staked |
-| Operator | `0x6f28...3873` | DeBank: pending withdrawals pattern |
+| Staking pool | `0x91e49983598685dd5acac90ceb4061a772f6e5ae` | DeBank: `bsc_helio` with 430K BNB staked |
+| Operator | `0x6f28fec449dbd2056b76ac666350af8773e03873` | DeBank: pending withdrawals pattern |
 
 **These may change.** Protocols can deploy new versions. Always re-verify
 on BscScan before using in new research.
@@ -134,7 +134,7 @@ Via Dune: query transfers to the vault contract address.
 
 ### Evidence: the whale is a lender, not a looper
 
-The largest slisBNB whale (`0xac3e...ffc7`, $496M portfolio) deposits
+The largest slisBNB whale (`0xac3e216bd55860912062a4027a03b99587b7ffc7`, $496M portfolio) deposits
 244K WBNB into the vault. DeBank shows this as a
 `helio_tokenized_vault_yield` position — a lending deposit. This wallet has
 zero borrowing across all protocols. They earn from other people's borrows.
