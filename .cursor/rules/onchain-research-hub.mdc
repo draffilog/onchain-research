@@ -1,0 +1,25 @@
+---
+description: Reference the onchain-research repository for any crypto or on-chain research task
+alwaysApply: true
+---
+
+# Onchain Research Hub
+
+When doing any on-chain or crypto-related research, check the repository at `/Users/user/lst-research/research/` first.
+
+## What's there
+
+- `research/bnb-lst-market.md` — BNB LST market analysis (slisBNB, asBNB, holders, strategies)
+- `research/lista-dao-architecture.md` — Lista DAO contracts, Moolah lending, BNB Vault
+
+## When to use it
+
+Before starting new crypto research, read the relevant files to avoid repeating work. If the topic was already researched, build on the existing findings rather than starting from scratch.
+
+## Core rules
+
+1. **Never trust your training data** for crypto facts — protocols, addresses, rates, and TVL change constantly
+2. **Verify everything** from live sources: block explorers, Dune queries, DeBank API, protocol UIs
+3. **Every data point needs a source** — "930K slisBNB (Dune mint/burn)" not just "930K slisBNB"
+4. **Ask the user** — they often know about tokens/protocols you don't (e.g., asBNB was unknown to the AI)
+5. **Save findings back** — after research, add new `.md` files to `research/` so future sessions benefit
