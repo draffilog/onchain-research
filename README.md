@@ -25,6 +25,7 @@ cannot be traced to its source, it doesn't belong here.
 | **XAUT (Tether Gold) on BSC** | [`research/xaut-bsc-gold-defi.md`](research/xaut-bsc-gold-defi.md) — gold DeFi usage, yield strategies with APYs, liquidity analysis, [Dune dashboard](https://dune.com/vlad_bnbchain/xaut-tether-gold-on-bsc-usage-analysis-lista-dao-holders-yield-strategies) |
 | **XAUT Farming Wallets** | [`research/xaut-farming-wallets.md`](research/xaut-farming-wallets.md) — 5 wallets farming gold for 9-12% APY, step-by-step strategy breakdowns, why it works, what could go wrong |
 | **Pendle BSC Markets** | [`research/pendle-bsc-markets.md`](research/pendle-bsc-markets.md) — all 35 markets mapped, top 10 by TVL, PT/YT/LP holder analysis, cross-market wallet profiling, strategy identification |
+| **Lista DAO Yield Strategies** | [`research/lista-dao-yield-strategies.md`](research/lista-dao-yield-strategies.md) — top 5 markets by TVL, 9 wallet deep dives, 8 yield strategies identified (4.5–15% APY), risk/return matrix, why people use each product |
 
 ## Code & Scripts
 
