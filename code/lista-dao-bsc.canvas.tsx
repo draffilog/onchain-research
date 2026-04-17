@@ -33,48 +33,48 @@ type Market = {
 const TOP_MARKETS: Market[] = [
   {
     name: "slisBNB Liquid Staking",
-    tvl: 660_000_000,
+    tvl: 616_789_000,
     apy: "4.5–7.0%",
     product: "Liquid Staking",
-    description: "Stake BNB → receive slisBNB token that accrues staking rewards. Use slisBNB across DeFi while earning passive yield.",
+    description: "Stake BNB → receive slisBNB (930K supply, 375K holders). Value appreciates with BNB staking APR. Largest BNB LST.",
     contract: "0x1adB950d8bB3dA4bE104211D5AB038628e477fE6",
     token: "0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B",
   },
   {
-    name: "Moolah BNB Vault",
-    tvl: 424_000_000,
-    apy: "2.11%",
-    product: "Lending (Supply)",
-    description: "Supply BNB to earn interest from borrowers. Powered by Morpho Blue. Borrowers collateralize slisBNB/BTCB to borrow BNB.",
-    contract: "0x57134a64B7cD9F9eb72F8255A671F5Bf2fe3E2d0",
-    token: "WBNB",
-  },
-  {
-    name: "Moolah USD1 Vault",
-    tvl: 162_000_000,
-    apy: "2.11%",
-    product: "Lending (Supply)",
-    description: "Supply USD1 stablecoin to earn interest. Low-risk stablecoin yield from institutional borrowing demand.",
-    contract: "0xfa27f172e0b6ebcEF9c51ABf817E2cb142FbE627",
-    token: "USD1",
-  },
-  {
-    name: "lisUSD CDP System",
-    tvl: 76_000_000,
-    apy: "1.16% (stake) + farming",
+    name: "CDP System (collateral)",
+    tvl: 402_203_000,
+    apy: "1.5% borrow + farming",
     product: "CDP / Stablecoin",
-    description: "Collateralize BNB/slisBNB/wBETH → mint lisUSD stablecoin. Use lisUSD in LP farming or staking for additional yield.",
+    description: "Collateralize BNB/slisBNB/wBETH → mint lisUSD (76M supply, $76M mcap). $402M total collateral locked. lisUSD Saving pays 1.55% APY.",
     contract: "0x0782b6d8c4551b9760e74c0545a9bcd90bdc41e5",
     token: "lisUSD",
   },
   {
-    name: "Moolah USDT Vault",
-    tvl: 24_000_000,
-    apy: "3.66%",
+    name: "Lista BNB Vault",
+    tvl: 318_380_000,
+    apy: "0.24%",
     product: "Lending (Supply)",
-    description: "Supply USDT to earn higher interest than USD1 vault. Higher APY reflects stronger borrowing demand for USDT.",
+    description: "Supply BNB to earn interest (495K BNB deposited). 17.8% utilization. Low APY reflects low borrowing demand. Powered by Morpho Blue.",
+    contract: "0x57134a64B7cD9F9eb72F8255A671F5Bf2fe3E2d0",
+    token: "WBNB",
+  },
+  {
+    name: "Lista USDT Vault",
+    tvl: 138_590_000,
+    apy: "0.94%",
+    product: "Lending (Supply)",
+    description: "Supply USDT (138.6M deposited). 63.5% utilization — highest among major vaults. A 2nd USDT vault exists with 1.60% APY.",
     contract: "Moolah USDT Market",
     token: "USDT",
+  },
+  {
+    name: "Lista U Vault",
+    tvl: 69_480_000,
+    apy: "0.35%",
+    product: "Lending (Supply)",
+    description: "Supply U stablecoin (69.2M deposited). 49.3% utilization. Third-largest stablecoin vault.",
+    contract: "Moolah U Market",
+    token: "U",
   },
 ];
 
@@ -94,18 +94,18 @@ const WALLETS: WalletProfile[] = [
     totalUsd: 500_447_191,
     tag: "Mega-whale / Institutional",
     strategy: "BNB Lending + USD1 Supply + Venus Diversification",
-    listaPositions: "243K BNB in Moolah Vault ($156M), 38K BNB staked ($24M), 119M USD1 supplied ($119M), SolvBTC+BTCB ($775K)",
+    listaPositions: "243K BNB in Lista BNB Vault ($156M), 38K BNB staked ($24M), 119M USD1 supplied ($119M), SolvBTC+BTCB ($775K)",
     otherProtocols: "Venus: 20K BNB + 30M USDT + 10 BTCB ($44M)",
-    yieldEstimate: "~2.1% on $156M BNB lending + ~2.1% on $119M USD1 = ~$5.8M/yr",
+    yieldEstimate: "~0.24% on $156M BNB lending + stablecoin yields = ~$1.4M/yr (lending rates much lower than expected)",
   },
   {
     address: "0x18709e89bd403f470088abdacebe86cc60dda12e",
     totalUsd: 1_582_496_050,
     tag: "Exchange / Institutional Treasury",
     strategy: "Multi-vault Stablecoin + BNB Supply",
-    listaPositions: "43.7M U supplied ($43.7M), 1.08M USD1 ($1.08M), 7K BNB ($4.5M)",
+    listaPositions: "43.7M U supplied ($43.7M, 0.35% APY), 1.08M USD1 ($1.08M), 7K BNB ($4.5M)",
     otherProtocols: "Likely exchange wallet deploying idle reserves to Lista for yield",
-    yieldEstimate: "~2.1% on $49M = ~$1M/yr (conservative deployment of treasury)",
+    yieldEstimate: "~0.35% on $43.7M U + 0.24% on $4.5M BNB = ~$164K/yr (very low yield, likely for safety/liquidity not returns)",
   },
   {
     address: "0x3d325df6debb6aa237591a348ecb511354f3607d",
@@ -148,9 +148,9 @@ const WALLETS: WalletProfile[] = [
     totalUsd: 14_721_298,
     tag: "Stablecoin Farmer",
     strategy: "lisUSD LP + USDT Supply",
-    listaPositions: "6.65M USDT in Lista vault ($6.65M), 508K lisUSD + 220K USDT in LP ($728K), 20K U ($20K)",
+    listaPositions: "6.65M USDT in Lista vault ($6.65M, 0.94% APY), 508K lisUSD + 220K USDT in LP ($728K), 20K U ($20K)",
     otherProtocols: "PancakeSwap (tiny meme positions)",
-    yieldEstimate: "~3.66% on USDT ($243K) + LP fees on $728K ≈ ~$280K/yr",
+    yieldEstimate: "~0.94% on $6.65M USDT ($62.5K) + LP fees on $728K ≈ ~$100K/yr",
   },
   {
     address: "0xbe8d5933a138f3aae2f60c4c43de3368defae206",
@@ -187,35 +187,53 @@ const STRATEGIES: YieldStrategy[] = [
     name: "Simple BNB Staking (slisBNB)",
     apy: "4.5–7.0%",
     risk: "Low",
-    description: "Stake BNB into slisBNB and hold. Earn passive staking rewards as slisBNB appreciates vs BNB. Includes Binance Launchpool yield.",
+    description: "Stake BNB into slisBNB and hold. Earn passive staking rewards as slisBNB appreciates vs BNB. Includes Binance Launchpool yield. 375K holders, $617M TVL.",
     steps: "1. Stake BNB → slisBNB  2. Hold slisBNB  3. Unstake when needed",
     exampleWallet: "0x3d32...3607d ($14.2M)",
     exampleSize: "$14.2M",
   },
   {
     name: "BNB Lending Supply",
-    apy: "2.11%",
-    risk: "Low",
-    description: "Supply BNB to Moolah BNB Vault. Earn interest from borrowers. Capital preserved, instant withdrawal unless fully utilized.",
-    steps: "1. Supply BNB to Moolah BNB Vault  2. Earn 2.11% APY  3. Withdraw anytime",
+    apy: "0.24%",
+    risk: "Very Low",
+    description: "Supply BNB to Lista BNB Vault. $318M deposited, only 17.8% utilization — very low APY because borrowing demand for BNB is low relative to supply.",
+    steps: "1. Supply BNB to Lista BNB Vault  2. Earn 0.24% APY  3. Withdraw anytime",
     exampleWallet: "0xac3e...ffc7 ($156M in vault)",
     exampleSize: "$156M",
   },
   {
-    name: "Stablecoin Lending (USD1/USDT)",
-    apy: "2.11–3.66%",
+    name: "Stablecoin Lending (USDT/U)",
+    apy: "0.35–0.94%",
     risk: "Very Low",
-    description: "Supply stablecoins to Moolah vaults. USDT vault offers higher APY (3.66%) due to stronger borrowing demand. USD1 at 2.11%.",
-    steps: "1. Supply USD1 or USDT to vault  2. Earn interest  3. Withdraw anytime",
+    description: "Supply USDT ($139M, 63.5% util, 0.94%) or U ($69M, 49.3% util, 0.35%). A 2nd smaller USDT vault pays 1.60% with 66.3% utilization.",
+    steps: "1. Supply USDT or U to vault  2. Earn interest  3. Withdraw anytime",
     exampleWallet: "0x1d60...a8f66 ($6.65M USDT)",
     exampleSize: "$6.65M",
+  },
+  {
+    name: "Stable Pool (USDT CDP Zone)",
+    apy: "4.71%",
+    risk: "Low",
+    description: "Deposit USDT into the Stable Pool in the CDP Zone. $11M deposited. Curated by Lista DAO. Significantly higher yield than the main USDT lending vault.",
+    steps: "1. Deposit USDT into Stable Pool  2. Earn 4.71% APY  3. Withdraw anytime",
+    exampleWallet: "CDP Zone participants",
+    exampleSize: "$11.1M",
+  },
+  {
+    name: "lisUSD Saving",
+    apy: "1.55%",
+    risk: "Low",
+    description: "Deposit lisUSD into the lisUSD Saving vault. $21.3M deposited. Earn yield on lisUSD without additional risk. Part of CDP Zone.",
+    steps: "1. Acquire lisUSD  2. Deposit into lisUSD Saving  3. Earn 1.55% APY",
+    exampleWallet: "lisUSD Saving depositors",
+    exampleSize: "$21.3M",
   },
   {
     name: "CDP + lisUSD Farming",
     apy: "Variable (5–15%+ with farming)",
     risk: "Medium",
-    description: "Collateralize BNB/slisBNB to borrow lisUSD, then deploy lisUSD into LP pools or staking for additional yield. Risk of liquidation if collateral drops.",
-    steps: "1. Deposit BNB/slisBNB as collateral  2. Borrow lisUSD  3. Farm lisUSD in LP pools  4. Earn LP fees + LISTA rewards",
+    description: "Collateralize BNB/slisBNB → mint lisUSD (1.5% borrow rate, 150% min ratio). Deploy lisUSD into LP/Saving. $402M total collateral locked in system.",
+    steps: "1. Deposit BNB/slisBNB as collateral  2. Borrow lisUSD at 1.5%  3. Farm lisUSD in LP pools or Saving  4. Earn LP fees + LISTA rewards",
     exampleWallet: "0x1d60...a8f66 ($728K lisUSD/USDT LP)",
     exampleSize: "$728K",
   },
@@ -223,19 +241,10 @@ const STRATEGIES: YieldStrategy[] = [
     name: "Leveraged slisBNB Loop",
     apy: "8–15%+ (leveraged)",
     risk: "High",
-    description: "Stake BNB → slisBNB → collateralize on Moolah → borrow BNB → restake → repeat. Amplifies the 4.5% base staking yield through leverage.",
-    steps: "1. Stake BNB → slisBNB  2. Deposit slisBNB as collateral  3. Borrow BNB  4. Restake BNB → more slisBNB  5. Repeat",
+    description: "Stake BNB → slisBNB → collateralize on Moolah → borrow BNB → restake → repeat. Amplifies the 4.5% base staking yield but BNB vault APY is only 0.24%, so borrow cost is low.",
+    steps: "1. Stake BNB → slisBNB  2. Deposit slisBNB as collateral  3. Borrow BNB at ~2% variable  4. Restake BNB → more slisBNB  5. Repeat",
     exampleWallet: "Evidence: Moolah holds 149K slisBNB as collateral",
     exampleSize: "~$96M in slisBNB collateral",
-  },
-  {
-    name: "Multi-protocol BNB Diversification",
-    apy: "3–5% blended",
-    risk: "Low-Medium",
-    description: "Spread BNB across Lista slisBNB + native BNB staking + Aster for diversified yield. Reduces single-protocol risk.",
-    steps: "1. Split BNB across protocols  2. Lista slisBNB (4.5%)  3. Native staking (2.5%)  4. Aster (5%)",
-    exampleWallet: "0x9c58...0b8 ($13.5M across 3 protocols)",
-    exampleSize: "$13.5M",
   },
   {
     name: "slisBNB → Pendle Fixed Yield",
@@ -245,15 +254,6 @@ const STRATEGIES: YieldStrategy[] = [
     steps: "1. Stake BNB → slisBNB  2. Buy PT-slisBNBx on Pendle  3. Hold to maturity for fixed 3.06%",
     exampleWallet: "0x6d3b...435e ($424K PT position)",
     exampleSize: "$424K",
-  },
-  {
-    name: "Venus + Lista Dual Supply",
-    apy: "2–3% combined",
-    risk: "Low",
-    description: "Supply BNB to both Venus and Lista for protocol-diversified lending yield. Reduces smart contract risk through diversification.",
-    steps: "1. Supply BNB to Lista Moolah (2.11%)  2. Supply BNB to Venus  3. Split stablecoins similarly",
-    exampleWallet: "0xac3e...ffc7 ($156M Lista + $44M Venus)",
-    exampleSize: "$200M+",
   },
 ];
 
@@ -276,8 +276,8 @@ export default function ListaDaoBsc() {
     <Stack gap={20}>
       <H1>Lista DAO on BSC — DeFi Yield Analysis</H1>
       <Text tone="secondary">
-        Comprehensive analysis of Lista DAO's top 5 markets on BNB Chain: who uses them, what yield strategies they pursue, and why.
-        Data from Pendle API, Dune Analytics, DeBank Pro API. April 2026.
+        Comprehensive analysis of Lista DAO's $1.93B protocol on BNB Chain: 32 lending vaults, liquid staking, and CDP system.
+        All data browser-verified against lista-dao.org and BscScan. Dune Analytics + DeBank Pro API. April 2026.
       </Text>
 
       <Row gap={8} wrap>
@@ -307,10 +307,10 @@ function OverviewTab({ totalTvl }: { totalTvl: number }) {
   return (
     <Stack gap={20}>
       <Grid columns={4} gap={16}>
-        <Stat value={fmt(totalTvl)} label="Top 5 Markets TVL" />
-        <Stat value="$1.5B+" label="Total Protocol TVL" />
-        <Stat value="28" label="Active Vaults" />
-        <Stat value="152" label="Live Markets" />
+        <Stat value="$1.93B" label="Total Protocol TVL" />
+        <Stat value="$885M" label="Lending TVL" />
+        <Stat value="$617M" label="Liquid Staking TVL" />
+        <Stat value="$402M" label="CDP TVL" />
       </Grid>
 
       <Grid columns={2} gap={20}>
@@ -328,10 +328,9 @@ function OverviewTab({ totalTvl }: { totalTvl: number }) {
           <H2>Product Breakdown</H2>
           <PieChart
             data={[
-              { label: "Liquid Staking (slisBNB)", value: 660 },
-              { label: "BNB Lending", value: 424 },
-              { label: "Stablecoin Lending", value: 186 },
-              { label: "CDP (lisUSD)", value: 76 },
+              { label: "Lending ($885M)", value: 885 },
+              { label: "Liquid Staking ($617M)", value: 617 },
+              { label: "CDP ($402M)", value: 402 },
             ]}
             donut
             size={200}
@@ -357,39 +356,113 @@ function OverviewTab({ totalTvl }: { totalTvl: number }) {
       <Text>Lista DAO is a three-pillar DeFi protocol on BNB Chain:</Text>
       <Grid columns={3} gap={16}>
         <Card>
-          <CardHeader trailing={<Pill size="sm" active tone="success">$660M TVL</Pill>}>
+          <CardHeader trailing={<Pill size="sm" active tone="success">$617M TVL</Pill>}>
             Liquid Staking (slisBNB)
           </CardHeader>
           <CardBody>
             <Stack gap={4}>
-              <Text size="small">Stake BNB, receive yield-bearing slisBNB. Value appreciates with BNB staking APR (~4.5–7%). Use slisBNB across DeFi as collateral or in LP pools.</Text>
+              <Text size="small">Stake BNB, receive yield-bearing slisBNB (930K supply, 375K holders). Value appreciates with BNB staking APR (~4.5–7%). Use across DeFi as collateral or in LP pools.</Text>
               <Text size="small" tone="secondary">Token: 0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B</Text>
             </Stack>
           </CardBody>
         </Card>
         <Card>
-          <CardHeader trailing={<Pill size="sm" active tone="info">$610M+ TVL</Pill>}>
+          <CardHeader trailing={<Pill size="sm" active tone="info">$885M TVL</Pill>}>
             Moolah Lending (Morpho Blue)
           </CardHeader>
           <CardBody>
             <Stack gap={4}>
-              <Text size="small">Supply BNB/stablecoins to earn interest. Borrowers collateralize slisBNB, BTCB, or stablecoins. 28 vaults, 152 markets. Powered by Morpho Blue.</Text>
-              <Text size="small" tone="secondary">Moolah: 0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C</Text>
+              <Text size="small">32 vaults across 4 zones (Classic, CDP, Alpha, Aster). Top vaults: BNB ($318M, 0.24%), USDT ($139M, 0.94%), U ($69M, 0.35%). XAUT vault pays 7.69% APY. $237M total borrowed.</Text>
+              <Text size="small" tone="secondary">Moolah: 0x8F73b65B4caAf64FBA2aF91cC5D4a2A1318E5D8C (BEP-1155)</Text>
             </Stack>
           </CardBody>
         </Card>
         <Card>
-          <CardHeader trailing={<Pill size="sm" active tone="warning">$76M Supply</Pill>}>
+          <CardHeader trailing={<Pill size="sm" active tone="warning">$402M TVL</Pill>}>
             CDP System (lisUSD)
           </CardHeader>
           <CardBody>
             <Stack gap={4}>
-              <Text size="small">Collateralize BNB/slisBNB/wBETH to mint lisUSD stablecoin. Use lisUSD in farming, LP pools, or hold for 1.16% staking APR. Risk of liquidation.</Text>
-              <Text size="small" tone="secondary">lisUSD: 0x0782b6d8c4551b9760e74c0545a9bcd90bdc41e5</Text>
+              <Text size="small">$402M collateral locked. 76M lisUSD minted ($76M mcap, 28.8K holders). Borrow at 1.5% APY. lisUSD Saving pays 1.55%. Stable Pool pays 4.71% APY on USDT.</Text>
+              <Text size="small" tone="secondary">lisUSD: 0x0782b6d8c4551b9760e74c0545a9bcd90bdc41e5 (rebranded from HAY)</Text>
             </Stack>
           </CardBody>
         </Card>
       </Grid>
+
+      <Card collapsible defaultOpen={false}>
+        <CardHeader trailing={<Pill size="sm" tone="success" active>32 vaults</Pill>}>
+          Full Vault Inventory (Browser-Verified Apr 2026)
+        </CardHeader>
+        <CardBody>
+          <Stack gap={12}>
+            <H3>Classic Zone (20 vaults)</H3>
+            <Table
+              headers={["Vault", "Deposited", "Utilization", "APY"]}
+              rows={[
+                ["Lista BNB Vault", "495K BNB ($318.4M)", "17.8%", "0.24%"],
+                ["Lista USDT Vault", "138.6M USDT", "63.5%", "0.94%"],
+                ["Lista U Vault", "69.2M U ($69.5M)", "49.3%", "0.35%"],
+                ["Lista lisUSD Vault", "27.8M lisUSD ($27.9M)", "57.0%", "1.18%"],
+                ["Lista USDT Vault #2", "6.95M USDT", "66.3%", "1.60%"],
+                ["Lista XAUT Vault", "603 XAUT ($1.48M)", "90.9%", "7.69%"],
+                ["Pangolins USDT Vault", "3.0M USDT", "0.0%", "1.98%"],
+                ["Native USDT Vault", "1.0M USDT", "90.5%", "2.12%"],
+                ["Lista USDC Vault", "568K USDC", "3.7%", "0.04%"],
+                ["Hyperithm Lista X Vault", "359K XRP ($336K)", "84.0%", "1.07%"],
+                ["Solv-Exclusive USDT Vault", "378K USDT", "43.9%", "2.52%"],
+                ["Lista BTCB Vault", "1.08 BTCB ($83K)", "0.3%", "0.00%"],
+                ["Solv-Exclusive BNB Vault", "87 BNB ($56K)", "0.0%", "0.00%"],
+                ["MEV BNB Vault", "62 BNB ($40K)", "45.5%", "0.89%"],
+                ["Steratera Vault USDT", "17K USDT", "0.0%", "3.21%"],
+                ["Pangolins BNB Vault", "7.3 BNB ($4.7K)", "0.0%", "2.08%"],
+                ["Loop BNB Vault", "4.6 BNB ($2.9K)", "0.0%", "2.08%"],
+                ["Aster Vault", "1.34K ASTER ($949)", "92.2%", "1.83%"],
+                ["Lista USD1 Vault", "306 USD1 ($306)", "27.9%", "3.42%"],
+                ["Lorenzo Exclusive Vault", "72 USD1", "0.0%", "0.00%"],
+              ]}
+              columnAlign={["left", "right", "center", "center"]}
+              striped
+            />
+            <H3>CDP Zone (2 vaults)</H3>
+            <Table
+              headers={["Vault", "Deposited", "Curator", "APY"]}
+              rows={[
+                ["Stable Pool", "11.06M USDT ($11.1M)", "Lista DAO", "4.71%"],
+                ["lisUSD Saving", "21.27M lisUSD", "Lista DAO", "1.55%"],
+              ]}
+              columnAlign={["left", "right", "center", "center"]}
+              striped
+            />
+            <H3>Alpha Zone (8 vaults)</H3>
+            <Table
+              headers={["Vault", "Deposited", "Utilization", "APY"]}
+              rows={[
+                ["B2 Vault", "60K B2", "0.0%", "0.00%"],
+                ["B Vault", "1.7K B ($755K)", "0.0%", "0.00%"],
+                ["Puffer Vault", "252K PUFFER ($613K)", "50.7%", "0.68%"],
+                ["AB Vault", "701M AB ($87K)", "0.0%", "0.00%"],
+                ["SPA Vault", "5M SPA ($16K)", "0.0%", "0.00%"],
+                ["Take Vault", "201K TAKE", "0.0%", "0.00%"],
+                ["OIK Vault", "1.29M OIK ($403)", "0.0%", "0.00%"],
+                ["EGL3 Vault", "270 EGL3 ($536)", "0.0%", "0.00%"],
+              ]}
+              columnAlign={["left", "right", "center", "center"]}
+              striped
+            />
+            <H3>Aster Zone (2 vaults)</H3>
+            <Table
+              headers={["Vault", "Deposited", "Utilization", "APY"]}
+              rows={[
+                ["CDL Vault", "10.6M CDL", "1.5%", "9.29%"],
+                ["APRO Vault", "6.26K AT ($1K)", "0.0%", "0.00%"],
+              ]}
+              columnAlign={["left", "right", "center", "center"]}
+              striped
+            />
+          </Stack>
+        </CardBody>
+      </Card>
 
       <Card collapsible defaultOpen={false}>
         <CardHeader trailing={<Pill size="sm" tone="info" active>4 queries</Pill>}>
@@ -523,7 +596,7 @@ function StrategiesTab() {
         </Row>
         <Row gap={8} align="start">
           <Pill size="sm" tone="info" active>2</Pill>
-          <Text>Stablecoin holders seek safe yield. Moolah vaults (2.11–3.66% APY) offer Morpho Blue-secured lending returns with instant withdrawals.</Text>
+          <Text>Stablecoin holders seek safe yield. USDT vault (0.94%), Stable Pool (4.71%), and lisUSD Saving (1.55%) offer Morpho Blue-secured lending returns with instant withdrawals.</Text>
         </Row>
         <Row gap={8} align="start">
           <Pill size="sm" tone="warning" active>3</Pill>
@@ -531,7 +604,7 @@ function StrategiesTab() {
         </Row>
         <Row gap={8} align="start">
           <Pill size="sm" active>4</Pill>
-          <Text>Institutions and exchanges deploy idle reserves. The $500M whale earns ~$5.8M/yr from BNB lending + USD1 supply. The $1.58B wallet deploys $49M to Lista vaults.</Text>
+          <Text>Institutions and exchanges deploy idle reserves for safety, not yield. The $500M whale earns ~$1.4M/yr at 0.24% BNB lending. The $1.58B wallet deploys $49M to Lista — the low APY suggests liquidity parking, not yield maximization.</Text>
         </Row>
         <Row gap={8} align="start">
           <Pill size="sm" tone="renamed" active>5</Pill>
@@ -549,17 +622,18 @@ function YieldsTab() {
 
       <BarChart
         categories={[
+          "XAUT Vault",
           "slisBNB Staking",
-          "Moolah USDT",
+          "Stable Pool",
           "Pendle PT-slisBNBx",
-          "Moolah BNB/USD1",
-          "lisUSD Stake",
-          "CDP + LP Farm",
+          "lisUSD Saving",
+          "USDT Vault",
+          "U Vault",
+          "BNB Vault",
           "slisBNB Loop",
         ]}
         series={[
-          { name: "Min APY %", data: [4.5, 3.66, 3.06, 2.11, 1.16, 5, 8] },
-          { name: "Max APY %", data: [7.0, 3.66, 3.06, 2.11, 1.16, 15, 15] },
+          { name: "APY %", data: [7.69, 5.75, 4.71, 3.06, 1.55, 0.94, 0.35, 0.24, 12] },
         ]}
         height={300}
         valueSuffix="%"
@@ -567,21 +641,22 @@ function YieldsTab() {
 
       <H2>Risk vs Return Matrix</H2>
       <Table
-        headers={["Strategy", "APY Range", "Risk Level", "Capital Required", "Complexity", "Liquidation Risk"]}
+        headers={["Strategy", "Live APY", "Risk", "TVL / Size", "Complexity", "Liquidation?"]}
         rows={[
-          ["slisBNB Staking", "4.5–7.0%", "Low", "Any", "Simple", "None"],
-          ["Moolah BNB Supply", "2.11%", "Low", "Any", "Simple", "None"],
-          ["Moolah USD1 Supply", "2.11%", "Very Low", "Any", "Simple", "None"],
-          ["Moolah USDT Supply", "3.66%", "Very Low", "Any", "Simple", "None"],
-          ["Pendle PT Fixed Yield", "3.06%", "Low", "$1K+", "Medium", "None"],
-          ["lisUSD Staking", "1.16%", "Low", "lisUSD", "Simple", "None"],
-          ["CDP + lisUSD Farming", "5–15%+", "Medium", "$5K+", "Complex", "Yes"],
-          ["slisBNB Leverage Loop", "8–15%+", "High", "$10K+", "Advanced", "Yes"],
-          ["Multi-protocol Diversification", "3–5%", "Low-Med", "$50K+", "Medium", "None"],
+          ["XAUT Vault Supply", "7.69%", "Low-Med", "$1.48M (90.9% util)", "Simple", "None"],
+          ["slisBNB Staking", "4.5–7.0%", "Low", "$617M", "Simple", "None"],
+          ["Stable Pool (USDT)", "4.71%", "Low", "$11.1M", "Simple", "None"],
+          ["Pendle PT-slisBNBx", "3.06% fixed", "Low", "$8.3M", "Medium", "None"],
+          ["lisUSD Saving", "1.55%", "Low", "$21.3M", "Simple", "None"],
+          ["USDT Vault Supply", "0.94%", "Very Low", "$138.6M (63.5% util)", "Simple", "None"],
+          ["U Vault Supply", "0.35%", "Very Low", "$69.5M (49.3% util)", "Simple", "None"],
+          ["BNB Vault Supply", "0.24%", "Very Low", "$318.4M (17.8% util)", "Simple", "None"],
+          ["CDP + lisUSD Farming", "5–15%+", "Medium", "$402M collateral", "Complex", "Yes"],
+          ["slisBNB Leverage Loop", "8–15%+", "High", "$96M slisBNB collateral", "Advanced", "Yes"],
         ]}
-        columnAlign={["left", "center", "center", "center", "center", "center"]}
+        columnAlign={["left", "center", "center", "right", "center", "center"]}
         rowTone={[
-          "success", "success", "success", "success", "success", "success", "warning", "danger", "info",
+          "success", "success", "success", "success", "info", "info", "info", "info", "warning", "danger",
         ]}
         striped
       />
@@ -596,7 +671,7 @@ function YieldsTab() {
         </Row>
         <Row gap={8} align="start">
           <Pill size="sm" tone="info" active>2</Pill>
-          <Text>Institutional money gravitates to BNB lending (2.11%). A $500M wallet has $156M in the BNB vault + $119M in USD1. Safe, predictable, large-capacity.</Text>
+          <Text>Institutional money gravitates to BNB lending (0.24% APY). A $500M wallet has $156M in the BNB vault + $119M in USD1. APY is low — they prioritize capital preservation and deep liquidity over returns.</Text>
         </Row>
         <Row gap={8} align="start">
           <Pill size="sm" tone="warning" active>3</Pill>
