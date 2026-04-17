@@ -66,6 +66,9 @@ Mistakes that cost real debugging time (full details in each research file):
 7. Present APY percentages, not dollar earnings — hedge funds care about "9% APY", not "$225K/year" (from XAUT research)
 8. Dune MCP `updateDashboard` replaces ALL widgets — omit one and it's deleted. Always fetch full state first (from XAUT research)
 9. Don't name forks by their upstream — "Lista DAO", not "Morpho", even though Lista is a Morpho Blue fork (from XAUT research)
+10. APY rates change — quoted 7.05% slisBNB APY, but live rate was 4.49%. Never reuse stale rates. (from BNB LST wallet research)
+11. BNB Vault misidentified as looper — it's a lending vault (supply-side), not an automated loop. Read the docs. (from BNB LST wallet research)
+12. Theory ≠ practice — slisBNB/BNB looping looks great on paper (~11% APY) but zero human wallets actually do it. Everyone borrows stablecoins instead. (from BNB LST wallet research)
 
 ## Adding New Research
 
