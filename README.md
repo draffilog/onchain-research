@@ -23,6 +23,7 @@ cannot be traced to its source, it doesn't belong here.
 | **BNB LST Growth Trends** | [`research/bnb-lst-growth.md`](research/bnb-lst-growth.md) — supply timeline, holder adoption, market share dynamics |
 | **Lista DAO** | [`research/lista-dao-architecture.md`](research/lista-dao-architecture.md) — Moolah lending, BNB Vault, contract addresses |
 | **XAUT (Tether Gold) on BSC** | [`research/xaut-bsc-gold-defi.md`](research/xaut-bsc-gold-defi.md) — gold DeFi usage, yield strategies with APYs, liquidity analysis, [Dune dashboard](https://dune.com/vlad_bnbchain/xaut-tether-gold-on-bsc-usage-analysis-lista-dao-holders-yield-strategies) |
+| **XAUT Farming Wallets** | [`research/xaut-farming-wallets.md`](research/xaut-farming-wallets.md) — 5 wallets farming gold for 9-12% APY, step-by-step strategy breakdowns, why it works, what could go wrong |
 
 ## Methodology
 
@@ -116,6 +117,7 @@ Mistakes that cost real debugging time (full details in each research file):
 17. AI-generated crypto content is 80% right, 20% dangerous — a user-provided AI summary of asBNB mixed accurate facts (token is active, ~238K minted supply, Aster DEX exists, YZi Labs backing) with wrong claims ("rebasing" instead of reward-bearing), inflated TVL ($159M marketing vs ~$12M on-chain circulating), and unverifiable DEX volume. The partial accuracy makes hallucinations harder to spot. Every claim needs independent on-chain verification. (from asBNB fact-check)
 18. Marketing TVL ≠ circulating TVL — asBNB reports $150-230M TVL via DeFiLlama, but 999.98M of 1B tokens sit in a treasury pre-mint. Only ~19K tokens are held by 1 non-treasury wallet (~$12M). Always check holder distribution alongside headline TVL numbers. (from asBNB fact-check)
 19. Internal platform utility is a blind spot — asBNB's primary use case (collateral on Aster's perp DEX) may not be visible via Dune or DeBank. Tokens with value propositions inside proprietary platforms require direct UI inspection or platform-specific contract analysis. Don't conclude "no DeFi usage" without checking the protocol's own interface. (from asBNB research gap)
+20. Theoretical APY ≠ achievable APY — slisBNB/BNB looping shows ~14% on paper, but 30+ wallets tried and 0 humans sustained it. Compare with XAUT farmers who earn 9-12% and all 5 are still active. Survival rate matters more than peak yield (from XAUT farming analysis)
 
 ## Adding New Research
 
