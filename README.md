@@ -19,7 +19,8 @@ cannot be traced to its source, it doesn't belong here.
 
 | Topic | Files |
 |---|---|
-| **BNB Liquid Staking** | [`research/bnb-lst-market.md`](research/bnb-lst-market.md) — full market analysis with verification sources |
+| **BNB Liquid Staking** | [`research/bnb-lst-market.md`](research/bnb-lst-market.md) — full market analysis: holders, strategies, liquidations, DEX liquidity, stablecoin borrowing |
+| **BNB LST Growth Trends** | [`research/bnb-lst-growth.md`](research/bnb-lst-growth.md) — supply timeline, holder adoption, market share dynamics |
 | **Lista DAO** | [`research/lista-dao-architecture.md`](research/lista-dao-architecture.md) — Moolah lending, BNB Vault, contract addresses |
 | **XAUT (Tether Gold) on BSC** | [`research/xaut-bsc-gold-defi.md`](research/xaut-bsc-gold-defi.md) — gold DeFi usage, yield strategies with APYs, liquidity analysis, [Dune dashboard](https://dune.com/vlad_bnbchain/xaut-tether-gold-on-bsc-usage-analysis-lista-dao-holders-yield-strategies) |
 

@@ -311,6 +311,198 @@ Checked live on `lista.org/lending`:
 - **Total deposits**: $572.7M
 - **Total borrowed**: $211.6M
 
+---
+
+## DEX Liquidity & Peg Stability (April 2026)
+
+> Data from Dune queries on `dex.trades`, 6-month window (Oct 2025 - Apr 2026).
+> Query IDs: 7331957 (DEX volume), 7331961 (price ratio).
+
+### slisBNB DEX Trading Profile
+
+| Metric | Value | Source |
+|---|---|---|
+| Typical daily volume | $200K–$2.5M | Dune `dex.trades` (6-month avg) |
+| Typical daily trades | 100–300 | Same |
+| Average trade size | $1,500–$5,000 | Same |
+| Largest single trade observed | ~$644K (Dec 7, 2025) | Same |
+| Spike volume (Nov 3-6, 2025) | 25,890 trades in one day | PancakeSwap bot wave |
+
+### slisBNB/BNB Peg Analysis (12 months, Dune 7331961)
+
+The slisBNB/BNB ratio on DEX has been tracked via direct pair trades on PancakeSwap:
+
+| Period | Avg Ratio | Min Ratio | Max Ratio | Notes |
+|---|---|---|---|---|
+| Apr 2025 | 0.9752 | 0.9718 | 1.0110 | Stable with outlier arb trades |
+| **May 5, 2025** | **0.9712** | **0.8090** | **0.9733** | **Flash depeg — 17% deviation** |
+| May 6-16, 2025 | 0.9734 | 0.9722 | 0.9752 | Recovery within 24 hours |
+| Overall (12-month) | 0.974 | — | — | Very tight around fair value |
+
+The ratio of ~0.974 means you get 0.974 slisBNB per 1 WBNB on DEX, implying 1 slisBNB ≈ 1.027 BNB on DEX. The official exchange rate is 1.0355, so DEX trades at a ~0.8% discount (liquidity premium).
+
+### May 5, 2025 Flash Depeg Event
+
+The most significant peg deviation: slisBNB/BNB ratio dropped to 0.809 (from normal 0.974), a 17% deviation. This coincided with the first wave of Moolah liquidations (24 events that month, 10 unique borrowers). The peg recovered within 24 hours.
+
+### asBNB DEX Liquidity
+
+asBNB has essentially **zero DEX liquidity**. Only 12 unique recipients have ever received the token, and no significant DEX trading activity was detected in Dune.
+
+---
+
+## Liquidation Forensics (April 2026)
+
+> Data from Dune `bnb.logs` querying Moolah controller liquidation events.
+> Event signature: `0xa4946ede45d0c6f06a0f5ce92c9ad3b4751452d2fe0e25010783bcab57a67e41`
+> Query IDs: 7332004 (events), 7332009 (monthly summary), 7332010 (top borrowers).
+
+### Liquidation Event Summary
+
+**Total: 1,555 liquidation events** across all Moolah markets on the primary controller (`0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c`).
+
+| Month | Liquidations | Unique Borrowers | Tokens Seized | Tokens Repaid | Bad Debt |
+|---|---|---|---|---|---|
+| Apr 2025 | 6 | 1 | 17 | 10 | 0 |
+| May 2025 | 24 | 10 | 851 | 15,707 | 0 |
+| Jun 2025 | 48 | 15 | 54 | 37,791 | 0 |
+| Jul 2025 | 62 | 21 | 37,390 | 8,149 | 0 |
+| Aug 2025 | 112 | 20 | 8,814 | 12,605 | 548 |
+| **Sep 2025** | **133** | **52** | **96,864** | **119,006** | **0** |
+| **Oct 2025** | **635** | **120** | **458,160** | **199,815** | **0** |
+| **Nov 2025** | **198** | **38** | **4,156,217** | **3,375,167** | **0** |
+| Dec 2025 | 37 | 22 | 28,511 | 27,961 | 0 |
+| Jan 2026 | 91 | 69 | 131,775 | 362,887 | 0 |
+| Feb 2026 | 137 | 72 | 31,479 | 805,349 | 0 |
+| Mar 2026 | 62 | 47 | 49,508 | 15,068 | 1,465 |
+| Apr 2026 | 10 | 7 | 1,294 | 4,025 | 97 |
+
+### Key Liquidation Insights
+
+1. **October 2025 was catastrophic**: 635 liquidation events, 120 unique borrowers. This is the same month slisBNB supply peaked at 1.26M — aggressive leveraging preceded mass liquidation.
+
+2. **November 2025 had the largest value seized**: 4.15M tokens in 198 events. Fewer events but larger positions being unwound.
+
+3. **Bad debt is minimal**: Only 2,110 tokens of bad debt across the entire history. The LLTV of 96.5% with oracle pricing keeps the protocol healthy.
+
+4. **Liquidation waves correlate with supply decline**: slisBNB supply dropped from 1.26M (Oct 2025) to 930K (Apr 2026), a period that saw 1,365 liquidation events.
+
+### Top Liquidated Borrowers (All Time)
+
+| Borrower | Times Liquidated | Total Seized | Total Repaid | First | Last |
+|---|---|---|---|---|---|
+| `0x5dbf56810f0c07e68c2dd8214408074148541d24` | 113 | 1,978,223 | 1,642,280 | Nov 2025 | Mar 2026 |
+| `0x50de1aa50ff7f5b067e9bdfb317d113c8c0d3da8` | 42 | 1,922,108 | 1,595,696 | Nov 2025 | Jan 2026 |
+| `0xd0208182c9c5c2448d226b3997f6a3d54a5cb1b8` | 2 | 284,973 | 47,007 | Sep 2025 | Oct 2025 |
+| `0x0c0a0d1a714e75fa6a97a8e51a9302c99cbfbd17` | 3 | 123,916 | 18,145 | Oct 2025 | Nov 2025 |
+| `0xb21ddfceacb8bf265efe89156b1d71d19d012c91` | 1 | 82,162 | 8,586 | Nov 2025 | Nov 2025 |
+| `0x03648c897f9adbd74ba2dfcd0a0073e7a1754d80` | 2 | 60,201 | 7,679 | Jan 2026 | Feb 2026 |
+| `0x81d715451888db3b7b4acd2a7a04e1596b01dac7` | 3 | 59,938 | 6,230 | Nov 2025 | Mar 2026 |
+| `0x5d3d96cc9579bc7db9258c7fb242624fc54209dd` | 2 | 52,458 | 5,880 | Oct 2025 | Feb 2026 |
+
+The top borrower was liquidated **113 times** over 5 months with nearly 2M tokens seized. This is a single entity (likely a bot or automated system) that repeatedly opened and was liquidated on leveraged positions.
+
+### Depeg-Liquidation Correlation
+
+| Date | Event | Consequence |
+|---|---|---|
+| May 5, 2025 | slisBNB/BNB flash depeg to 0.809 | 24 liquidation events that month (first major wave) |
+| Oct 2025 | 635 liquidation events | slisBNB supply dropped from 1.26M ATH |
+| Nov 2025 | 4.15M tokens seized | Supply declined further to 1.21M |
+
+The flash depeg event of May 2025 directly triggered the first significant liquidation wave, confirming that slisBNB/BNB peg instability is the primary liquidation trigger.
+
+---
+
+## Stablecoin Borrowing Markets (90-day, April 2026)
+
+> Data from Dune query 7332024: transfers from Moolah controller contracts.
+
+### What People Actually Borrow
+
+| Asset | 90d Volume | Borrow Txns | Unique Borrowers | Rank |
+|---|---|---|---|---|
+| **USDT** | Dominant | 112,543 | 1,998 | #1 by far |
+| **WBNB** | Large | 127,324 | 610 | #2 (mostly bot flow) |
+| **USDC** | Moderate | 723 | 119 | #3 stablecoin |
+| **slisBNB** (collateral recycling) | Moderate | 11,717 | 350 | Bots churning collateral |
+
+USDT dominates stablecoin borrowing with nearly 2,000 unique borrowers — 3x more than WBNB (610). This confirms the finding that real users prefer **stablecoin borrowing** (leveraged long BNB) over same-asset looping.
+
+### Key Finding: Stablecoin Leverage > BNB Loops
+
+The borrower distribution tells the whole story:
+- **USDT**: 1,998 borrowers — people borrowing stablecoins against crypto collateral (leveraged long)
+- **WBNB**: 610 borrowers — mostly bots doing arbitrage and looping (few humans sustain it)
+- **USDC**: 119 borrowers — similar strategy to USDT but smaller market
+
+Real users borrow stablecoins because:
+1. No peg risk — you repay in the same stablecoin you borrowed
+2. Leveraged exposure — effectively going long on BNB with borrowed USD
+3. Simpler mental model — "borrow dollars, keep BNB exposure"
+
+---
+
+## asBNB DeFi Ecosystem
+
+> Data from Dune query 7331976, DeBank API.
+
+### Current State: Nearly Zero DeFi Activity
+
+| Metric | Value |
+|---|---|
+| Total unique recipients | 12 |
+| Non-treasury holders | 1 (`0x85f74ab18ce84cd10a90f0735856a72d0c4576fe` — 18,974 asBNB) |
+| DeFi positions on DeBank | Empty `[]` for top holder |
+| DEX trading volume | Negligible (no slisBNB-scale liquidity) |
+| Venus vasBNB market | Exists but 0 asBNB/BNB loopers in 90d |
+
+asBNB's $228M TVL (from exchange rate × supply) is misleading — nearly all tokens sit in the pre-mint treasury. The actual circulating supply used in DeFi is approximately 19K asBNB, giving a real "DeFi TVL" closer to $12M.
+
+### Why asBNB Has No DeFi Ecosystem
+
+1. **Ultra-concentrated supply**: 999.98M of 1B in treasury, only 12 recipients
+2. **No DEX liquidity**: Without liquid trading pairs, protocols can't build on it
+3. **No lending market for slisBNB-style leverage**: Venus has vasBNB but zero usage
+4. **Reward model**: asBNB includes Launchpool/Megadrop rewards that don't translate to DeFi yield
+
+---
+
+## Native BNB Staking vs LSTs
+
+### Comparison Framework
+
+| Feature | Native Staking | slisBNB | asBNB |
+|---|---|---|---|
+| **Yield** | ~2.5-3.5% (varies by validator) | 4.49% (3.98% Launchpool + 0.51% staking) | ~4-5% (staking + Launchpool + airdrops) |
+| **Lock Period** | 7-day unbonding | Instant (DEX) or ~7 days (redeem) | Unclear (limited liquidity) |
+| **DeFi Composability** | None | Full (Moolah, Venus, DEX LPs) | Nearly none |
+| **Smart Contract Risk** | Low (native staking contract) | Medium (Lista contracts) | Medium (Aster contracts) |
+| **Holders** | Wide (many validators) | 809K wallets | 12 wallets |
+| **Supply** | ~31M BNB total staked (BSC PoS) | 930K slisBNB | ~19K circulating |
+
+### Who Does What (from DeBank wallet analysis)
+
+| Wallet | slisBNB | Native Staking | Strategy |
+|---|---|---|---|
+| `0x1adb950d8bb3da4be104211d5ab038628e477fe6` | 9,783 | 15,500 BNB | Splits between native + LST, uses Lista lending for LST portion |
+| `0x9c580fed6c26dcc06ca7673e72489d8f4ddba0b8` | 9,672 | 9,100 BNB | Diversified across Aster, native staking, and Lista lending |
+
+These whales split roughly 50/50 between native staking and LSTs, suggesting they view them as complementary rather than substitutes. The LST portion goes into lending for additional yield, while native staking is the "safe" allocation.
+
+### Breakeven Analysis: When Does the LST Premium Justify the Risk?
+
+| Scenario | Native APY | slisBNB APY | Extra Yield | Justifies risk? |
+|---|---|---|---|---|
+| Hold only | ~3% | 4.49% | +1.49% | Marginal — depends on risk tolerance |
+| Passive supply (Moolah) | ~3% | 4.49% + lending yield | +2-3% | Yes — meaningful uplift |
+| 2x leverage loop | ~3% | ~8% theoretical | +5% | High risk (liquidation evidence above) |
+| Stablecoin borrow | ~3% | 4.49% + borrowed capital | Depends on use of stables | Strategy-dependent |
+
+The key insight: **LSTs justify their smart contract risk only when used in DeFi** (lending, borrowing, LP). For pure holding, the extra 1.5% over native staking barely compensates for smart contract risk. The whales seem to agree — they all use their slisBNB in lending markets.
+
+---
+
 ## Data Sources
 
 | Source | What we got from it |
@@ -318,11 +510,13 @@ Checked live on `lista.org/lending`:
 | Dune `tokens.transfers` | Mint/burn supply, top holders, Moolah interactions, cross-protocol transfers, historical loopers |
 | Dune `tokens.erc20` | Token discovery (with fake token filtering), Venus vToken identification |
 | Dune `prices.usd_latest` | BNB price for TVL calculations |
-| Dune custom queries (8 total) | Active borrowers, stablecoin borrows, asBNB Venus activity, Moolah market discovery |
+| Dune `dex.trades` | DEX trading volume, slisBNB/BNB price ratio, depeg detection |
+| Dune `bnb.logs` | Moolah liquidation events (1,555 total), monthly patterns, top liquidated borrowers |
+| Dune custom queries (18 total) | Active borrowers, stablecoin borrows, asBNB holders, Moolah markets, growth trends, holder stats, liquidation forensics |
 | DeBank `complex_protocol_list` | Wallet DeFi positions, protocol classification |
 | DeBank `total_balance` | Total portfolio values for whale wallets |
-| Lista UI (browser) | Live borrow rates, APY, LLTV, utilization, vault metrics. Rate dropped from 1.98% to 1.00% |
-| Venus UI (browser) | BNB borrow rate (0.99%), vasBNB market verification |
+| Lista UI (browser) | Live borrow rates, APY, LLTV, utilization, vault metrics |
+| Venus UI (browser) | BNB borrow rate, vasBNB market verification |
 | BscScan | Contract verification, address labeling |
 | CoinGecko | asBNB exchange rate, verified contract addresses |
 

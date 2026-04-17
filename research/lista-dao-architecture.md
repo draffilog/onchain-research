@@ -74,8 +74,10 @@ Parameters checked via browser (`lista.org/lending`), April 17 2026:
 - **Rate type**: Fixed
 
 The high LLTV makes looping theoretically viable — you can borrow 96.5% of
-collateral value. However, nobody on-chain is actually doing the pure
-slisBNB/BNB loop (see bnb-lst-market.md for evidence).
+collateral value. However, nobody on-chain sustains the pure slisBNB/BNB
+loop — 30+ wallets tried and most were liquidated. 1,555 liquidation events
+have been recorded on this controller since April 2025 (see bnb-lst-market.md
+for the full forensics).
 
 ### What Borrowers Actually Do
 
