@@ -24,9 +24,9 @@ Before starting new crypto research, read the relevant files to avoid repeating 
 4. **Ask the user** — they often know about tokens/protocols you don't (e.g., asBNB was unknown to the AI)
 5. **Save findings back** — see below
 
-## Saving findings (mandatory)
+## Saving findings
 
-When a session produces new verified on-chain findings, you MUST save them before finishing:
+When a session produces new verified on-chain findings, save them to the repo:
 
 1. Write to `/Users/user/lst-research/research/` — update existing files or create new ones
 2. Every data point needs a "Verified via" or "Source" column
@@ -34,4 +34,6 @@ When a session produces new verified on-chain findings, you MUST save them befor
 4. Update the README if a new research topic was added
 5. `git add`, `git commit`, and `git push` in `/Users/user/lst-research/`
 
-Do NOT wait until the end of the session to do this. Save as you go — once a block of research is complete and verified, write it to the repo immediately. A stop hook will catch uncommitted changes, but it's better to commit during the conversation.
+**CRITICAL: Always review before committing.** Run `git diff` and read the output before any commit. Never blindly `git add -A && git commit`. If changes look stale or wrong (e.g., from a stash pop or merge conflict), discard them with `git checkout -- .` instead.
+
+A stop hook will remind you about uncommitted changes at session end, but prefer committing during the conversation after each block of verified research.
