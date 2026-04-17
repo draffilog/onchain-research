@@ -1,22 +1,39 @@
 ---
-description: LST research methodology — how to investigate liquid staking tokens on any EVM chain using Dune + DeBank
+description: LST research methodology — zero-assumption approach to investigating liquid staking tokens using on-chain data and live verification
 alwaysApply: true
 ---
 
 # LST Research Methodology
 
-When researching liquid staking tokens:
+## Core Principle: Zero Assumptions
 
-1. **Identify all LSTs** for the chain — search `tokens.erc20` on Dune by symbol. Watch for fake tokens (pre-minted 100M+ supply, <5 holders).
+Your crypto training data is outdated. New protocols (e.g., Aster/asBNB) launch without your knowledge. Contracts migrate. Rates change daily. TVL numbers shift hourly.
 
-2. **Compute supply** via `tokens.transfers` mint/burn (from/to zero address). For reward-bearing tokens (e.g., asBNB), multiply supply by exchange rate to get true BNB backing.
+**Never state a fact you cannot trace to a live on-chain or browser-verified source.**
 
-3. **Top holders** — net balance from inflows minus outflows. Then classify via DeBank `complex_protocol_list`:
-   - Empty `[]` → contract, bot, or exchange wallet
-   - Protocol positions → label by protocol name and strategy type
+## Discovery (what exists?)
 
-4. **Find loopers** — query wallets sending LST TO the lending controller. High tx count (100+) = bot. Verify real positions via DeBank.
+1. Check aggregators via browser: DeFiLlama `/lsd`, StakingRewards, CoinGecko categories
+2. Ask the user — they often know about tokens/protocols you don't
 
-5. **Strategy mapping** — for each protocol where LST appears as collateral, check borrow rates and available liquidity. Calculate effective loop APY: `(base_apy × leverage) - (borrow_rate × (leverage - 1))`.
+## Verification (is the address real?)
 
-6. **Always add partition filters** (`block_date >= CURRENT_DATE - INTERVAL '90' DAY`) on Dune to reduce query cost.
+For every contract address:
+1. Find it on CoinGecko or protocol docs (never from memory)
+2. Confirm on block explorer: verified source, holder count, BscScan label
+3. Sanity-check Dune supply against claimed TVL
+
+Watch for: fake tokens (same symbol, huge supply, zero holders), pre-minted ghost tokens (100M supply, 1 holder), outdated/migrated contracts.
+
+## Analysis (Dune + DeBank)
+
+1. Supply: `tokens.transfers` mint/burn from zero address. For reward-bearing tokens, multiply by exchange rate.
+2. Holders: net balance from inflows - outflows. Classify each via DeBank `complex_protocol_list`.
+3. Loopers: query transfers TO lending controller. High tx count = bot. Verify via DeBank.
+4. Rates: check protocol UI in browser — never assume a rate from training data.
+5. APY math: `(base_apy × leverage) - (borrow_rate × (leverage - 1))`
+6. Always add `block_date >= CURRENT_DATE - INTERVAL '90' DAY` for Dune partition pruning.
+
+## Reporting
+
+Every data point needs a source: "930K slisBNB (Dune mint/burn query)" not just "930K slisBNB".
