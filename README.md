@@ -24,6 +24,7 @@ cannot be traced to its source, it doesn't belong here.
 | **Lista DAO** | [`research/lista-dao-architecture.md`](research/lista-dao-architecture.md) — Moolah lending, BNB Vault, contract addresses |
 | **XAUT (Tether Gold) on BSC** | [`research/xaut-bsc-gold-defi.md`](research/xaut-bsc-gold-defi.md) — gold DeFi usage, yield strategies with APYs, liquidity analysis, [Dune dashboard](https://dune.com/vlad_bnbchain/xaut-tether-gold-on-bsc-usage-analysis-lista-dao-holders-yield-strategies) |
 | **XAUT Farming Wallets** | [`research/xaut-farming-wallets.md`](research/xaut-farming-wallets.md) — 5 wallets farming gold for 9-12% APY, step-by-step strategy breakdowns, why it works, what could go wrong |
+| **Pendle BSC Markets** | [`research/pendle-bsc-markets.md`](research/pendle-bsc-markets.md) — all 35 markets mapped, top 10 by TVL, PT/YT/LP holder analysis, cross-market wallet profiling, strategy identification |
 
 ## Code & Scripts
 
