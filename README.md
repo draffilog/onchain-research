@@ -21,6 +21,7 @@ cannot be traced to its source, it doesn't belong here.
 |---|---|
 | **BNB Liquid Staking** | [`research/bnb-lst-market.md`](research/bnb-lst-market.md) — full market analysis with verification sources |
 | **Lista DAO** | [`research/lista-dao-architecture.md`](research/lista-dao-architecture.md) — Moolah lending, BNB Vault, contract addresses |
+| **XAUT (Tether Gold) on BSC** | [`research/xaut-bsc-gold-defi.md`](research/xaut-bsc-gold-defi.md) — gold DeFi usage, yield strategies with APYs, liquidity analysis, [Dune dashboard](https://dune.com/vlad_bnbchain/xaut-tether-gold-on-bsc-usage-analysis-lista-dao-holders-yield-strategies) |
 
 ## Methodology
 
@@ -61,6 +62,10 @@ Mistakes that cost real debugging time (full details in each research file):
 3. Ghost supply (ankrBNB) — 100M minted means nothing if 1 address holds it all
 4. Borrow rates assumed wrong — only the protocol UI has the live number
 5. Dune queries timeout without date partition filters
+6. Double-counting supply categories — XAUT in Lista DAO IS the farmers' XAUT, not a separate bucket (from XAUT research)
+7. Present APY percentages, not dollar earnings — hedge funds care about "9% APY", not "$225K/year" (from XAUT research)
+8. Dune MCP `updateDashboard` replaces ALL widgets — omit one and it's deleted. Always fetch full state first (from XAUT research)
+9. Don't name forks by their upstream — "Lista DAO", not "Morpho", even though Lista is a Morpho Blue fork (from XAUT research)
 
 ## Adding New Research
 
