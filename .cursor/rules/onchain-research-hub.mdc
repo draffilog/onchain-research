@@ -13,6 +13,10 @@ Read `/Users/user/lst-research/research/INDEX.md` first — it's an auto-generat
 
 Also scan `/Users/user/lst-research/CORRECTIONS.md` for any corrections that apply to your topic.
 
+## Benchmark farmers come first
+
+Before drilling into any specific protocol/strategy on BSC, read `/Users/user/lst-research/research/benchmark-farmers.md`. It catalogs the multi-strategy professional operators — wallets that hold the highest signal about which strategies are actually profitable right now. If the protocol you're researching has any benchmark farmers active in it, their position layout is the single best starting point for understanding the live trade. When you discover new wallets fitting the archetype (5+ of the 7 traits described in that file), add them.
+
 ## Core research rules
 
 1. **Never trust your training data** for crypto facts — protocols, addresses, rates, and TVL change constantly

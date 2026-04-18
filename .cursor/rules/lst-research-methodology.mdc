@@ -37,3 +37,25 @@ Watch for: fake tokens (same symbol, huge supply, zero holders), pre-minted ghos
 ## Reporting
 
 Every data point needs a source: "930K slisBNB (Dune mint/burn query)" not just "930K slisBNB".
+
+## Benchmark Farmers — track the operators, not just the protocol
+
+The single highest-signal pattern when researching a new BSC vertical is: **find the multi-strategy operators**. These are wallets that:
+
+1. Run 3+ simultaneous positions in the same lending protocol
+2. Hold tight health rates (1.02–1.05 on stable-backed legs)
+3. Run 3–5x leverage across the whole DeFi book
+4. Diversify across asset categories (stables, gold, BNB, BTC, ETH)
+5. Use both directions of an asset (supplies AND borrows the same token in different markets — delta-neutral rate arb)
+6. Operate across multiple protocols (Lista + Venus + Pendle + Euler...)
+7. Hold reward tokens (LISTA, VENUS, etc.) earned from farming
+
+**Benchmark roster lives in `/Users/user/lst-research/research/benchmark-farmers.md`** — read it before researching any new strategy. The flagship is `0x2604839110e921916c157b37d8e6790565db6d38` ($5.6M, perfect XAUt-vs-XAUt rate-arb stack on top of leveraged sUSDe).
+
+### CRITICAL methodology bug to avoid
+
+When enumerating users of a singleton lending protocol (Morpho, Moolah/Lista, Euler, etc.) via `tokens.transfers`, **delta-neutral farmers will appear net-zero** because both their supply leg and their borrow leg touch the same singleton contract address.
+
+Always cross-check the "closed-out" / "net-zero" set with DeBank `complex_protocol_list` filtered to the protocol-id (e.g., `bsc_helio` for Lista DAO — note: Lista's DeBank ID is "helio", their old name, not "lista"). On the XAUT BSC research, this fix recovered **16 hidden delta-neutral farmers** out of 41 we'd labeled as exited (~40% miss rate). See `xaut-bsc-gold-defi.md` "Headline counts (CORRECTED)" section.
+
+When you discover a new wallet that fits the multi-strategy operator archetype (5+ of the 7 traits, ≥ $100K total notional), add it to `benchmark-farmers.md` with a dated profile.

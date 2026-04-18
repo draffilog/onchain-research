@@ -154,9 +154,11 @@ This means a delta-neutral farmer doing:
 
 ### Hidden delta-neutral farmers found in the audit
 
+> **Note**: `0x2604839110...` is profiled in depth as the **flagship benchmark farmer** in [`benchmark-farmers.md`](./benchmark-farmers.md). Worth reading separately — the position stack is the cleanest example of multi-strategy DeFi operating on BSC we've documented.
+
 | Wallet | XAUt sup / brw | Wallet $ total | Notes |
 |---|---:|---:|---|
-| `0x2604839110e921916c157b37d8e6790565db6d38` | 314.05 / 314.05 | (large) | Mega delta-neutral — $1.5M XAUt-vs-XAUt rate arb on top of $2.6M sUSDe/U farm and $2.6M U/XAUt position |
+| `0x2604839110e921916c157b37d8e6790565db6d38` ★ | 314.05 / 314.05 | $5.63M | **Flagship benchmark** — $1.5M XAUt-vs-XAUt rate arb + $1.5M leveraged sUSDe + $2.6M stable rotation + $1.55M ETH on Venus + $2.3M BTCB. See `benchmark-farmers.md` |
 | `0x024b944911e2d3664c8b3b5d2a038fef8f4ee010` | 30.00 / 30.00 | — | Delta-neutral |
 | `0x624227ae1d072d03ae0361f6a71384dd92af80b4` | 20.00 / 20.00 | — | Lista Depositor (existing) — delta-neutral confirmed |
 | `0x8b14ec7623ba354eee57b634cbccf8a9707ab797` | 8.77 / 8.77 | — | Delta-neutral |
