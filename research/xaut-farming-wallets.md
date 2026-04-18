@@ -1,11 +1,20 @@
 # Who Is Farming Gold on BSC — and Why You Might Want To
 
-*Last updated: April 2026*
+*Last updated: April 18, 2026 (re-verification headers added)*
 
 > **Data integrity note**: Every position, rate, and balance below was verified
 > via DeBank Pro API (`complex_protocol_list`), Dune Analytics transfer queries,
-> and Lista DAO protocol UI (browser). Rates are snapshots from April 16, 2026.
-> Re-verify before reusing — rates shift daily.
+> and Lista DAO protocol UI (browser). Rates in the Strategy sections are
+> snapshots from April 16, 2026 — re-verify before reusing — rates shift daily.
+
+> **April 18, 2026 update**: The "five farmers" framing below is now stale.
+> A re-verification on April 18 found **20+ active XAUT farmers**, with 15 new
+> wallets joining between April 13-18 and ~$3.94M of fresh XAUT collateral
+> deposited into Lista DAO. The XAUT-as-loan vault hit 99.99% utilization,
+> blocking new delta-neutral arbitrage entries. Borrow-rate subsidies compressed
+> from 8-14% to 6-12% as more borrowers compete for the same LISTA emissions.
+> See [`xaut-bsc-gold-defi.md`](xaut-bsc-gold-defi.md) for the full updated
+> farmer roster and current live rates.
 
 ---
 

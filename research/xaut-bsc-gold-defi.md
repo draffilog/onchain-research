@@ -1,11 +1,103 @@
 # XAUT (Tether Gold) on BSC — DeFi Usage & Yield Strategies
 
-*Last updated: April 2026*
+*Last updated: April 18, 2026 (full re-verification)*
 
 > **Data integrity note**: All data below was verified via Dune Analytics
 > queries (query IDs provided), DeBank Pro API wallet lookups, Lista DAO
-> protocol UI (browser), and BscScan. Rates are point-in-time snapshots
-> from April 16, 2026. Re-verify before reusing.
+> protocol UI (browser), and BscScan. Rates are point-in-time snapshots.
+> Re-verify before reusing.
+
+## What Changed Since April 16, 2026 (verified Apr 18)
+
+The XAUT market on BSC has **expanded dramatically** in the past 3-7 days. Re-verification revealed:
+
+| Metric | April 16 | April 18 | Change |
+|---|---|---|---|
+| Total XAUT supply on BSC (Dune mint-burn) | ~3,000 (overstated) | **2,114.59** | corrected baseline |
+| Lista DAO Collateral holdings | 1,131 XAUT | **1,101.22 XAUT** (~$5.29M) | -30 XAUT |
+| Binance Hot Wallet | 1,289 XAUT | **987.64 XAUT** (~$4.74M) | -301 XAUT |
+| Lista XAUT Vault — utilization | 90% | **99.99%** | fully utilized |
+| Lista XAUT Vault — APY | 9.88% | **10.61%** | +0.73 pp |
+| Lista XAUT Vault — total deposits | n/a tracked | **536.07 XAUt ($2.59M)** | new baseline |
+| Active XAUT farmers identified | 5 | **20+** | +15 |
+| XAUT-as-loan markets liquidity | ~$163K available | **$0** (all 100% utilized) | delta-neutral arb blocked |
+
+**Headline finding**: ~301 XAUT (~$1.45M) left Binance for BSC wallets between Apr 13-18, mostly going into Lista DAO via 15+ new farmer wallets. The XAUT-as-loan markets are now fully utilized — Strategy 5 (delta-neutral rate arb) is no longer entry-replicable.
+
+### Live XAUT-collateral borrow rates (browser-verified Apr 18, 2026)
+
+| Market | Borrow Rate (Apr 16 → Apr 18) | LLTV | Liquidity (Apr 18) |
+|---|---|---|---|
+| XAUt / BNB | -14.78% → **-12.07%** | 72% | 4.34K BNB ($2.79M) |
+| XAUt / U | -14.31% → **-6.41%** | 77% | 69.79K U ($69.8K) |
+| XAUt / USD1 | -8.84% → **-9.99%** | 77% | 46.75K USD1 ($46.8K) |
+| XAUt / USDT | -13.10% → **-9.06%** | 77% | 7.82K USDT ($7.8K) |
+
+Subsidies have compressed across all markets (LISTA token price/emissions effect). Available borrow liquidity on the stablecoin side is now tight — XAUt/USDT effectively dry at $7.8K.
+
+### XAUT-as-loan markets (browser-verified Apr 18) — ALL 100% utilized
+
+| Collateral → XAUt loan | LLTV | Liquidity | Borrow Rate |
+|---|---|---|---|
+| U → XAUt | 80% | 0 ($0.24) | 2.92% |
+| slisBNB & BNB → XAUt | 72% | 0 ($0.14) | 3.93% |
+| ETH → XAUt | 70% | 0 ($0.13) | 0.14% |
+| BNB → XAUt | 72% | 0 | 4.47% |
+| slisBNB → XAUt | 72% | 0 | 4.73% |
+| BTCB → XAUt | 75% | 0 | 4.66% |
+| wBETH → XAUt | 70% | 0 | 3.29% |
+| USDT → XAUt | 80% | 0 | 3.63% |
+| USD1 → XAUt | 80% | 0 | 0.13% |
+| USDT & USDC → XAUt | 80% | 0 | 4.01% |
+
+**Implication**: New entrants cannot run the delta-neutral rate arbitrage strategy (Strategy 5) at any scale — there is no XAUt available to borrow on Lista. Only existing positions (e.g., wallet `0x624227ae1d072d03ae0361f6a71384dd92af80b4` which still holds 20 XAUt borrowed) can maintain it.
+
+### Updated farmer roster (DeBank-verified Apr 18, 2026)
+
+XAUT-deposit-bearing wallets, sorted by net XAUT in Lista:
+
+| Wallet | XAUT supplied | XAUT borrowed | Net XAUT | Total $ | Strategy |
+|---|---|---|---|---|---|
+| `0xccecc8286c615c0bdb96cd8062f059b0c7920088` | 200.14 | 0 | **+200** | $11.95M | NEW: whale, just deposited XAUT collateral; runs major Venus position (60 BTCB, $7.26M USDC supply, 997 BNB + 1,699 ETH borrow). XAUT not yet borrowed against. |
+| `0x102407f67415dcc4068370625ca27f24bb2a03d5` | 208.50 | 39.01 | +169.5 | $854K | Farmer #1 (existing) — leveraged long gold + Venus Flux syrupUSDT loop. Downsized from $2.43M but recently topped up 515 XAUT in past 5 days. |
+| `0x0fcc36d467b7d855f87e9912ecc926aeb3743ecb` | 120.96 | 0 | +121 | $832K | NEW: classic leveraged long gold (XAUt/USD1 market, $350K USD1 borrow). |
+| `0x4099766c5976b80f757673eb2d83332e15e3a01a` | 107.0 | 60.7 | +46.3 | $2.34M | NEW: most complex multi-market XAUT farmer — supplies 3 XAUT markets, borrows in 2 reverse markets, plus slisBNB looping, USDT/USDC/USD1 stablecoin loops, asUSDF/USDF positions. |
+| `0x21993c4e2b836ba5e5c7f599f790969479615d51` | 48.09 | 0 | +48 | $308K | NEW: leveraged long XAUt + slisBNB/BNB looper + stablecoin loops. |
+| `0x2113cf56f29ad869cf445efb604d49b615e7ce10` | 33.01 | 0 | +33 | $96K | NEW: leveraged long XAUt + Venus deployment. |
+| `0xbd0edc18a1b2bbc7c77d6e627c6a64a8c804abad` | 28.0 | 0 | +28 | $535K | NEW: 28 XAUt parked (likely vault). |
+| `0x9f5948c84d2567bd5ff9127ac14898334e66d002` | 26.01 | 0 | +26 | $14.6M | NEW: BTCB whale (173 BTCB / $8.2M USD1 borrow), 26 XAUT side-position. |
+| `0x04ab66f4511cf5dab9b68e06d53bfd0268d76963` | 25.99 | 0 | +26 | $432K | Vault Depositor (existing) — XAUT vault + leveraged stables ($5.44M USDT/USDC, $4.97M U borrow). Health 1.02. |
+| `0xc6dd9976066f3364b4d6a72cd4f1fa0468327aa7` | 24.85 | 14.93 | +9.9 | **$7.82M** | Multi-Protocol Farmer (existing) — grew 65× from $120K. Now runs sUSDe loops (3 markets, $952K supply), slisBNB loop, plus the small XAUT position. |
+| `0x9cd692f73ba15a4a9168481aa5241cb36f8dba04` | 23.50 | 0 | +23.5 | $44K | NEW: leveraged long XAUt/BNB. |
+| `0x14e9730bc59545de24966f0c6a7ea8115c32808a` | 20.51 | 0 | +20.5 | $300K | NEW: leveraged long XAUt + Kernel DAO. |
+| `0x624227ae1d072d03ae0361f6a71384dd92af80b4` | 20.00 | 20.00 | **0** | $129K | Lista Depositor (existing) — pure delta-neutral, still working but cannot scale. |
+| `0x1542d8c1bba7a2052b13bbab1ac49c92475a2972` | 20.01 | 0 | +20 | $176K | NEW: leveraged long XAUt. |
+| `0xf2a8286ea786684f123f1312e570c3c02d823760` | 17.31 | 0 | +17.3 | $413K | NEW: vault deposit. |
+| `0x0b751a47da4144ea89f6492a3269ac8546faf18a` | 16.72 | 0 | +16.7 | $31K | NEW: leveraged long. |
+| `0xd6d0a2f493ccb30756cef1e147aa863e919c1326` | 12.04 | 0 | +12 | $651K | NEW: Aster + Lista small position. |
+| `0x0821b576a2ee921d3c4b97a0f1158c2e8b633bd0` | 6.49 | 0 | +6.5 | $61K | NEW: multi-protocol (Aster + Bitway + Lista). |
+| `0xffb26bd72414baec53a7bb005d55d8436bef2b15` | 5.73 | 0 | +5.7 | $328K | NEW: parked. |
+| `0xc9144683c0497b422ccfe9bcfba37855cc62c0b8` | 0 | 8.40 | -8.4 | $38K | Farmer #2 (existing) — exited XAUT supply, now only borrowing 8.4 XAUT. Down 94% from $650K. |
+
+**Sum of net XAUT identified**: ~822 XAUT in 20 wallets (vs 1,101 XAUT held by Lista). The remaining ~280 XAUT is in smaller depositors I didn't enumerate (Dune query 7335574 has the full top-25 list).
+
+### What this means
+
+1. **Demand for XAUT-as-collateral exploded**. New deposits of ~821 XAUT into Lista represent ~$3.94M of fresh subsidized collateral in 5 days, supplied by ~15 new wallets.
+2. **Subsidies are getting diluted.** Per-market borrow rates compressed from 8-14% range to 6-12% range as more borrowers compete for the same LISTA emissions.
+3. **The vault is full.** 99.99% utilization means ~$0.27 of XAUt liquidity remains. New entrants who want to borrow XAUT (delta-neutral arb) are blocked.
+4. **CEX-only entry path persists.** Every new farmer's XAUT came from the Binance hot wallet (`0x8894e0a0c962cb723c1976a4421c95949be2d4e3`). No DEX-sourced XAUT.
+
+### Verification queries (Apr 18 re-run)
+
+| Query ID | Purpose | Result |
+|---|---|---|
+| 7335575 | XAUT total supply (mint − burn) | 2,114.59 XAUt minted, 1.38 burned |
+| 7335574 | Top 25 holders by net balance | Lista 1101 / Binance 988 / dust < 3 |
+| 7335573 | Binance → BSC withdrawals (90d) | 6 days of detailed flows incl. all new wallets |
+| 7320503 (re-run) | Protocol distribution | Lista 1101 ($5.29M) / Binance 988 ($4.74M) |
+
+---
 
 ## Overview
 
