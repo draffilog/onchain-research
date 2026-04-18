@@ -19,7 +19,7 @@ The XAUT market on BSC has **expanded dramatically** in the past 3-7 days. Re-ve
 | Lista XAUT Vault — utilization | 90% | **99.99%** | fully utilized |
 | Lista XAUT Vault — APY | 9.88% | **10.61%** | +0.73 pp |
 | Lista XAUT Vault — total deposits | n/a tracked | **536.07 XAUt ($2.59M)** | new baseline |
-| Active XAUT farmers identified | 5 | **57** (exact, Dune query 7335606) | +52 |
+| Active XAUT farmers identified | 5 | **80** (after delta-neutral audit) | +75 |
 | XAUT-as-loan markets liquidity | ~$163K available | **$0** (all 100% utilized) | delta-neutral arb blocked |
 
 **Headline finding**: ~301 XAUT (~$1.45M) left Binance for BSC wallets between Apr 13-18, mostly going into Lista DAO via 15+ new farmer wallets. The XAUT-as-loan markets are now fully utilized — Strategy 5 (delta-neutral rate arb) is no longer entry-replicable.
@@ -104,21 +104,81 @@ XAUT-deposit-bearing wallets, sorted by net XAUT in Lista:
 
 **Scope**: every wallet that has ever deposited or received XAUT from Lista DAO's two XAUT contracts (Collateral `0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c` and XAUT Vault `0x4109415de2271097fb5fa16af8a753aab8c46d6f`).
 
-### Headline counts
+### Headline counts (CORRECTED Apr 18 — delta-neutral farmers found)
+
+> **Methodology fix**: Initial Dune-only count classified 43 wallets as "closed out" (net XAUT deposit ≈ 0). DeBank verification revealed that **16 of these 43 are actually still active delta-neutral farmers** — they supply XAUT in one Lista market AND borrow XAUT in another, so the on-chain transfer net cancels to zero even though the position is live. 3 more hold tiny dust positions. Only 22 of the 43 truly exited.
 
 | Category | Wallet count |
 |---|---|
 | **Ever interacted with Lista XAUT (deposit or borrow)** | **105** |
-| &nbsp;&nbsp;↳ Currently holding net XAUT > 0.01 (active farmer) | **57** |
-| &nbsp;&nbsp;&nbsp;&nbsp;↳ Meaningful position (≥ 1 XAUT, ≥ ~$4.8K) | **41** |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ Serious farmer (≥ 10 XAUT, ≥ ~$48K) | **23** |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ Large position (≥ 50 XAUT, ≥ ~$240K) | **4** |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ Whale (≥ 100 XAUT, ≥ ~$480K) | **3** |
-| &nbsp;&nbsp;↳ Closed out (deposited and fully withdrew) | **43** |
-| &nbsp;&nbsp;↳ Pure XAUT borrowers (never deposited, received XAUT as loan) | **5** |
-| Broader universe: unique addresses that ever touched XAUT on BSC (any transfer, includes CEX/intermediaries/bots) | **788** |
+| &nbsp;&nbsp;↳ **TRULY ACTIVE LISTA XAUT FARMERS** (currently has open position) | **80** |
+| &nbsp;&nbsp;&nbsp;&nbsp;↳ Net-positive supply (long or vault parked) | **57** |
+| &nbsp;&nbsp;&nbsp;&nbsp;↳ Hidden delta-neutral (supply XAUT + borrow XAUT, net ≈ 0 on-chain) | **16** |
+| &nbsp;&nbsp;&nbsp;&nbsp;↳ Hidden long dust (sub-$0.01 supply) | **3** |
+| &nbsp;&nbsp;&nbsp;&nbsp;↳ Pure XAUT borrowers (no supply, only loan) | **4** |
+| &nbsp;&nbsp;↳ Truly exited (zero current position) | **25** |
+| Broader universe: unique addresses that ever touched XAUT on BSC (any transfer, includes CEX/intermediaries/bots/DEX LPs) | **788** |
 
-Source: Dune queries 7335606 (positions) + 7335607 (counts) + 7335611 (buckets).
+By position size (active farmers only):
+
+| Bucket | Count |
+|---|---|
+| Mega-whale (≥ 100 XAUT, ≥ ~$480K) | 3 |
+| Whale (50–100 XAUT) | 1 |
+| Large (10–50 XAUT) | 19 |
+| Meaningful (1–10 XAUT) | 18 |
+| Dust (0.01–1 XAUT) | 16 |
+| Hidden delta-neutral (any size) | 16 |
+| Hidden long dust | 3 |
+| Pure borrower | 4 |
+
+Source: Dune queries 7335606 (positions) + 7335607 (counts) + 7335611 (buckets) + 7335654 (closed-out list) + DeBank `complex_protocol_list` filter `bsc_helio` for delta-neutral verification.
+
+### Why this matters: the architecture
+
+Lista uses Moolah, a Morpho-Blue fork. Moolah is a **singleton contract** — every market (XAUt/USD1, XAUt/BNB, U/XAUt, BNB/XAUt, BTCB/XAUt, etc.) shares the same address `0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c`. The XAUT Vault `0x4109415de2271097fb5fa16af8a753aab8c46d6f` is a MetaMorpho-style aggregator that forwards XAUT into Moolah's loan-side markets.
+
+This means a delta-neutral farmer doing:
+1. Deposit 314 XAUT → XAUt/U collateral market (transfer: user → Moolah, +314 net)
+2. Borrow 314 XAUT from U/XAUt loan market (transfer: Moolah → user, -314 net)
+
+…shows ZERO net XAUT in/out of Lista on the surface, because both legs touch the same Moolah address. They're farming the **gold-vs-gold rate spread** (collateral-side incentive APY minus loan-side borrow APR). DeBank's `bsc_helio` protocol view exposes them by reading Moolah's internal accounting directly.
+
+### Hidden delta-neutral farmers found in the audit
+
+| Wallet | XAUt sup / brw | Wallet $ total | Notes |
+|---|---:|---:|---|
+| `0x2604839110e921916c157b37d8e6790565db6d38` | 314.05 / 314.05 | (large) | Mega delta-neutral — $1.5M XAUt-vs-XAUt rate arb on top of $2.6M sUSDe/U farm and $2.6M U/XAUt position |
+| `0x024b944911e2d3664c8b3b5d2a038fef8f4ee010` | 30.00 / 30.00 | — | Delta-neutral |
+| `0x624227ae1d072d03ae0361f6a71384dd92af80b4` | 20.00 / 20.00 | — | Lista Depositor (existing) — delta-neutral confirmed |
+| `0x8b14ec7623ba354eee57b634cbccf8a9707ab797` | 8.77 / 8.77 | — | Delta-neutral |
+| `0x4b9de5a16873b012ef10ec49a4a6a9ca9314fccd` | 4.34 / 4.34 | — | Delta-neutral |
+| `0x3b4d81d3e654760d9ba541bc686e73c0678d62e6` | 2.65 / 2.65 | — | Delta-neutral |
+| `0x34215ae92bdf4ab1cb9d69a929e46ad336199680` | 2.00 / 2.00 | — | Delta-neutral |
+| `0xe6b36ba8ba7adcf4c2b4d971a50b12f5a2ff8e89` | 1.70 / 1.70 | — | Delta-neutral |
+| `0x380e9797d33e4a5c6ea1b97409728015f09dea36` | 1.00 / 1.00 | — | Delta-neutral |
+| `0x8b0b56d65a6408c3dc92dffa1c9ddfeaa3994999` | 0.90 / 0.90 | — | Delta-neutral |
+| `0x757c05b89066468a9c1ef06874ba44d1b3ff5845` | 0.69 / 0.69 | — | Delta-neutral |
+| `0xfd26934bee6e2a4b2ab9c5fe1d04cd80ab4574c7` | 0.60 / 0.60 | — | Delta-neutral |
+| `0xa4257ef3ec018493d9af03147a30b6007eb9668c` | 0.55 / 0.55 | — | Delta-neutral |
+| `0xb3724ced2aec48a7110a6f84a7b90511f18e5081` | 0.18 / 0.18 | — | Delta-neutral |
+| `0x719f071adfc8f49782a964b59763942c4cd9fa7b` | 0.09 / 0.09 | — | Delta-neutral |
+| `0x05e3a7a66945ca9af73f66660f22ffb36332fa54` | 0.00 / 0.01 | — | Delta-neutral (tiny) |
+
+Total hidden delta-neutral XAUT exposure: **~387.5 XAUT supplied + ~387.5 XAUT borrowed (~$1.86M each side)**.
+
+### Other gold-DeFi venues on BSC (verified Apr 18)
+
+The audit also surfaced non-Lista contracts holding XAUT. They're tiny relative to Lista but worth noting for completeness:
+
+| Contract | Protocol | XAUt held | Notes |
+|---|---|---:|---|
+| `0xbb1b19f138db3925883a96ff7a304277460e0c99` | Cicada Finance (`ltERC20`) | 2.19 | Vault wrapper — its end-users are NOT in our 105 census; estimated tiny (sub-$15K) |
+| `0xb429aa89a9d0df8d5b15cd74adf9c860f899750f` | Cicada Finance (`ltERC20`) | 0 | Wrapper, currently empty; 5.27 XAUt round-tripped historically |
+| `0x6a87c15598929b2db22cf68a9a0dde5bf297a59a` | Lista DAO Liquidator | 0.013 | Already counted in our 105 (it's also an EOA-style farmer entry) |
+| Various PancakeSwap V2/V3, Uniswap V3 pools | DEX LP | ~5 total | Combined across 6+ pools, all sub-1 XAUT each — not material gold-DeFi farming |
+
+**Bottom line on gold venues**: Lista DAO Moolah is the **only meaningful gold-DeFi venue on BSC**. Cicada Finance is the only other lending wrapper (tiny). DEX liquidity is fragmented dust. There is **no Venus, no Aave, no Radiant, no other lending market with XAUT collateral on BSC**.
 
 ### Full ranked farmer list — net positive XAUT in Lista
 
