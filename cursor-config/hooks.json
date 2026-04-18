@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "hooks": {
+    "stop": [
+      {
+        "command": "hooks/check-research-changes.sh",
+        "timeout": 30,
+        "loop_limit": 1
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": "hooks/guard-onchain-commit.sh",
+        "matcher": "git commit",
+        "timeout": 20,
+        "failClosed": false
+      }
+    ]
+  }
+}

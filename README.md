@@ -107,6 +107,17 @@ Reusable query scripts and visualization code from the research process.
 | [`code/lista-dao-bsc.canvas.tsx`](code/lista-dao-bsc.canvas.tsx) | Cursor Canvas: Lista DAO market explorer. |
 | [`code/pendle-bsc-research.canvas.tsx`](code/pendle-bsc-research.canvas.tsx) | Cursor Canvas: Pendle BSC explorer. |
 
+### Cursor configuration snapshot
+
+The agent workflow depends on skills and hooks that normally live outside any repo, in `~/.cursor/`. Those files are snapshotted into [`cursor-config/`](cursor-config/) so they can be restored on a new machine and so the repo itself documents the full agent setup.
+
+- `cursor-config/hooks.json` + `cursor-config/hooks/` — `stop` hook (uncommitted-changes warning with diff summary) and `beforeShellExecution` hook (`git commit` regression gate)
+- `cursor-config/skills/on-chain-analysis/` — global skill for EVM token research via Dune + DeBank + browser
+- `cursor-config/skills/defi-benchmark/` — chain-agnostic methodology for the assets/venues/snapshots benchmark pattern
+- `cursor-config/skills/bnb-lst-research/` — BNB-specific skill with methodology, verified addresses, and lessons learned
+
+See [`cursor-config/README.md`](cursor-config/README.md) for install and sync instructions.
+
 ---
 
 ## Methodology
