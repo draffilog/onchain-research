@@ -1,3 +1,11 @@
+---
+title: BNB Liquid Staking Token Market Analysis
+topic: BNB LST
+chain: BSC
+verified: 2026-04-17
+tags: [lst, bnb, slisBNB, asBNB, market, holders]
+---
+
 # BNB Liquid Staking Token Market Analysis
 
 *Last updated: April 17, 2026*

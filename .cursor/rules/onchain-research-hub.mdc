@@ -1,39 +1,75 @@
 ---
-description: Reference the onchain-research repository for any crypto or on-chain research task
+description: Reference the onchain-research repository for any crypto or on-chain research task. Covers zero-assumption methodology, index-based discovery, verification dates, corrections log, session logs, and commit safety.
 alwaysApply: true
 ---
 
 # Onchain Research Hub
 
-When doing any on-chain or crypto-related research, check the repository at `/Users/user/lst-research/research/` first.
+When doing any on-chain or crypto-related research, the knowledge hub is at `/Users/user/lst-research/`.
 
-## What's there
+## Discovery: always start with INDEX.md
 
-- `research/bnb-lst-market.md` — BNB LST market analysis (slisBNB, asBNB, holders, strategies)
-- `research/lista-dao-architecture.md` — Lista DAO contracts, Moolah lending, BNB Vault
+Read `/Users/user/lst-research/research/INDEX.md` first — it's an auto-generated table of every research file with topic, chain, verification date, and age. Don't hardcode file paths from memory; use the index.
 
-## When to use it
+Also scan `/Users/user/lst-research/CORRECTIONS.md` for any corrections that apply to your topic.
 
-Before starting new crypto research, read the relevant files to avoid repeating work. If the topic was already researched, build on the existing findings rather than starting from scratch.
-
-## Core rules
+## Core research rules
 
 1. **Never trust your training data** for crypto facts — protocols, addresses, rates, and TVL change constantly
 2. **Verify everything** from live sources: block explorers, Dune queries, DeBank API, protocol UIs
 3. **Every data point needs a source** — "930K slisBNB (Dune mint/burn)" not just "930K slisBNB"
 4. **Ask the user** — they often know about tokens/protocols you don't (e.g., asBNB was unknown to the AI)
-5. **Save findings back** — see below
+5. **Never truncate wallet addresses** — always full 42 chars, never `0x1234...abcd`
+6. **If re-using data older than 30 days, re-verify it** — check the `Age` column in INDEX.md and the `verified:` frontmatter field
+
+## File conventions for `research/*.md`
+
+Every research file must start with YAML frontmatter:
+
+```yaml
+---
+title: Human-readable title
+topic: Short category (e.g., BNB LST, XAUT, Lista DAO)
+chain: Blockchain (BSC, Ethereum, etc.)
+verified: YYYY-MM-DD
+tags: [tag1, tag2]
+---
+```
+
+Every data table must include verification columns. When adding/updating a row, include the date:
+
+| Metric | Value | Source | Verified |
+|---|---|---|---|
+| slisBNB supply | 930,400 | Dune mint/burn | 2026-04-17 |
+
+## Corrections: append to CORRECTIONS.md
+
+When your research contradicts an existing finding:
+
+1. Update the research file with the new, correct data
+2. Append an entry to `/Users/user/lst-research/CORRECTIONS.md` using its template
+3. Don't silently overwrite — the correction log must explain what changed and why
+
+## Session logs (optional but valuable)
+
+For meaningful research sessions, create a log at `/Users/user/lst-research/research/sessions/YYYY-MM-DD-topic.md` using the template in that directory's README. Capture: what was researched, what the AI got wrong initially, what the user corrected, verification sources used, open questions.
 
 ## Saving findings
 
-When a session produces new verified on-chain findings, save them to the repo:
+When a session produces new verified findings:
 
-1. Write to `/Users/user/lst-research/research/` — update existing files or create new ones
-2. Every data point needs a "Verified via" or "Source" column
-3. Add lessons learned (mistakes, things the AI got wrong)
-4. Update the README if a new research topic was added
-5. `git add`, `git commit`, and `git push` in `/Users/user/lst-research/`
+1. Write to `/Users/user/lst-research/research/` — with frontmatter including today's `verified:` date
+2. Update CORRECTIONS.md if you corrected anything
+3. Add a session log if the session was substantial
+4. Run `./scripts/build-index.sh` to regenerate INDEX.md
+5. **Review before committing** — run `git diff` and read every change. Never blindly `git add -A && git commit`. If changes look stale or wrong (e.g., from a merge conflict or stash pop), discard with `git checkout -- .`
+6. `git add` specific files you intended to change, commit with a descriptive message, and push
 
-**CRITICAL: Always review before committing.** Run `git diff` and read the output before any commit. Never blindly `git add -A && git commit`. If changes look stale or wrong (e.g., from a stash pop or merge conflict), discard them with `git checkout -- .` instead.
+A `beforeShellExecution` hook runs `scripts/check-regressions.sh` when you `git commit` in this repo. It will block commits containing:
+- Truncated wallet addresses (`0x1234...abcd` pattern)
+- Research files shrinking >40%
+- More section deletions than additions without reason
 
-A stop hook will remind you about uncommitted changes at session end, but prefer committing during the conversation after each block of verified research.
+If the hook blocks you, **fix the regression** — don't bypass with `--no-verify` unless you're certain the check is wrong.
+
+A `stop` hook catches uncommitted changes at session end as a safety net. Prefer committing during the conversation.

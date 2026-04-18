@@ -1,3 +1,11 @@
+---
+title: BNB LST Growth Trends & Market Dynamics
+topic: BNB LST
+chain: BSC
+verified: 2026-04-17
+tags: [lst, bnb, slisBNB, growth, dune]
+---
+
 # BNB LST Growth Trends & Market Dynamics
 
 *Last updated: April 17, 2026*

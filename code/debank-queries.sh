@@ -124,6 +124,109 @@ print(f'Type:       {classification}')
 " 2>/dev/null || echo "Error classifying ${wallet}"
 }
 
+# ─── 6. Protocol catalog for a chain ────────────────────────────────────
+# The DeBank protocol catalog is a standardized cross-protocol taxonomy:
+# every protocol has an id, name, logo, site_url, chain, tvl, and category
+# tags (Lending, Yield, Staking, Derivatives, DEX, CDP, etc.).
+#
+# Use this to discover protocols we don't yet track in the asset benchmark
+# and to standardize protocol names across research files.
+#
+# Output: JSON list; pipe through jq/python for filtering.
+
+debank_protocol_list() {
+  local chain="${1:-bsc}"
+  debank_get "protocol/list?chain_id=${chain}" | python3 -m json.tool
+}
+
+# Trimmed version: id | name | tvl | site_url
+debank_protocol_list_summary() {
+  local chain="${1:-bsc}"
+  debank_get "protocol/list?chain_id=${chain}" | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+rows = []
+for p in data:
+    rows.append((p.get('tvl', 0) or 0, p.get('id',''), p.get('name',''), p.get('site_url','')))
+rows.sort(reverse=True)
+for tvl, pid, name, url in rows:
+    print(f'{pid:30s} | {name:40s} | \${tvl:>14,.0f} | {url}')
+"
+}
+
+# ─── 7. Protocol detail (one protocol) ──────────────────────────────────
+
+debank_protocol() {
+  local protocol_id="$1"
+  debank_get "protocol?id=${protocol_id}" | python3 -m json.tool
+}
+
+# ─── 8. Token detail (price, protocol presence, etc.) ───────────────────
+
+debank_token() {
+  local token_address="$1"
+  local chain="${2:-bsc}"
+  debank_get "token?chain_id=${chain}&id=${token_address}" | python3 -m json.tool
+}
+
+# ─── 9. Find which DeBank protocols hold a given token ──────────────────
+# Strategy: fetch the full protocol catalog, then for each protocol fetch
+# its TVL breakdown and check if the token address appears.
+#
+# This is expensive (N+1 calls). Prefer using Dune for on-chain transfer
+# analysis OR fetch once/week and cache.
+
+debank_token_protocol_presence() {
+  local token_address="$1"
+  local chain="${2:-bsc}"
+  debank_get "protocol/list?chain_id=${chain}" | python3 -c "
+import sys, json, urllib.request, os
+data = json.load(sys.stdin)
+# lowercase match
+t = '$token_address'.lower()
+api_base = '${API_BASE}'
+api_key = os.environ.get('DEBANK_API_KEY', '')
+for p in data:
+    pid = p.get('id','')
+    # detail call
+    req = urllib.request.Request(
+        f\"{api_base}/protocol?id={pid}\",
+        headers={'AccessKey': api_key}
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            pd = json.load(resp)
+    except Exception:
+        continue
+    # token_list or portfolio_item_list.pool.supply_tokens etc. vary by protocol
+    found = False
+    for tok in pd.get('token_list', []) or []:
+        if (tok.get('id','') or '').lower() == t:
+            found = True
+            break
+    if found:
+        print(f\"{p.get('name','')} ({pid}) TVL \${p.get('tvl',0):,.0f}\")
+"
+}
+
+# ─── 10. Enumerate tokens touched by a specific protocol ────────────────
+# Extracts the asset list a protocol holds (per DeBank's index).
+
+debank_protocol_tokens() {
+  local protocol_id="$1"
+  debank_get "protocol?id=${protocol_id}" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+seen = set()
+for t in d.get('token_list', []) or []:
+    sym = t.get('symbol','?')
+    addr = (t.get('id','') or '').lower()
+    if addr and addr not in seen:
+        seen.add(addr)
+        print(f\"{sym:12s}  {addr}  \${(t.get('amount',0) or 0) * (t.get('price',0) or 0):>14,.0f}\")
+"
+}
+
 # ─── Usage Examples ─────────────────────────────────────────────────────
 #
 # Full position map for a wallet:
@@ -140,3 +243,18 @@ print(f'Type:       {classification}')
 #
 # Classify a wallet:
 #   wallet_classify 0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c bsc
+#
+# Fetch the full BSC protocol catalog DeBank tracks:
+#   debank_protocol_list bsc > protocols-bsc.json
+#
+# Summary view (id | name | TVL | site_url) sorted by TVL:
+#   debank_protocol_list_summary bsc > protocols-bsc.tsv
+#
+# Show a specific protocol (Lista DAO is typically id=lista):
+#   debank_protocol lista
+#
+# Show all tokens DeBank sees a protocol holding (per-asset TVL view):
+#   debank_protocol_tokens lista
+#
+# Find which DeBank-tracked BSC protocols hold a given token (expensive):
+#   debank_token_protocol_presence 0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B bsc  # slisBNB

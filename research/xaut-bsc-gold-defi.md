@@ -1,3 +1,11 @@
+---
+title: XAUT (Tether Gold) on BSC — DeFi Usage & Yield Strategies
+topic: XAUT
+chain: BSC
+verified: 2026-04-18
+tags: [xaut, tether-gold, defi, yield, bsc]
+---
+
 # XAUT (Tether Gold) on BSC — DeFi Usage & Yield Strategies
 
 *Last updated: April 18, 2026 (full re-verification)*

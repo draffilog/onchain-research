@@ -1,3 +1,11 @@
+---
+title: Who Is Farming Gold on BSC — and Why You Might Want To
+topic: XAUT
+chain: BSC
+verified: 2026-04-18
+tags: [xaut, farmers, wallets, strategies]
+---
+
 # Who Is Farming Gold on BSC — and Why You Might Want To
 
 *Last updated: April 18, 2026 (re-verification headers added)*

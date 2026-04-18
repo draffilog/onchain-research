@@ -1,3 +1,11 @@
+---
+title: BSC Mid-Size DeFi Users — Active Strategy Analysis ($100K–$500K)
+topic: BSC users
+chain: BSC
+verified: 2026-04-18
+tags: [bsc, wallets, strategies, moolah, debank]
+---
+
 # BSC Mid-Size DeFi Users — Active Strategy Analysis ($100K–$500K)
 
 **Research Date:** April 17–18, 2026

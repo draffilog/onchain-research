@@ -1,3 +1,11 @@
+---
+title: Lista DAO on BSC — DeFi Yield Strategy Analysis
+topic: Lista DAO
+chain: BSC
+verified: 2026-04-17
+tags: [lista-dao, yield, strategies, looping, apy]
+---
+
 # Lista DAO on BSC — DeFi Yield Strategy Analysis
 
 **Research Date:** April 17–18, 2026

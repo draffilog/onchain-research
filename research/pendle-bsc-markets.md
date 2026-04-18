@@ -1,3 +1,11 @@
+---
+title: Pendle Finance on BSC — Market & User Analysis
+topic: Pendle
+chain: BSC
+verified: 2026-04-17
+tags: [pendle, yield, pt, yt, markets]
+---
+
 # Pendle Finance on BSC — Market & User Analysis
 
 **Research Date:** April 17-18, 2026

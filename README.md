@@ -1,8 +1,10 @@
 # Onchain Research
 
-An information hub for AI agents doing crypto research. Verified on-chain
-findings, reusable methodology, and lessons learned — so the next research
-session doesn't start from zero.
+An information hub for AI agents doing crypto research on BSC. Verified
+on-chain findings, reusable methodology, lessons learned, plus a
+**structured asset benchmark** that an autonomous agent can refresh on
+a recurring schedule — so the next research session doesn't start from
+zero.
 
 ## Philosophy: Zero Assumptions
 
@@ -15,7 +17,64 @@ Every piece of data in this repository was verified from a live source:
 on-chain query, block explorer, protocol UI, or API response. If a fact
 cannot be traced to its source, it doesn't belong here.
 
-## Research
+---
+
+## For AI Agents: start here
+
+| What | Where | Purpose |
+|---|---|---|
+| Research index | [`research/INDEX.md`](research/INDEX.md) | Auto-generated table of every research file (topic, chain, verified date, tags, age). Regenerate via `./scripts/build-index.sh` |
+| Corrections log | [`CORRECTIONS.md`](CORRECTIONS.md) | Append-only log of every correction. Check here before trusting any file — newer corrections supersede. |
+| Session logs | [`research/sessions/`](research/sessions/) | Per-session notebooks: what was researched, what the AI got wrong, what the user corrected. |
+| Scripts | [`scripts/`](scripts/) | `build-index.sh` regenerates the index. `check-regressions.sh` runs as a pre-commit safety check. |
+
+A Cursor `beforeShellExecution` hook blocks `git commit` in this repo if the staged diff contains regression patterns (truncated addresses, files shrinking >40%, unexplained section removals). Review every `git diff` manually before committing — the hook is a safety net, not a substitute for judgment.
+
+---
+
+## V1 Asset Benchmark (start here)
+
+The repo is organized around **assets**, not protocols. For any research
+task on BSC DeFi, start with the asset card and follow the venue links.
+
+| Layer | Path | What it is |
+|---|---|---|
+| Asset index | [`research/assets/_index.md`](research/assets/_index.md) | Canonical list of 37 assets that appear in any pool ≥ $500K TVL on Lista, Venus, Aave V3, or Pendle |
+| Asset card | [`research/assets/<SYMBOL>.md`](research/assets/) | YAML frontmatter (machine-readable: contract, venues, APYs, TVL, DeBank cross-protocol map) + analysis body |
+| Venue inventory | [`research/venues/<protocol>.md`](research/venues/) | Flat table of all pools ≥ $500K TVL per venue, refreshed weekly |
+| Protocol catalog | [`research/bsc-defi-catalog.md`](research/bsc-defi-catalog.md) | Every BSC DeFi protocol DeBank tracks, with category + TVL + V1 coverage status — the safety net that catches new venues we don't yet cover |
+| Weekly snapshot | [`research/snapshots/YYYY-MM-DD.md`](research/snapshots/) | Diff vs previous week: new assets, new farmers, new incentives, new protocols, cross-protocol asset moves |
+| Agent runbook | [`research/AGENTS.md`](research/AGENTS.md) | Exact procedure for the recurring weekly job (DeFiLlama + Pendle API + DeBank Pro API + Dune) |
+
+**Filter rule:** an asset enters V1 if it appears in at least one Lista DAO / Venus / Aave V3 / Pendle pool with TVL ≥ $500K. Currently 37 assets across 59 pools, ~$2.91B aggregate TVL. See [baseline snapshot](research/snapshots/2026-04-18.md).
+
+### How an AI agent uses this
+
+```
+1. Question arrives ("what's the best place to borrow USDT on BSC?")
+2. Open assets/USDT.md → frontmatter shows every venue + current rates
+3. The debank_tracked_protocols field shows usage beyond V1 venues
+4. Open the venue file (e.g. venues/aave-bsc.md) for full pool context
+5. Optional: open the linked deep-dive (e.g. bsc-midsize-defi-users.md)
+   for who's actually using it
+```
+
+Every weekly run by the recurring agent (Hermes / Agent Zero / OpenClaw)
+keeps this current and writes a new `snapshots/<date>.md` with what
+changed. The two sources of change are:
+
+- **DeFiLlama yields API** — for V1 venue pool TVL / APY / incentive data
+- **DeBank Pro API** — for the full BSC protocol catalog and per-asset
+  cross-protocol presence. This catches new venues and usage shifts that
+  the V1 filter would otherwise miss. See
+  [`research/bsc-defi-catalog.md`](research/bsc-defi-catalog.md) for
+  the DeBank integration spec.
+
+---
+
+## Deep-Dive Research (kept for context)
+
+The asset cards above link to these for "who is doing what" detail.
 
 | Topic | Files |
 |---|---|
@@ -23,10 +82,12 @@ cannot be traced to its source, it doesn't belong here.
 | **BNB LST Growth Trends** | [`research/bnb-lst-growth.md`](research/bnb-lst-growth.md) — supply timeline, holder adoption, market share dynamics |
 | **Lista DAO** | [`research/lista-dao-architecture.md`](research/lista-dao-architecture.md) — Moolah lending, BNB Vault, contract addresses |
 | **XAUT (Tether Gold) on BSC** | [`research/xaut-bsc-gold-defi.md`](research/xaut-bsc-gold-defi.md) — gold DeFi usage, yield strategies with APYs, liquidity analysis, [Dune dashboard](https://dune.com/vlad_bnbchain/xaut-tether-gold-on-bsc-usage-analysis-lista-dao-holders-yield-strategies) |
-| **XAUT Farming Wallets** | [`research/xaut-farming-wallets.md`](research/xaut-farming-wallets.md) — 5 wallets farming gold for 9-12% APY, step-by-step strategy breakdowns, why it works, what could go wrong |
-| **Pendle BSC Markets** | [`research/pendle-bsc-markets.md`](research/pendle-bsc-markets.md) — all 35 markets mapped, top 10 by TVL, PT/YT/LP holder analysis, cross-market wallet profiling, strategy identification |
-| **Lista DAO Yield Strategies** | [`research/lista-dao-yield-strategies.md`](research/lista-dao-yield-strategies.md) — top 5 markets by TVL, 9 wallet deep dives, 8 yield strategies identified (4.5–15% APY), risk/return matrix, why people use each product |
-| **BSC Mid-Size DeFi Users** | [`research/bsc-midsize-defi-users.md`](research/bsc-midsize-defi-users.md) — 8 active wallets ($60K–$463K) profiled via DeBank, 6 strategies mapped: slisBNB loops, multi-collateral leverage, stablecoin arbitrage, XAUt gold plays, yield stacking, cross-protocol diversification |
+| **XAUT Farming Wallets** | [`research/xaut-farming-wallets.md`](research/xaut-farming-wallets.md) — 5 wallets farming gold for 9-12% APY |
+| **Pendle BSC Markets** | [`research/pendle-bsc-markets.md`](research/pendle-bsc-markets.md) — all 35 markets mapped, top 10 by TVL, PT/YT/LP holder analysis |
+| **Lista DAO Yield Strategies** | [`research/lista-dao-yield-strategies.md`](research/lista-dao-yield-strategies.md) — top 5 markets by TVL, 9 wallet deep dives, 8 yield strategies (4.5–15% APY) |
+| **BSC Mid-Size DeFi Users** | [`research/bsc-midsize-defi-users.md`](research/bsc-midsize-defi-users.md) — 8 active wallets ($60K–$463K) profiled via DeBank, 6 strategies mapped |
+
+---
 
 ## Code & Scripts
 
@@ -35,8 +96,12 @@ Reusable query scripts and visualization code from the research process.
 | File | What it does |
 |---|---|
 | [`code/dune-queries.sql`](code/dune-queries.sql) | All 18+ Dune SQL queries organized by topic: supply tracking, holder analysis, looping detection, liquidation forensics, DEX price ratios, stablecoin borrowing. Includes contract address reference. |
-| [`code/debank-queries.sh`](code/debank-queries.sh) | Bash functions for DeBank Pro API: wallet positions, batch profiling, lending extraction, wallet classification. Source it and call `wallet_positions <addr> bsc`. |
+| [`code/debank-queries.sh`](code/debank-queries.sh) | Bash functions for DeBank Pro API: wallet positions, batch profiling, lending extraction, wallet classification, **BSC protocol catalog** (`debank_protocol_list_summary bsc`), per-protocol token breakdowns, and token-to-protocol reverse lookup. Source it and call `wallet_positions <addr> bsc` or `debank_protocol_list_summary bsc`. |
 | [`code/bnb-lst-comparison.canvas.tsx`](code/bnb-lst-comparison.canvas.tsx) | Cursor Canvas visualization: interactive dashboard with charts, tables, wallet deep-dives, and strategy breakdowns. Uses `cursor/canvas` SDK. |
+| [`code/lista-dao-bsc.canvas.tsx`](code/lista-dao-bsc.canvas.tsx) | Cursor Canvas: Lista DAO market explorer. |
+| [`code/pendle-bsc-research.canvas.tsx`](code/pendle-bsc-research.canvas.tsx) | Cursor Canvas: Pendle BSC explorer. |
+
+---
 
 ## Methodology
 
@@ -52,7 +117,7 @@ Discovery (aggregators) → Address verification (explorer/CoinGecko)
 
 | Tool | What for |
 |---|---|
-| [DeFiLlama](https://defillama.com) | Discover protocols, TVL, yield |
+| [DeFiLlama](https://defillama.com) | Discover protocols, TVL, yield. The yields API (`yields.llama.fi/pools` + `/lendBorrow`) is the canonical pool-data source for the V1 benchmark. |
 | [Dune Analytics](https://dune.com) | On-chain supply, holders, transfer patterns |
 | [DeBank Pro API](https://pro-openapi.debank.com) | Wallet DeFi positions and classification |
 | Block explorers (BscScan, Etherscan, etc.) | Contract verification and address labeling |
@@ -107,6 +172,8 @@ returns complete data — no pagination needed for positions.
 | `user/complex_protocol_list?id=ADDR&chain_id=CHAIN` | Full DeFi positions per protocol | Supply/borrow classification, health rates, strategy detection |
 | `user/total_balance?id=ADDR` | Total portfolio USD value | Whale identification, quick triage |
 
+---
+
 ## Lessons Learned
 
 Mistakes that cost real debugging time (full details in each research file):
@@ -131,13 +198,17 @@ Mistakes that cost real debugging time (full details in each research file):
 18. Marketing TVL ≠ circulating TVL — asBNB reports $150-230M TVL via DeFiLlama, but 999.98M of 1B tokens sit in a treasury pre-mint. Only ~19K tokens are held by 1 non-treasury wallet (~$12M). Always check holder distribution alongside headline TVL numbers. (from asBNB fact-check)
 19. Internal platform utility is a blind spot — asBNB's primary use case (collateral on Aster's perp DEX) may not be visible via Dune or DeBank. Tokens with value propositions inside proprietary platforms require direct UI inspection or platform-specific contract analysis. Don't conclude "no DeFi usage" without checking the protocol's own interface. (from asBNB research gap)
 20. Theoretical APY ≠ achievable APY — slisBNB/BNB looping shows ~14% on paper, but 30+ wallets tried and 0 humans sustained it. Compare with XAUT farmers who earn 9-12% and all 5 are still active. Survival rate matters more than peak yield (from XAUT farming analysis)
+21. Naming labels lie — past research labeled the $138M Lista vault as "USDT", but on-chain inspection (MoolahVault contract `0xfa27f172e0b6ebcEF9c51ABf817E2cb142FbE627`) and DeFiLlama agree the underlying is **USD1**. Trust the contract over a markdown table. (from V1 asset benchmark build)
+
+---
 
 ## Adding New Research
 
 When researching a new chain, protocol, or token:
 
-1. Create a new file under `research/` (e.g., `research/eth-lrt-market.md`)
-2. Follow the verification workflow — every data table needs a "Source" column
-3. Note what the AI got wrong vs what was discovered from live sources
-4. Add lessons learned to help future sessions
-5. Update this README with the new topic
+1. If a new asset crosses the $500K TVL filter on Lista / Venus / Aave / Pendle, follow the procedure in [`research/AGENTS.md`](research/AGENTS.md) — add an asset card and update the relevant venue file.
+2. For deeper one-off topics (e.g., a new wallet study, a protocol architecture deep-dive), create a new file under `research/` (e.g., `research/eth-lrt-market.md`) and link it from the relevant asset card(s).
+3. Follow the verification workflow — every data table needs a "Source" column.
+4. Note what the AI got wrong vs what was discovered from live sources.
+5. Add lessons learned to the section above.
+6. Update this README if a new top-level topic was added.

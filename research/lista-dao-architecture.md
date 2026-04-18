@@ -1,3 +1,11 @@
+---
+title: Lista DAO Protocol Architecture
+topic: Lista DAO
+chain: BSC
+verified: 2026-04-17
+tags: [lista-dao, moolah, bnb-vault, lending, architecture]
+---
+
 # Lista DAO Protocol Architecture
 
 *Last updated: April 17, 2026*
