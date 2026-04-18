@@ -19,7 +19,7 @@ The XAUT market on BSC has **expanded dramatically** in the past 3-7 days. Re-ve
 | Lista XAUT Vault — utilization | 90% | **99.99%** | fully utilized |
 | Lista XAUT Vault — APY | 9.88% | **10.61%** | +0.73 pp |
 | Lista XAUT Vault — total deposits | n/a tracked | **536.07 XAUt ($2.59M)** | new baseline |
-| Active XAUT farmers identified | 5 | **20+** | +15 |
+| Active XAUT farmers identified | 5 | **57** (exact, Dune query 7335606) | +52 |
 | XAUT-as-loan markets liquidity | ~$163K available | **$0** (all 100% utilized) | delta-neutral arb blocked |
 
 **Headline finding**: ~301 XAUT (~$1.45M) left Binance for BSC wallets between Apr 13-18, mostly going into Lista DAO via 15+ new farmer wallets. The XAUT-as-loan markets are now fully utilized — Strategy 5 (delta-neutral rate arb) is no longer entry-replicable.
@@ -96,6 +96,107 @@ XAUT-deposit-bearing wallets, sorted by net XAUT in Lista:
 | 7335574 | Top 25 holders by net balance | Lista 1101 / Binance 988 / dust < 3 |
 | 7335573 | Binance → BSC withdrawals (90d) | 6 days of detailed flows incl. all new wallets |
 | 7320503 (re-run) | Protocol distribution | Lista 1101 ($5.29M) / Binance 988 ($4.74M) |
+| 7335606 | **All Lista XAUT depositors** (deposit/withdraw history + net) | 105 unique wallets, full deposit/withdraw breakdown |
+| 7335607 | Unique interactor counts | 105 Lista XAUT interactors / 788 ever-touched-XAUT |
+| 7335611 | Bucketed count by XAUT position size | 3 whales / 1 / 19 / 18 / 16 / 43 closed / 5 borrowers |
+
+## Exact Farmer Census (Dune-verified Apr 18, 2026)
+
+**Scope**: every wallet that has ever deposited or received XAUT from Lista DAO's two XAUT contracts (Collateral `0x8f73b65b4caaf64fba2af91cc5d4a2a1318e5d8c` and XAUT Vault `0x4109415de2271097fb5fa16af8a753aab8c46d6f`).
+
+### Headline counts
+
+| Category | Wallet count |
+|---|---|
+| **Ever interacted with Lista XAUT (deposit or borrow)** | **105** |
+| &nbsp;&nbsp;↳ Currently holding net XAUT > 0.01 (active farmer) | **57** |
+| &nbsp;&nbsp;&nbsp;&nbsp;↳ Meaningful position (≥ 1 XAUT, ≥ ~$4.8K) | **41** |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ Serious farmer (≥ 10 XAUT, ≥ ~$48K) | **23** |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ Large position (≥ 50 XAUT, ≥ ~$240K) | **4** |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↳ Whale (≥ 100 XAUT, ≥ ~$480K) | **3** |
+| &nbsp;&nbsp;↳ Closed out (deposited and fully withdrew) | **43** |
+| &nbsp;&nbsp;↳ Pure XAUT borrowers (never deposited, received XAUT as loan) | **5** |
+| Broader universe: unique addresses that ever touched XAUT on BSC (any transfer, includes CEX/intermediaries/bots) | **788** |
+
+Source: Dune queries 7335606 (positions) + 7335607 (counts) + 7335611 (buckets).
+
+### Full ranked farmer list — net positive XAUT in Lista
+
+Sorted by net XAUT held in Lista. Strategy classification via DeBank `complex_protocol_list` where position was directly verified; entries without a direct DeBank confirmation say "supply only (Dune)". USD values at ~$4,800/XAUt.
+
+| # | Wallet | Net XAUt | ≈ USD | Deposits / Withdrawals | Wallet $ total | Strategy |
+|---|---|---:|---:|---|---:|---|
+| 1 | `0xccecc8286c615c0bdb96cd8062f059b0c7920088` | 200.13 | $961K | 4 / 0 | $11.95M | **NEW whale** — just deposited, no borrow yet; runs large Venus BTCB/USDC position separately |
+| 2 | `0x102407f67415dcc4068370625ca27f24bb2a03d5` | 169.49 | $814K | 24 / 15 | $854K | Farmer #1 (existing) — leveraged long + Venus Flux syrupUSDT loop |
+| 3 | `0x0fcc36d467b7d855f87e9912ecc926aeb3743ecb` | 120.96 | $581K | 1 / 0 | $832K | NEW — classic leveraged long (XAUt/USD1, $350K USD1 borrow) |
+| 4 | `0x367e6a73a56b338f0e79c061407458f40f79264e` | 85.25 | $409K | 1 / 0 | $182K | NEW — leveraged long (borrows USD1) |
+| 5 | `0x21993c4e2b836ba5e5c7f599f790969479615d51` | 48.09 | $231K | 3 / 0 | $308K | NEW — leveraged long + slisBNB/BNB looper + stablecoin loops |
+| 6 | `0x4099766c5976b80f757673eb2d83332e15e3a01a` | 46.28 | $222K | 17 / 14 | $2.34M | NEW — most complex farmer; 107 XAUT supplied across 3 markets, 60.7 borrowed in 2 reverse markets, multiple sUSDe/USDF/USD1/stablecoin loops |
+| 7 | `0x7c906dd9fbf91116c859c363c64a85547fd6865f` | 45.28 | $217K | 3 / 4 | $893K | NEW — XAUT Vault only, parked (no borrow) |
+| 8 | `0xf4766c366f15ab0f338ecc9bef49bbaac13649a6` | 27.66 | $133K | 11 / 9 | $945K | NEW — multi-directional (36.5 XAUt supply / 8.8 borrow) |
+| 9 | `0x2113cf56f29ad869cf445efb604d49b615e7ce10` | 33.01 | $158K | 5 / 0 | $96K | NEW — leveraged long + Venus |
+| 10 | `0xbd0edc18a1b2bbc7c77d6e627c6a64a8c804abad` | 28.00 | $134K | 1 / 0 | $535K | NEW — Vault only, parked |
+| 11 | `0x9f5948c84d2567bd5ff9127ac14898334e66d002` | 26.01 | $125K | 1 / 0 | $14.6M | NEW — BTCB whale with 26 XAUT side-position |
+| 12 | `0x04ab66f4511cf5dab9b68e06d53bfd0268d76963` | 25.99 | $125K | 9 / 3 | $432K | Vault Depositor (existing) — XAUT vault + $5.44M leveraged stables |
+| 13 | `0x9cd692f73ba15a4a9168481aa5241cb36f8dba04` | 23.50 | $113K | 1 / 0 | $44K | NEW — leveraged long XAUt/BNB |
+| 14 | `0x06916da297274196db4d0f4b4eb11d73ec3d9e7e` | 23.44 | $113K | 4 / 3 | $261K | NEW — multi-directional (26.4 supply / 3 borrow) |
+| 15 | `0x14e9730bc59545de24966f0c6a7ea8115c32808a` | 20.51 | $98K | 1 / 0 | $300K | NEW — leveraged long + Kernel DAO |
+| 16 | `0x1542d8c1bba7a2052b13bbab1ac49c92475a2972` | 20.01 | $96K | 1 / 0 | $176K | NEW — leveraged long |
+| 17 | `0xf2a8286ea786684f123f1312e570c3c02d823760` | 17.30 | $83K | 2 / 0 | $413K | NEW — vault deposit |
+| 18 | `0x0b751a47da4144ea89f6492a3269ac8546faf18a` | 16.72 | $80K | 1 / 0 | $31K | NEW — leveraged long |
+| 19 | `0x1b648ade1ef219c87987cd60eba069a7faf1621f` | 15.27 | $73K | 1 / 0 | **$9.08M** | NEW **whale** — side-position, borrows USD1 |
+| 20 | `0xd98a1b4082052b57e5688a69d07263c4b7963c5d` | 14.50 | $70K | 7 / 1 | $366K | NEW — leveraged long (borrows USDT, WBNB, U) |
+| 21 | `0xd6d0a2f493ccb30756cef1e147aa863e919c1326` | 12.04 | $58K | 3 / 0 | $651K | NEW — Aster + Lista small position |
+| 22 | `0x8ccaf951c46899aa11e96435261c271c3e5ba963` | 10.79 | $52K | 2 / 0 | $1.26M | NEW — Vault only, parked |
+| 23 | `0x609af723d7460d5f37bf2c1f8f975ddf1804dd92` | 10.24 | $49K | 2 / 1 | $22K | NEW — leveraged long (borrows U, USD1) |
+| 24 | `0xc6dd9976066f3364b4d6a72cd4f1fa0468327aa7` | 9.92 | $48K | 18 / 15 | $7.82M | Multi-Protocol Farmer (existing) — XAUT is now a tiny side-leg; grew 65× on sUSDe/slisBNB loops |
+| 25 | `0x1a0b5f2eade71626d051c29ef425d9c49dc87aea` | 8.00 | $38K | 1 / 0 | (not checked) | Vault depositor |
+| 26 | `0x0821b576a2ee921d3c4b97a0f1158c2e8b633bd0` | 6.49 | $31K | 1 / 0 | $61K | NEW — multi-protocol (Aster + Bitway) |
+| 27 | `0xc25249331d6d8152524152b09654bc383c677e58` | 6.31 | $30K | 2 / 1 | $42K | NEW — leveraged long (borrows U) |
+| 28 | `0xb93c056b8d1008282b8c3ed936d41ec8670cab5c` | 6.00 | $29K | 2 / 0 | $54K | NEW — leveraged long (borrows USDT) |
+| 29 | `0x339c4f24d84361dbb8d6ee0100937c756782f5b5` | 5.79 | $28K | 1 / 3 | $106K | NEW — Vault only |
+| 30 | `0xffb26bd72414baec53a7bb005d55d8436bef2b15` | 5.73 | $28K | 1 / 0 | $328K | NEW — parked |
+| 31 | `0x3468caa78f67575bf7a2b3d556d60255d206e572` | 4.31 | $21K | 1 / 0 | (not checked) | Vault |
+| 32 | `0x7b438f6810deacf5e519617d65915e1ae9dd8357` | 3.88 | $19K | 1 / 0 | (not checked) | Vault |
+| 33 | `0x68e2048a65eecb5b584ae3e43f4a5c8bc67406fc` | 3.23 | $15K | 1 / 0 | (not checked) | Collateral |
+| 34 | `0xbab0d5aba5475e4926398918ee3ee6899a4406ac` | 3.01 | $14K | 1 / 0 | (not checked) | Vault |
+| 35 | `0x927d81b91c41d1961e3a7d24847b95484e60c626` | 2.91 | $14K | 1 / 0 | (not checked) | Vault |
+| 36 | `0x03c3f7c5f78ae78bf8a26509cfbcb644b0ccb7ed` | 2.32 | $11K | 1 / 0 | (not checked) | Vault |
+| 37 | `0x3d8b240012e52a45d3f79e288b5d94ab0e7551a3` | 2.00 | $10K | 1 / 0 | (not checked) | Collateral |
+| 38 | `0xc09f787586dcf4c383895f7761d92b77675ee5c4` | 2.00 | $10K | 3 / 1 | (not checked) | Vault |
+| 39 | `0x6c2f645048327019b23141829668ef95cfc9ccb3` | 1.84 | $9K | 1 / 0 | (not checked) | Vault |
+| 40 | `0x1186b7266488e6b4991139d8b5b8dea7a60257da` | 1.42 | $7K | 1 / 0 | (not checked) | Vault |
+| 41 | `0x5dc3da49d1e76a7275f63f91221f2b2c19dc2824` | 1.18 | $6K | 4 / 1 | (not checked) | Collateral |
+
+**Sub-1-XAUT tail** (16 additional wallets, 0.01–0.99 XAUT, totaling 6.49 XAUT / ~$31K combined) omitted for brevity — see Dune query 7335606 for the full list.
+
+### Pure borrowers (net negative — owe XAUT back to Lista)
+
+| Wallet | XAUt borrowed | Notes |
+|---|---:|---|
+| `0xc9144683c0497b422ccfe9bcfba37855cc62c0b8` | 8.40 | Farmer #2 (existing) — exited supply, now only borrows |
+| `0x99237907b5ebf2efc30ad6312b7e39b1d6e9b9d5` | 6.23 | Pure XAUT borrower |
+| `0x65855d7547b25d19e86f4394101139b507a1dbd8` | 6.00 | Pure XAUT borrower |
+| `0xb1ded9332aebb903f39098f9897caf50f525f2f1` | 0.77 | Pure XAUT borrower |
+| `0x2e32a8e31d41c75af5a3a715e5ea7b7453c354e9` | 0.70 | Pure XAUT borrower |
+
+These 5 wallets received XAUT as a loan against other collateral (e.g., U, USDT, BTCB). Their XAUT positions sum to -22.10 XAUT — essentially capped by the vault's outstanding debt.
+
+### Closed-out wallets (43 total)
+
+43 wallets that once deposited into Lista but fully withdrew (net XAUT ≈ 0). Notable by historical deposit volume:
+
+| Wallet | Lifetime deposited | Notes |
+|---|---:|---|
+| `0x0629ea1ec2944d39f3123ddc4699ffb3b75faf99` | 475.56 XAUt | Biggest round-trip — deposited & fully withdrew |
+| `0x2604839110e921916c157b37d8e6790565db6d38` | 314.05 XAUt | Large round-trip |
+| `0x0813f733e0fd133a82360c35f2f9417e376e27f7` | 90.00 XAUt | Exited |
+| `0x0aefc8d0632a2bcb494ff44c4a229b3a6fa2c581` | 80.00 XAUt | Exited |
+| `0x024b944911e2d3664c8b3b5d2a038fef8f4ee010` | 32.00 XAUt | Exited |
+| `0xf37b052dc7a1d4cdcf811d17c12c37c1f0a61e66` | 36.00 XAUt | Round-trip |
+| `0x624227ae1d072d03ae0361f6a71384dd92af80b4` | 220.88 XAUt in / 220.88 XAUt out | Lista Depositor (existing) — net ZERO, but still **active delta-neutral** — 20 XAUt currently supplied + 20 XAUt currently borrowed elsewhere. Counted as "net zero" by Dune but strategy is live. |
+
+Source: Dune 7335606, full list available there.
 
 ---
 
