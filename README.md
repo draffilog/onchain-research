@@ -26,6 +26,7 @@ cannot be traced to its source, it doesn't belong here.
 | **XAUT Farming Wallets** | [`research/xaut-farming-wallets.md`](research/xaut-farming-wallets.md) — 5 wallets farming gold for 9-12% APY, step-by-step strategy breakdowns, why it works, what could go wrong |
 | **Pendle BSC Markets** | [`research/pendle-bsc-markets.md`](research/pendle-bsc-markets.md) — all 35 markets mapped, top 10 by TVL, PT/YT/LP holder analysis, cross-market wallet profiling, strategy identification |
 | **Lista DAO Yield Strategies** | [`research/lista-dao-yield-strategies.md`](research/lista-dao-yield-strategies.md) — top 5 markets by TVL, 9 wallet deep dives, 8 yield strategies identified (4.5–15% APY), risk/return matrix, why people use each product |
+| **BSC Mid-Size DeFi Users** | [`research/bsc-midsize-defi-users.md`](research/bsc-midsize-defi-users.md) — 8 active wallets ($60K–$463K) profiled via DeBank, 6 strategies mapped: slisBNB loops, multi-collateral leverage, stablecoin arbitrage, XAUt gold plays, yield stacking, cross-protocol diversification |
 
 ## Code & Scripts
 
