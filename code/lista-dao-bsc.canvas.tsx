@@ -257,7 +257,139 @@ const STRATEGIES: YieldStrategy[] = [
   },
 ];
 
-type ViewTab = "overview" | "wallets" | "strategies" | "yields";
+type ActiveWallet = {
+  address: string;
+  portfolio: number;
+  tag: string;
+  strategy: string;
+  positions: { protocol: string; desc: string; supply: string; borrow: string; health: string; net: string }[];
+  apyEstimate: string;
+  risk: string;
+  insight: string;
+};
+
+const ACTIVE_WALLETS: ActiveWallet[] = [
+  {
+    address: "0x0d050167639ec5cdccc4368448d4d609fe632d22",
+    portfolio: 215_322,
+    tag: "Full-Stack Yield Farmer",
+    strategy: "Yield stacking: stake + lend + LP + governance",
+    positions: [
+      { protocol: "Lista DAO", desc: "BNB staked → slisBNB", supply: "194.6 BNB ($125K)", borrow: "—", health: "—", net: "$125,401" },
+      { protocol: "Lista DAO", desc: "slisBNB collateral → borrow U", supply: "250 slisBNB ($167K)", borrow: "81,891 U ($82K)", health: "2.14", net: "$84,846" },
+      { protocol: "Lista DAO", desc: "LISTA governance lock", supply: "20,547 LISTA ($1.9K)", borrow: "—", health: "—", net: "$1,944" },
+      { protocol: "PancakeSwap", desc: "XNY/BNB LP", supply: "LP position", borrow: "—", health: "—", net: "$1,994" },
+    ],
+    apyEstimate: "~4.5–7% staking + lending spread + LP fees ≈ $7K–$10K/yr",
+    risk: "Medium",
+    insight: "Disciplined 4-layer yield stack. Conservative 2.14 health on leverage. Participates in LISTA governance — few mid-size users bother.",
+  },
+  {
+    address: "0x3ebf2da441af6219c709bb195d5a3527051f94a2",
+    portfolio: 252_104,
+    tag: "Multi-Collateral Borrower",
+    strategy: "Dual collateral leverage: slisBNB + BTCB → borrow U",
+    positions: [
+      { protocol: "Lista DAO", desc: "slisBNB → borrow U", supply: "265 slisBNB ($177K)", borrow: "71,000 U ($71K)", health: "2.14", net: "$106,018" },
+      { protocol: "Lista DAO", desc: "BTCB → borrow U", supply: "1.0 BTCB ($77K)", borrow: "40,000 U ($40K)", health: "1.66", net: "$37,153" },
+    ],
+    apyEstimate: "slisBNB appreciation (4.5–7%) on $177K + use of $111K borrowed U",
+    risk: "Medium",
+    insight: "Diversifies collateral across slisBNB and BTCB — if BNB drops, BTCB position may survive. 44% total LTV is conservative.",
+  },
+  {
+    address: "0x2113cf56f29ad869cf445efb604d49b615e7ce10",
+    portfolio: 96_325,
+    tag: "Triple-Collateral Power User",
+    strategy: "Aggressive triple collateral: slisBNB loop + XAUt + BTCB",
+    positions: [
+      { protocol: "Lista DAO", desc: "slisBNB → borrow WBNB (LOOP)", supply: "90 slisBNB ($60K)", borrow: "87 WBNB ($56K)", health: "1.03", net: "$3,738" },
+      { protocol: "Lista DAO", desc: "XAUt (gold) → borrow U", supply: "33 XAUt ($159K)", borrow: "93,000 U ($93K)", health: "1.32", net: "$65,863" },
+      { protocol: "Lista DAO", desc: "BTCB → borrow U", supply: "0.74 BTCB ($57K)", borrow: "32,823 U ($33K)", health: "1.49", net: "$24,028" },
+      { protocol: "Lista DAO", desc: "BNB staked", supply: "4.1 BNB ($2.7K)", borrow: "—", health: "—", net: "$2,669" },
+    ],
+    apyEstimate: "slisBNB loop ~40–80% theoretical + gold-backed borrow spread",
+    risk: "Very High",
+    insight: "1.03 health on slisBNB loop = 3% from liquidation. Uses tokenized gold (XAUt) as uncorrelated collateral — a strategy almost nobody on BSC uses.",
+  },
+  {
+    address: "0xefa911756a790e0f9e806189dfa97e3fc96fb096",
+    portfolio: 463_248,
+    tag: "Stablecoin Arbitrageur",
+    strategy: "Massive stablecoin rate arb: USDT/USDC → borrow USD1",
+    positions: [
+      { protocol: "Lista DAO", desc: "USDT+USDC → borrow USD1", supply: "$668K (USDT+USDC)", borrow: "$632K USD1", health: "1.02", net: "$36,201" },
+      { protocol: "Lista DAO", desc: "sUSDe → borrow USD1", supply: "$70.7K sUSDe", borrow: "$63.4K USD1", health: "1.02", net: "$7,282" },
+      { protocol: "Venus", desc: "USDT → borrow BNB", supply: "$25K USDT", borrow: "$16.1K BNB", health: "1.24", net: "$8,904" },
+      { protocol: "Venus Flux", desc: "USDT yield", supply: "$296K USDT", borrow: "—", health: "—", net: "$296,373" },
+    ],
+    apyEstimate: "~0.5–1% spread on $700K + Venus yield + sUSDe base yield (5–10%)",
+    risk: "High (on paper), Low (stablecoin pairs)",
+    insight: "98% LTV on stablecoin-to-stablecoin positions. sUSDe play is double-dipping: Ethena's yield + Moolah borrow spread. $296K parked in Venus Flux as dry powder.",
+  },
+  {
+    address: "0x0821b576a2ee921d3c4b97a0f1158c2e8b633bd0",
+    portfolio: 60_576,
+    tag: "Protocol Explorer",
+    strategy: "5 Moolah positions + Bitway Earn + Sign Protocol",
+    positions: [
+      { protocol: "Lista DAO", desc: "slisBNB → borrow USDT", supply: "75 slisBNB ($50K)", borrow: "$35K USDT", health: "1.23", net: "$15,259" },
+      { protocol: "Lista DAO", desc: "XAUt → borrow USDT", supply: "6.5 XAUt ($31K)", borrow: "$20K USDT", health: "1.20", net: "$11,219" },
+      { protocol: "Lista DAO", desc: "slisBNB → borrow U", supply: "32 slisBNB ($21K)", borrow: "$13K U", health: "1.42", net: "$8,473" },
+      { protocol: "Lista DAO", desc: "BTCB → borrow U", supply: "0.3 BTCB ($23K)", borrow: "$15K U", health: "1.32", net: "$8,099" },
+      { protocol: "Lista DAO", desc: "USDT+USDC → borrow U", supply: "$10.8K", borrow: "$10K U", health: "1.05", net: "$860" },
+      { protocol: "Bitway Earn", desc: "U staked", supply: "$12.6K U", borrow: "—", health: "—", net: "$12,581" },
+      { protocol: "Sign Protocol", desc: "SIGN locked", supply: "142K SIGN ($2.8K)", borrow: "—", health: "—", net: "$2,821" },
+    ],
+    apyEstimate: "Blended staking + lending spread + Bitway yield + SIGN rewards",
+    risk: "Medium-High",
+    insight: "Most diversified mid-size user: 4 collateral types, 3 protocols. Deploys borrowed U to Bitway Earn for extra yield. Explores new protocols (Sign) for airdrops.",
+  },
+  {
+    address: "0x8464750e0f199f4ffeeb7d46cc3a016bf7340626",
+    portfolio: 90_158,
+    tag: "Cross-Chain Strategist",
+    strategy: "Multi-chain (BSC+ETH+Arb) + multi-protocol (Lista+Venus+Euler)",
+    positions: [
+      { protocol: "Lista DAO", desc: "BTCB → borrow USDT", supply: "0.27 BTCB ($21K)", borrow: "$11K USDT", health: "1.63", net: "$9,799" },
+      { protocol: "Lista DAO", desc: "XAUt → borrow U", supply: "1.0 XAUt ($4.8K)", borrow: "$3.1K U", health: "1.20", net: "$1,712" },
+      { protocol: "Lista DAO", desc: "USDT+USDC → borrow U", supply: "$9.9K", borrow: "$9.2K U", health: "1.05", net: "$804" },
+      { protocol: "Venus Flux", desc: "USDT yield", supply: "$17.2K USDT", borrow: "—", health: "—", net: "$17,248" },
+      { protocol: "Euler", desc: "USD1 yield", supply: "$2.4K USD1", borrow: "—", health: "—", net: "$2,351" },
+    ],
+    apyEstimate: "Blended across chains and protocols. BSC is only 35% of total portfolio.",
+    risk: "Medium",
+    insight: "Only 35% of $90K portfolio is on BSC — rest on ETH and Arbitrum. Uses BSC for specific Moolah markets (XAUt, BTCB) while spreading risk across chains.",
+  },
+  {
+    address: "0x88a0641c1fbff74b99d460c440369f44dd432af9",
+    portfolio: 219_085,
+    tag: "Multi-Chain slisBNB Leverager",
+    strategy: "Conservative slisBNB leverage on BSC, aggressive DeFi on ETH+Arb",
+    positions: [
+      { protocol: "Lista DAO", desc: "slisBNB → borrow USDT", supply: "504 slisBNB ($337K)", borrow: "$120K USDT", health: "2.41", net: "$216,506" },
+    ],
+    apyEstimate: "~4.5–7% slisBNB yield on $337K minus ~2% borrow cost on $120K",
+    risk: "Low",
+    insight: "Very conservative 2.41 health — likely burned before. BSC is only 19% of $1.16M total portfolio. Uses Lista for safe slisBNB yield while running more aggressive strategies on other chains.",
+  },
+  {
+    address: "0x3b4d81d3e654760d9ba541bc686e73c0678d62e6",
+    portfolio: 18_688,
+    tag: "Gold (XAUt) Arbitrageur",
+    strategy: "Circular gold arbitrage: BTCB↔XAUt↔USDT",
+    positions: [
+      { protocol: "Lista DAO", desc: "BTCB → borrow XAUt", supply: "0.19 BTCB ($14.6K)", borrow: "2.05 XAUt ($9.9K)", health: "1.11", net: "$4,730" },
+      { protocol: "Lista DAO", desc: "XAUt → borrow USDT", supply: "2.65 XAUt ($12.8K)", borrow: "$9K USDT", health: "1.09", net: "$3,747" },
+      { protocol: "Lista DAO", desc: "USDT+USDC → borrow XAUt", supply: "$3.9K", borrow: "0.6 XAUt ($2.9K)", health: "1.09", net: "$1,037" },
+    ],
+    apyEstimate: "Captures gold/BTC/stablecoin rate differentials",
+    risk: "High",
+    insight: "Only wallet trading XAUt on both sides. The XAUT vault's 7.69% supply APY and 90.9% utilization exists because of this kind of active borrowing demand. Under-explored opportunity.",
+  },
+];
+
+type ViewTab = "overview" | "wallets" | "active" | "strategies" | "yields";
 
 function fmt(n: number): string {
   if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(2)}B`;
@@ -281,9 +413,9 @@ export default function ListaDaoBsc() {
       </Text>
 
       <Row gap={8} wrap>
-        {(["overview", "wallets", "strategies", "yields"] as ViewTab[]).map((v) => (
+        {(["overview", "wallets", "active", "strategies", "yields"] as ViewTab[]).map((v) => (
           <Pill key={v} active={tab === v} onClick={() => setTab(v)}>
-            {v === "overview" ? "Markets & TVL" : v === "wallets" ? "Who's Using Them" : v === "strategies" ? "Yield Strategies" : "APY Comparison"}
+            {v === "overview" ? "Markets & TVL" : v === "wallets" ? "Whales" : v === "active" ? "Active DeFi Users" : v === "strategies" ? "Yield Strategies" : "APY Comparison"}
           </Pill>
         ))}
       </Row>
@@ -292,12 +424,13 @@ export default function ListaDaoBsc() {
 
       {tab === "overview" && <OverviewTab totalTvl={totalTvl} />}
       {tab === "wallets" && <WalletsTab />}
+      {tab === "active" && <ActiveWalletsTab />}
       {tab === "strategies" && <StrategiesTab />}
       {tab === "yields" && <YieldsTab />}
 
       <Divider />
       <Text tone="tertiary" size="small">
-        Data sources: Dune Analytics (queries 7334391–7334395), DeBank Pro API, Pendle V2 API, DefiLlama, Lista DAO docs. April 2026.
+        Data sources: Dune Analytics (queries 7334391–7335493), DeBank Pro API, lista-dao.org (browser-verified), BscScan, Pendle V2 API. April 2026.
       </Text>
     </Stack>
   );
@@ -553,6 +686,139 @@ function WalletsTab() {
   );
 }
 
+function ActiveWalletsTab() {
+  const sorted = [...ACTIVE_WALLETS].sort((a, b) => b.portfolio - a.portfolio);
+
+  return (
+    <Stack gap={20}>
+      <H2>Active Mid-Size DeFi Users ($60K–$463K)</H2>
+      <Text tone="secondary">
+        8 wallets found via Dune queries for multi-token Moolah borrowers, then deep-profiled via DeBank Pro API.
+        These users actively compose strategies — not just staking and holding.
+      </Text>
+
+      <Grid columns={4} gap={16}>
+        <Stat value="8" label="Wallets Profiled" />
+        <Stat value="$463K" label="Largest" />
+        <Stat value="$61K" label="Smallest" />
+        <Stat value="6" label="Strategies Found" />
+      </Grid>
+
+      <Table
+        headers={["Wallet", "Portfolio", "Strategy", "Risk", "DeBank"]}
+        rows={sorted.map((w) => [
+          w.tag,
+          fmt(w.portfolio),
+          w.strategy,
+          w.risk,
+          w.address.slice(0, 8) + "...",
+        ])}
+        columnAlign={["left", "right", "left", "center", "left"]}
+        rowTone={sorted.map((w) =>
+          w.risk === "Low" || w.risk === "Medium" ? "success" as const :
+          w.risk === "Medium-High" ? "info" as const :
+          "warning" as const
+        )}
+        striped
+      />
+
+      <Divider />
+
+      {sorted.map((w) => (
+        <Stack key={w.address} gap={12}>
+          <Row gap={8} align="center">
+            <H3>{w.tag} — {fmt(w.portfolio)}</H3>
+            <Pill size="sm" active tone={
+              w.risk === "Low" ? "success" :
+              w.risk === "Medium" ? "success" :
+              w.risk === "Medium-High" ? "info" :
+              "warning"
+            }>
+              {w.risk} Risk
+            </Pill>
+          </Row>
+
+          <Row gap={8}>
+            <Link href={`https://debank.com/profile/${w.address}`}>{w.address}</Link>
+          </Row>
+
+          <Text size="small" weight="semibold">{w.strategy}</Text>
+
+          <Table
+            headers={["Protocol", "Position", "Supplied", "Borrowed", "Health", "Net Value"]}
+            rows={w.positions.map((p) => [
+              p.protocol,
+              p.desc,
+              p.supply,
+              p.borrow,
+              p.health,
+              p.net,
+            ])}
+            columnAlign={["left", "left", "right", "right", "center", "right"]}
+            rowTone={w.positions.map((p) => {
+              const h = parseFloat(p.health);
+              if (isNaN(h)) return undefined;
+              if (h <= 1.05) return "danger" as const;
+              if (h <= 1.25) return "warning" as const;
+              return undefined;
+            })}
+            striped
+          />
+
+          <Grid columns={2} gap={16}>
+            <Stack gap={2}>
+              <Text tone="secondary" size="small" weight="semibold">Estimated Yield</Text>
+              <Text size="small">{w.apyEstimate}</Text>
+            </Stack>
+            <Stack gap={2}>
+              <Text tone="secondary" size="small" weight="semibold">Key Insight</Text>
+              <Text size="small">{w.insight}</Text>
+            </Stack>
+          </Grid>
+
+          <Divider />
+        </Stack>
+      ))}
+
+      <H2>Opportunities for Mid-Size Users</H2>
+      <Grid columns={2} gap={16}>
+        <Card>
+          <CardHeader trailing={<Pill size="sm" active tone="success">4.5–7%</Pill>}>
+            slisBNB Leverage Loop
+          </CardHeader>
+          <CardBody>
+            <Text size="small">BNB vault has 17.8% utilization = cheap borrows (~2%). Spread between slisBNB yield (4.5–7%) and borrow cost is the profit engine. Run at 2.0+ health for safety.</Text>
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader trailing={<Pill size="sm" active tone="success">7.69%</Pill>}>
+            XAUt (Gold) Lending
+          </CardHeader>
+          <CardBody>
+            <Text size="small">Tokenized gold as DeFi collateral. 90.9% utilization, 7.69% supply APY. Uncorrelated with crypto — powerful diversification. Almost nobody uses it.</Text>
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader trailing={<Pill size="sm" active tone="info">0.5–1%</Pill>}>
+            Stablecoin Rate Arbitrage
+          </CardHeader>
+          <CardBody>
+            <Text size="small">Supply USDT/USDC → borrow USD1/U at 98% LTV. Thin spread but safe for stablecoin pairs. Works at scale ($300K+). Add sUSDe for double-dipping on Ethena yield.</Text>
+          </CardBody>
+        </Card>
+        <Card>
+          <CardHeader trailing={<Pill size="sm" active tone="info">Varies</Pill>}>
+            Cross-Protocol Diversification
+          </CardHeader>
+          <CardBody>
+            <Text size="small">Split between Lista, Venus, Euler, Bitway Earn. Different protocols offer different rates. Rotate capital to where rates are highest. Never trust one smart contract with everything.</Text>
+          </CardBody>
+        </Card>
+      </Grid>
+    </Stack>
+  );
+}
+
 function StrategiesTab() {
   return (
     <Stack gap={20}>
@@ -700,6 +966,9 @@ function YieldsTab() {
           ["7334392", "Top 25 lisUSD holders by transfer balance"],
           ["7334394", "Top 25 Moolah BNB Vault depositors"],
           ["7334395", "Top 25 LISTA token holders"],
+          ["7335478", "Active mid-size wallets interacting with 2+ Lista contracts"],
+          ["7335482", "Mid-size wallets by slisBNB + lisUSD balance ($50K–$600K)"],
+          ["7335493", "Active Moolah borrowers using 2+ tokens (multi-token)"],
         ]}
         striped
       />
