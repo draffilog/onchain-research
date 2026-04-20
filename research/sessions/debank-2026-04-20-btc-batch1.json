@@ -1,0 +1,325 @@
+{
+  "0xd3a22590f8243f8e83ac230d1842c9af0404c4a1": {
+    "total": 949666362.3351258,
+    "bsc": 611762907.7583325,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x56a7ddc4e848ebf43845854205ad71d5d5f72d3d": {
+    "total": 71481185.04620239,
+    "bsc": 71481185.04620151,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x223ed63176575d0876cd67f3be93e32adff904b3": {
+    "total": 118347977.52119787,
+    "bsc": 118347977.52119787,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x835678a611b28684005a5e2233695fb6cbbb0007": {
+    "total": 11105604277.769085,
+    "bsc": 5342025448.584904,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x0b07f64abc342b68aec57c0936e4b6fd4452967e": {
+    "total": 362904007.10450464,
+    "bsc": 97543318.48698995,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x2839146158a49f3694730b5ccac75d57b7d4b697": {
+    "total": 28024050.719588038,
+    "bsc": 28024050.719588038,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0xa74e8ae2f83d2564af25420ad4d6a7fe224b053f": {
+    "total": 183454363.53678948,
+    "bsc": 144459322.69530168,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x0c2ddebb2831072208afc9af60caa4840c266889": {
+    "total": 25977569.6807331,
+    "bsc": 25977569.6807331,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x128463a60784c4d3f46c23af3f65ed859ba87974": {
+    "total": 1171106087.7287414,
+    "bsc": 1171104551.5051966,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0xe2fc31f816a9b94326492132018c3aecc4a93ae1": {
+    "total": 135271003.2135665,
+    "bsc": 135244174.71695265,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x0639556f03714a74a5feeaf5736a4a64ff70d206": {
+    "total": 44435225.318772115,
+    "bsc": 33377232.35117902,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x6d968650a77740f2f7df2e294f1ac13bcd76484c": {
+    "total": 0.3550441346386472,
+    "bsc": 0.3550441346386472,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x2e8f79ad740de90dc5f5a9f0d8d9661a60725e64": {
+    "total": 235759573.19867843,
+    "bsc": 235759452.1844587,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x0c00a7f2793af4fa3329ff0cf214dd96a46b29e2": {
+    "total": 37495428.752245665,
+    "bsc": 37495428.752245665,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x50675275c03919729ef3282158d702f58e1a7770": {
+    "total": 15088507.380881168,
+    "bsc": 15088507.380881168,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0xb3e00ff4eca4212f474536f7a821377addecc103": {
+    "total": 609.703423364126,
+    "bsc": 609.703423364126,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0xfe0b4619c696f8f372095664badb772ea70bb1c0": {
+    "total": 100.86946641164718,
+    "bsc": 100.86946641164718,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0xdbef4873b4ea1e78b170fe63c093095bd52fa253": {
+    "total": 27651957.805370312,
+    "bsc": 27484960.344780874,
+    "btc_value": 15004761.59068672,
+    "legs": [
+      {
+        "role": "sup",
+        "prot": "PumpBTC",
+        "item": "Staked",
+        "sym": "BTCB",
+        "amt": 50.0,
+        "usd": 3739868.5,
+        "hr": "N/A"
+      },
+      {
+        "role": "sup",
+        "prot": "Solv",
+        "item": "Yield",
+        "sym": "SOLVBTC",
+        "amt": 100.0,
+        "usd": 7471941.68736514,
+        "hr": "N/A"
+      },
+      {
+        "role": "sup",
+        "prot": "Solv",
+        "item": "Yield",
+        "sym": "SOLVBTC",
+        "amt": 50.76259374099991,
+        "usd": 3792951.4033215796,
+        "hr": "N/A"
+      }
+    ]
+  },
+  "0xf285694d36501ce2ebcb094679620a4777332d53": {
+    "total": 15853849.531776967,
+    "bsc": 12172543.383802477,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x2f8a339b5889ffac4c5a956787cda593b3c36867": {
+    "total": 16173570.251394844,
+    "bsc": 16173557.75697398,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x21d45650db732ce5df77685d6021d7d5d1da807f": {
+    "total": 64366077.07361516,
+    "bsc": 64366043.95333483,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x9dd6aa879b07812485444350f0401a6ee0d56a3a": {
+    "total": 11282843.228499351,
+    "bsc": 11282843.228499351,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0xf59cf3866797a6ecc91c9c81e8e6704bd437cfc9": {
+    "total": 118.14410134594426,
+    "bsc": 118.14410128887239,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x43c08523c557573c579e7e5ed87ffa9573f4cee5": {
+    "total": 13830420.100666776,
+    "bsc": 10509190.383956157,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x52aa899454998be5b000ad077a46bbe360f4e497": {
+    "total": 775099486.9659418,
+    "bsc": 70754950.2876126,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0xe16cec2f385ea7a382772334a44506a865f98562": {
+    "total": 5734903.302582313,
+    "bsc": 5734903.302582313,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0x12197d7a4fe2d67f9f97ae64d82a44c24b7ad407": {
+    "total": 5401179.888897035,
+    "bsc": 5401179.888897035,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0xc902c442dc4d8c39c33c7cdd648ef44c986c3957": {
+    "total": 3101825.2588185584,
+    "bsc": 1839878.6543908191,
+    "btc_value": 0,
+    "legs": []
+  },
+  "0xb4378d4e3528c12c83821b21c99b43336a543613": {
+    "total": 8481375.2048242,
+    "bsc": 8478812.490741098,
+    "btc_value": 5362240.801201761,
+    "legs": [
+      {
+        "role": "sup",
+        "prot": "PancakeSwap V3",
+        "item": "Farming",
+        "sym": "SOLVBTC",
+        "amt": 26.76354317151794,
+        "usd": 1999756.3392486153,
+        "hr": "N/A"
+      },
+      {
+        "role": "sup",
+        "prot": "PancakeSwap V3",
+        "item": "Farming",
+        "sym": "BTCB",
+        "amt": 23.871309918877458,
+        "usd": 1785511.200386947,
+        "hr": "N/A"
+      },
+      {
+        "role": "sup",
+        "prot": "PancakeSwap V3",
+        "item": "Farming",
+        "sym": "SOLVBTC",
+        "amt": 1.8989812014210032,
+        "usd": 141890.7680242033,
+        "hr": "N/A"
+      },
+      {
+        "role": "sup",
+        "prot": "PancakeSwap V3",
+        "item": "Farming",
+        "sym": "BTCB",
+        "amt": 1.6937656011661772,
+        "usd": 126689.21236369899,
+        "hr": "N/A"
+      },
+      {
+        "role": "sup",
+        "prot": "PancakeSwap V3",
+        "item": "Farming",
+        "sym": "SOLVBTC",
+        "amt": 9.250928685878495,
+        "usd": 691223.9969485754,
+        "hr": "N/A"
+      },
+      {
+        "role": "sup",
+        "prot": "PancakeSwap V3",
+        "item": "Farming",
+        "sym": "BTCB",
+        "amt": 8.251216376053337,
+        "usd": 617169.2842297206,
+        "hr": "N/A"
+      }
+    ]
+  },
+  "0x1b073a07756db58cc1b1207cd30906917bcbdafb": {
+    "total": 7234492.444958659,
+    "bsc": 7231026.215104815,
+    "btc_value": 5743297.786633683,
+    "legs": [
+      {
+        "role": "sup",
+        "prot": "Solv",
+        "item": "Yield",
+        "sym": "SOLVBTC",
+        "amt": 76.57107716,
+        "usd": 5721346.234782567,
+        "hr": "N/A"
+      },
+      {
+        "role": "sup",
+        "prot": "Venus",
+        "item": "Lending",
+        "sym": "SOLVBTC",
+        "amt": 0.2937864449375414,
+        "usd": 21951.55185111619,
+        "hr": null
+      },
+      {
+        "role": "brw",
+        "prot": "Venus",
+        "item": "Lending",
+        "sym": "USDT",
+        "amt": 5984.161118254212,
+        "usd": 5986.315416256783
+      }
+    ]
+  },
+  "0xcad8375d6fdfbb558121efe0f0d7b48f4caaeca3": {
+    "total": 5990474.1434671385,
+    "bsc": 5990474.1434671385,
+    "btc_value": 6872694.294679115,
+    "legs": [
+      {
+        "role": "sup",
+        "prot": "Solv",
+        "item": "Yield",
+        "sym": "SOLVBTC",
+        "amt": 28.9799,
+        "usd": 2165361.22905673,
+        "hr": "N/A"
+      },
+      {
+        "role": "sup",
+        "prot": "Venus",
+        "item": "Lending",
+        "sym": "SOLVBTC",
+        "amt": 63.00013119190107,
+        "usd": 4707333.065622385,
+        "hr": null
+      },
+      {
+        "role": "brw",
+        "prot": "Venus",
+        "item": "Lending",
+        "sym": "USDT",
+        "amt": 2008252.7858882006,
+        "usd": 2008975.7568911202
+      }
+    ]
+  }
+}
