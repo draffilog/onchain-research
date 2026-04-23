@@ -156,7 +156,7 @@ These five wallets together supply **~97% of the borrowable stable liquidity** o
 
 1. Bridge BTC to BSC as BTCB. Hold full BTC price exposure.
 2. Supply BTCB as collateral on the Lista Moolah BTCB → U market (LLTV 86%, current liquidity **$13.8M**).
-3. Borrow U (Aster's synthetic dollar) at **1.00% APR** — currently the cheapest stablecoin borrow on BSC.
+3. Borrow U at **1.00% APR** — currently the cheapest stablecoin borrow on BSC.
 4. Deploy borrowed U into Strategy A (sUSDe carry) or Strategy B (subsidized USDT & USDC → U short side). The Lista U Vault at 0.44% supply is too low — better to redeploy.
 5. **Math at 50% LTV:** BTC price × (1 + 0.50 × (sUSDe net carry rate − 1.00%)). With sUSDe carry at ~6% net, you add ~2.5% to your BTC P&L; with the subsidized USDT/USDC short, you can squeeze **3–5% above plain BTC**.
 
